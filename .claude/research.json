@@ -6,7 +6,7 @@
   "active": {
     "id": "research_20260529_172327_696a",
     "query": "Free-tier services for every part of the Near LDR app stack",
-    "status": "planning",
+    "status": "synthesizing",
     "plan": {
       "subtopics": [],
       "search_queries": [
@@ -28,7 +28,7 @@
       "quality_score": 0.0
     },
     "findings": [],
-    "synthesis": null,
+    "synthesis": "Free-tier stack research complete: Firebase (auth/Firestore/FCM) + Cloudinary + Cloudflare Pages/Workers + LiveKit covers the whole app at $0. See FREE_SERVICES.md.",
     "features_generated": false,
     "features_count": 0,
     "created_at": "2026-05-29T17:23:27.134310",

@@ -1,0 +1,1 @@
+Free-tier stack research complete: Firebase (auth/Firestore/FCM) + Cloudinary + Cloudflare Pages/Workers + LiveKit covers the whole app at $0. See FREE_SERVICES.md.

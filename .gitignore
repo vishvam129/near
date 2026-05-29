@@ -30,3 +30,6 @@ Thumbs.db
 # editor
 .vscode/
 .idea/
+
+# keep the template, ignore real env
+!web/.env.example
