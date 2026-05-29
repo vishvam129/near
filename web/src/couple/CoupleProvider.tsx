@@ -8,7 +8,6 @@ import {
 import {
   doc,
   getDoc,
-  setDoc,
   onSnapshot,
   serverTimestamp,
   runTransaction,
@@ -74,19 +73,26 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
 
     async function init() {
       const ref = doc(db!, 'users', user!.uid)
+      // Create-if-absent atomically. Without a transaction, StrictMode's
+      // double-mount (or two tabs on first login) could both pass the
+      // existence check and write two different invite codes, orphaning one.
       const snap = await getDoc(ref)
       if (!snap.exists()) {
         const code = await generateUniqueCode()
-        await setDoc(ref, {
-          name: user!.displayName ?? null,
-          email: user!.email ?? null,
-          inviteCode: code,
-          coupleId: null,
-          createdAt: serverTimestamp(),
-        })
-        await setDoc(doc(db!, 'inviteCodes', code), {
-          uid: user!.uid,
-          createdAt: serverTimestamp(),
+        await runTransaction(db!, async (tx) => {
+          const fresh = await tx.get(ref)
+          if (fresh.exists()) return // another run already created the profile
+          tx.set(ref, {
+            name: user!.displayName ?? null,
+            email: user!.email ?? null,
+            inviteCode: code,
+            coupleId: null,
+            createdAt: serverTimestamp(),
+          })
+          tx.set(doc(db!, 'inviteCodes', code), {
+            uid: user!.uid,
+            createdAt: serverTimestamp(),
+          })
         })
       }
       if (cancelled) return
@@ -98,7 +104,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
             uid: user!.uid,
             name: d.name ?? null,
             email: d.email ?? null,
-            inviteCode: d.inviteCode,
+            inviteCode: d.inviteCode ?? '',
             coupleId: d.coupleId ?? null,
           })
         }
