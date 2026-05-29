@@ -16,7 +16,15 @@ service cloud.firestore {
       // You may only create your own profile document.
       allow create: if request.auth != null && request.auth.uid == uid;
       // You may fully edit your OWN doc; for ANY other doc you may only flip
-      // `coupleId` from null -> value (the pairing link), nothing else.
+      // `coupleId` from null -> a value (the pairing link), nothing else.
+      //
+      // NOTE: ideally the cross-doc branch would also verify the new coupleId
+      // points to a couple the writer belongs to. That can't be enforced here
+      // because the couple is created in the SAME transaction as this update,
+      // and security-rule get()/exists() do not see pending writes in the same
+      // commit. Fully constraining this is the job of feature #4 (strict
+      // couple-scoped rules), which will rework the data model accordingly.
+      // For now this limits cross-doc writes to a single null->value coupleId.
       allow update: if request.auth != null && (
         request.auth.uid == uid
         || (
@@ -33,9 +41,10 @@ service cloud.firestore {
         && request.resource.data.uid == request.auth.uid;
     }
 
-    // Couple records — only a member may create/read/update one.
+    // Couple records — exactly two members, only a member may create/read/update.
     match /couples/{coupleId} {
       allow create: if request.auth != null
+        && request.resource.data.members.size() == 2
         && request.auth.uid in request.resource.data.members;
       allow read, update: if request.auth != null
         && request.auth.uid in resource.data.members;
