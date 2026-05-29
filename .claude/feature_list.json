@@ -13,26 +13,26 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 3,
+  "current_feature_id": 4,
   "session": {
-    "count": 3,
-    "last_started_at": "2026-05-29T12:53:27.852837Z",
+    "count": 4,
+    "last_started_at": "2026-05-29T13:12:07.560026Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 2,
+    "passed": 3,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 93,
-    "completion_percentage": 2.1
+    "pending": 92,
+    "completion_percentage": 3.1
   },
   "categories": [
     {
       "name": "Accounts",
       "total": 3,
-      "passed": 2,
+      "passed": 3,
       "failed": 0,
       "skipped": 0
     },
@@ -272,19 +272,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Both partners' profiles render with timezone used elsewhere",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Both partners' profiles render with live local times (timezone in use); device photo picker works and persists; review APPROVE, MEDIUM resync issue fixed; build passes.",
+        "requirements_addressed": [],
+        "verified_at": "2026-05-29T13:10:38.626798Z"
       },
       "research_refs": [
         "cupla"
       ],
       "rationale": "Timezone/city power clocks, scheduling, and distance",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-05-29T12:53:27.852812Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-05-29T13:10:38.626822Z",
+      "commit_hash": "21855f3c8aa0d3749a5710b5879998e3e3c6b422",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -294,7 +295,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 24,
+        "removed": 16,
+        "net": 8,
+        "files_changed": 2
+      }
     },
     {
       "id": 4,
@@ -312,9 +319,9 @@
         "ourcal"
       ],
       "rationale": "Privacy is the core promise of a couple app",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-05-29T13:12:07.560003Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3350,6 +3357,28 @@
       "timestamp": "2026-05-29T12:53:27.852861Z",
       "operation": "feature_started",
       "feature_id": 3,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-05-29T13:10:38.626849Z",
+      "operation": "feature_passed",
+      "feature_id": 3,
+      "details": {
+        "commit_hash": "21855f3c8aa0d3749a5710b5879998e3e3c6b422",
+        "loc_stats": {
+          "added": 24,
+          "removed": 16,
+          "net": 8,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-05-29T13:12:07.560044Z",
+      "operation": "feature_started",
+      "feature_id": 4,
       "details": {
         "from_status": "pending"
       }

@@ -1,53 +1,80 @@
 rules_version = '2';
 
 // ============================================================================
-// Pairing-phase rules (feature #2), hardened after code review.
-// Sign-in is required, and the pairing flow is constrained so a signed-in user
-// cannot rewrite arbitrary accounts. Feature #4 ("strict couple-scoped rules")
-// further locks down all couple subcollections (messages, moments, etc.).
+// Near — Firestore security rules (feature #4: strict couple-scoping)
+//
+// Principles:
+//  - All COUPLE data (the couples doc + every subcollection: messages, moments,
+//    state, etc.) is readable/writable ONLY by the two members of that couple.
+//  - A user may fully edit their own profile; the only write allowed to another
+//    user's doc is flipping `coupleId` from null -> a value (the pairing link).
+//  - Invite codes are readable by signed-in users (needed to resolve a partner)
+//    and a code can only ever be created mapping to its own creator.
+//  - Anything not matched below is denied by default.
 // ============================================================================
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // User profiles.
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // ---- user profiles ----
     match /users/{uid} {
-      // Reads stay open to signed-in users (needed to resolve a partner).
-      allow read: if request.auth != null;
-      // You may only create your own profile document.
-      allow create: if request.auth != null && request.auth.uid == uid;
-      // You may fully edit your OWN doc; for ANY other doc you may only flip
-      // `coupleId` from null -> a value (the pairing link), nothing else.
-      //
-      // NOTE: ideally the cross-doc branch would also verify the new coupleId
-      // points to a couple the writer belongs to. That can't be enforced here
-      // because the couple is created in the SAME transaction as this update,
-      // and security-rule get()/exists() do not see pending writes in the same
-      // commit. Fully constraining this is the job of feature #4 (strict
-      // couple-scoped rules), which will rework the data model accordingly.
-      // For now this limits cross-doc writes to a single null->value coupleId.
-      allow update: if request.auth != null && (
+      // Readable by any signed-in user (pairing must resolve a partner's doc).
+      allow read: if signedIn();
+
+      // Only you can create your own profile document.
+      allow create: if signedIn() && request.auth.uid == uid;
+
+      // You may fully edit your OWN doc. For ANY other user's doc, the only
+      // permitted change is linking: set `coupleId` from null -> a value, and
+      // nothing else. (Full member-scoped validation of the target couple isn't
+      // possible here because the couple is created in the same transaction and
+      // rule get()/exists() can't see same-commit writes.)
+      allow update: if signedIn() && (
         request.auth.uid == uid
         || (
           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['coupleId'])
           && resource.data.coupleId == null
         )
       );
+
+      allow delete: if false;
     }
 
-    // Invite-code -> uid lookup. A code may only ever map to its creator.
+    // ---- invite-code -> uid lookup ----
     match /inviteCodes/{code} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null
-        && request.resource.data.uid == request.auth.uid;
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
     }
 
-    // Couple records — exactly two members, only a member may create/read/update.
+    // ---- couples (the private space) ----
     match /couples/{coupleId} {
-      allow create: if request.auth != null
+      function isMember() {
+        return signedIn() && request.auth.uid in resource.data.members;
+      }
+
+      // A new couple must have exactly two members and include its creator.
+      allow create: if signedIn()
         && request.resource.data.members.size() == 2
         && request.auth.uid in request.resource.data.members;
-      allow read, update: if request.auth != null
-        && request.auth.uid in resource.data.members;
+
+      // Only members can read; only members can update, and the membership list
+      // itself is immutable (no swapping in a third person).
+      allow read: if isMember();
+      allow update: if isMember()
+        && request.resource.data.members == resource.data.members;
+      allow delete: if false;
+
+      // Everything nested under a couple (messages, moments, state, dates, ...)
+      // is restricted to the two members of THAT couple.
+      match /{document=**} {
+        allow read, write: if signedIn()
+          && request.auth.uid in
+             get(/databases/$(database)/documents/couples/$(coupleId)).data.members;
+      }
     }
   }
 }
