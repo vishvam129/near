@@ -147,6 +147,67 @@ Everything else becomes phase 2 / advanced, tracked in `.claude/generated_featur
 
 ---
 
+## Round 2 — Deep-research additions
+
+New feature territory found in a second, deeper sweep (gadgets/IoT, VR/AR, relationship
+wellbeing, virtual-date activities, shared finances, async gestures).
+
+### 14. Hardware / IoT companion integrations
+- 🟡 ⭐ In-app "friendship lamp" — tap and your partner's screen glows your color (no hardware needed; LuvLink-style)
+- 🔵 Friendship-lamp hardware sync (LuvLink / Filimin Wi-Fi lamps)
+- 🔵 Heartbeat send / heartbeat-pillow integration (Little Riot, Feel)
+- 🔵 Virtual kiss with animation (Kissenger-style novelty)
+- 🔵 Touch-bracelet hardware pairing (Bond Touch / Totwoo)
+
+### 15. Virtual-date activities (do something, not just talk)
+- 🟡 ⭐ Cook-together mode — same recipe, shared shopping list, synced timers + video
+- 🟡 Live shared whiteboard / draw together in real time
+- 🔵 Simultaneous-reveal drawing game ("draw each other, reveal at once")
+- 🔵 Karaoke / sing together with synced lyrics (Smule-style)
+- 🟡 Virtual date-idea generator (A–Z ideas, filters for budget/mood)
+- 🔵 Board-game hub (chess, checkers, Yahtzee — Board Game Arena style)
+- 🔵 Ambient "virtual locations" — share a beach/sunset scene while on call
+
+### 16. VR / AR (future-facing) ⭐
+- 🔵 VR hangout room with couple avatars (VRChat / Nevermet-style)
+- 🔵 AR surprises — send a virtual object/note that appears in their space
+- 🔵 Customizable couple avatars & a shared virtual space
+
+### 17. Relationship wellbeing (Lasting / Relish territory)
+- 🔵 Guided courses — communication, intimacy, conflict (Gottman-based, Lasting-style)
+- 🔵 Conflict-resolution / repair flow (structured "let's talk it out")
+- 🔵 Active-listening exercises
+- 🟡 Weekly relationship check-in
+- 🔵 Relationship health insights / connection score
+
+### 18. Habits, fitness & accountability together
+- 🟡 Shared habit tracker with partner visibility (HabitShare-style)
+- 🔵 Couple fitness challenge / "pact" (Fitness Pact-style)
+- 🔵 Co-op goals with shared streaks & accountability nudges
+
+### 19. Shared finances (practical for LDR)
+- 🔵 Shared expense tracking for visits & trips (Honeydue-style)
+- 🔵 Visit/trip budget split between partners
+
+### 20. Async gestures & surprises
+- 🟡 ⭐ "Open when…" digital letters — unlock by trigger (when you miss me / had a bad day / can't sleep)
+- 🔵 Reasons-I-love-you jar — tap for a random reason
+- 🟡 Schedule a surprise message to arrive later
+
+### 21. Wellness & rhythm
+- 🔵 Shared menstrual-cycle awareness (partner-aware, opt-in)
+- 🔵 Synced alarm / wake-up together across timezones
+- 🔵 Shared sleep status / good-night presence
+
+### 22. International-couple support
+- 🟡 In-chat auto-translate
+- 🔵 Multi-currency & multi-language UI
+
+> Catalog now spans **96 features**. The machine-readable file
+> `.claude/generated_features.json` has been updated with IDs 65–96.
+
+---
+
 ## Sources
 - [5 Best Apps for Long-Distance Couples in 2025 — OurCal](https://ourcal.com/blog/5-best-apps-for-long-distance-couples)
 - [Long-Distance Relationship Apps: Top 24 — Lasting the Distance](https://lastingthedistance.com/long-distance-relationship-apps/)
@@ -159,3 +220,15 @@ Everything else becomes phase 2 / advanced, tracked in `.claude/generated_featur
 - [Long-Distance Relationship Gadgets — Paired](https://www.paired.com/articles/long-distance-relationship-gadgets)
 - [Bond Touch — App Store](https://apps.apple.com/us/app/bond-touch/id1291952832)
 - [What's Paired Premium? — Paired Support](https://support.paired.com/en/articles/164633-what-s-paired-premium)
+- [25+ Long-Distance Relationship Gadgets — Marriage.com](https://www.marriage.com/advice/relationship/long-distance-relationship-gadgets/)
+- [Friendship Lamps — LuvLink](https://www.luvlink.com/)
+- [Virtual Date Night Ideas for Long-Distance Couples — Idyll](https://getidyll.in/blog/date-night-long-distance/)
+- [130 A–Z Virtual Date Ideas — Hairs Out of Place](https://hairsoutofplace.com/long-distance-date-ideas/)
+- [5 VR Dating Apps to Watch in 2025 — The Love Central](https://thelovecentral.com/is-the-metaverse-the-future-of-dating-love-in-a-virtual-world/)
+- [Nevermet — VR Dating](https://www.nevermet.io/)
+- [Lasting App Review — Choosing Therapy](https://www.choosingtherapy.com/lasting-app-review/)
+- [Habit Tracker Apps for Couples — Flamme](https://www.flamme.app/dates-for-couples/habit-tracker-apps-couples)
+- [HabitShare — Habit Tracker](https://apps.apple.com/us/app/habitshare-habit-tracker/id1048191045)
+- [Best Budgeting Apps for Couples — CNBC Select](https://www.cnbc.com/select/best-budgeting-apps-for-couples/)
+- [Honeydue / Tandem — finance apps for couples](https://www.usetandem.com/)
+- [Open When Letters: 101 Ideas — Lasting the Distance](https://lastingthedistance.com/open-when-letters/)
