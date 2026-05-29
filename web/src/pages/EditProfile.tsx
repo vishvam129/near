@@ -1,6 +1,7 @@
-import { useMemo, useState, type FormEvent } from 'react'
+import { useMemo, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useCouple } from '../couple/CoupleProvider'
 import { timezoneList } from '../lib/format'
+import { fileToAvatarDataUrl } from '../lib/image'
 import { Avatar } from '../components/Avatar'
 
 export default function EditProfile({ onDone }: { onDone: () => void }) {
@@ -10,9 +11,26 @@ export default function EditProfile({ onDone }: { onDone: () => void }) {
   const [timezone, setTimezone] = useState(profile?.timezone ?? 'UTC')
   const [photoURL, setPhotoURL] = useState(profile?.photoURL ?? '')
   const [busy, setBusy] = useState(false)
+  const [picking, setPicking] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const fileRef = useRef<HTMLInputElement>(null)
 
   const zones = useMemo(() => timezoneList(), [])
+
+  async function onPickFile(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = '' // allow re-picking the same file
+    if (!file) return
+    setPicking(true)
+    setError(null)
+    try {
+      setPhotoURL(await fileToAvatarDataUrl(file))
+    } catch (err) {
+      setError((err as Error)?.message ?? 'Could not load that image.')
+    } finally {
+      setPicking(false)
+    }
+  }
 
   async function save(e: FormEvent) {
     e.preventDefault()
@@ -79,16 +97,36 @@ export default function EditProfile({ onDone }: { onDone: () => void }) {
             </select>
           </label>
 
-          <label className="field">
-            <span className="field-label">Photo URL (optional)</span>
+          <div className="field">
+            <span className="field-label">Photo (optional)</span>
             <input
-              className="input"
-              type="url"
-              placeholder="https://…"
-              value={photoURL}
-              onChange={(e) => setPhotoURL(e.target.value)}
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={onPickFile}
             />
-          </label>
+            <div className="photo-actions">
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => fileRef.current?.click()}
+                disabled={picking || busy}
+              >
+                {picking ? 'Loading…' : photoURL ? 'Change photo' : 'Select photo'}
+              </button>
+              {photoURL && (
+                <button
+                  type="button"
+                  className="link"
+                  onClick={() => setPhotoURL('')}
+                  disabled={busy}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          </div>
 
           {error && <div className="err">{error}</div>}
 

@@ -338,3 +338,12 @@ select.input {
   appearance: none;
   cursor: pointer;
 }
+.photo-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.photo-actions .btn {
+  width: auto;
+  flex: 1;
+}
