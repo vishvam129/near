@@ -12,6 +12,8 @@ import {
   serverTimestamp,
   runTransaction,
   collection,
+  updateDoc,
+  type DocumentData,
 } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useAuth } from '../auth/AuthProvider'
@@ -20,17 +22,28 @@ export type Profile = {
   uid: string
   name: string | null
   email: string | null
+  photoURL: string | null
+  timezone: string
+  city: string
   inviteCode: string
   coupleId: string | null
+}
+
+export type ProfileEdits = {
+  name?: string
+  city?: string
+  timezone?: string
+  photoURL?: string | null
 }
 
 type CoupleContextValue = {
   loading: boolean
   profile: Profile | null
+  partner: Profile | null
   inviteCode: string | null
   paired: boolean
-  /** Links the current user to the owner of `code`. Throws a friendly Error on failure. */
   pairWithCode: (code: string) => Promise<void>
+  updateProfile: (edits: ProfileEdits) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -47,7 +60,6 @@ function randomCode(len = 6): string {
 }
 
 async function generateUniqueCode(): Promise<string> {
-  // Collisions are astronomically unlikely, but verify to be safe.
   for (let attempt = 0; attempt < 5; attempt++) {
     const code = randomCode()
     const snap = await getDoc(doc(db!, 'inviteCodes', code))
@@ -56,11 +68,34 @@ async function generateUniqueCode(): Promise<string> {
   return randomCode(8)
 }
 
+function browserTimezone(): string {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+  } catch {
+    return 'UTC'
+  }
+}
+
+function toProfile(uid: string, d: DocumentData): Profile {
+  return {
+    uid,
+    name: d.name ?? null,
+    email: d.email ?? null,
+    photoURL: d.photoURL ?? null,
+    timezone: d.timezone || 'UTC',
+    city: d.city ?? '',
+    inviteCode: d.inviteCode ?? '',
+    coupleId: d.coupleId ?? null,
+  }
+}
+
 export function CoupleProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth()
   const [profile, setProfile] = useState<Profile | null>(null)
+  const [partner, setPartner] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
 
+  // ---- own profile (create-if-absent, then live subscription) ----
   useEffect(() => {
     if (!user || !db) {
       setProfile(null)
@@ -73,18 +108,20 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
 
     async function init() {
       const ref = doc(db!, 'users', user!.uid)
-      // Create-if-absent atomically. Without a transaction, StrictMode's
-      // double-mount (or two tabs on first login) could both pass the
-      // existence check and write two different invite codes, orphaning one.
+      // Create-if-absent atomically so StrictMode's double-mount (or two tabs)
+      // can't create duplicate/orphaned invite codes.
       const snap = await getDoc(ref)
       if (!snap.exists()) {
         const code = await generateUniqueCode()
         await runTransaction(db!, async (tx) => {
           const fresh = await tx.get(ref)
-          if (fresh.exists()) return // another run already created the profile
+          if (fresh.exists()) return
           tx.set(ref, {
             name: user!.displayName ?? null,
             email: user!.email ?? null,
+            photoURL: user!.photoURL ?? null,
+            timezone: browserTimezone(),
+            city: '',
             inviteCode: code,
             coupleId: null,
             createdAt: serverTimestamp(),
@@ -96,18 +133,9 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         })
       }
       if (cancelled) return
-      // Live updates so the screen flips to the dashboard the instant pairing completes.
       unsub = onSnapshot(ref, (s) => {
         const d = s.data()
-        if (d) {
-          setProfile({
-            uid: user!.uid,
-            name: d.name ?? null,
-            email: d.email ?? null,
-            inviteCode: d.inviteCode ?? '',
-            coupleId: d.coupleId ?? null,
-          })
-        }
+        if (d) setProfile(toProfile(user!.uid, d))
         setLoading(false)
       })
     }
@@ -123,6 +151,36 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
       unsub?.()
     }
   }, [user])
+
+  // ---- partner profile (once paired) ----
+  useEffect(() => {
+    const coupleId = profile?.coupleId
+    if (!db || !user || !coupleId) {
+      setPartner(null)
+      return
+    }
+
+    let unsub: (() => void) | undefined
+    let cancelled = false
+
+    async function loadPartner() {
+      const coupleSnap = await getDoc(doc(db!, 'couples', coupleId!))
+      const members: string[] = coupleSnap.data()?.members ?? []
+      const partnerUid = members.find((m) => m !== user!.uid)
+      if (!partnerUid || cancelled) return
+      unsub = onSnapshot(doc(db!, 'users', partnerUid), (s) => {
+        const d = s.data()
+        setPartner(d ? toProfile(partnerUid, d) : null)
+      })
+    }
+
+    loadPartner().catch((err) => console.error('Failed to load partner:', err))
+
+    return () => {
+      cancelled = true
+      unsub?.()
+    }
+  }, [profile?.coupleId, user])
 
   async function pairWithCode(rawCode: string) {
     if (!db || !user) throw new Error('Not signed in.')
@@ -159,12 +217,25 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  async function updateProfile(edits: ProfileEdits) {
+    if (!db || !user) throw new Error('Not signed in.')
+    const patch: Record<string, unknown> = {}
+    if (edits.name !== undefined) patch.name = edits.name.trim() || null
+    if (edits.city !== undefined) patch.city = edits.city.trim()
+    if (edits.timezone !== undefined) patch.timezone = edits.timezone
+    if (edits.photoURL !== undefined) patch.photoURL = edits.photoURL?.trim() || null
+    if (Object.keys(patch).length === 0) return
+    await updateDoc(doc(db, 'users', user.uid), patch)
+  }
+
   const value: CoupleContextValue = {
     loading,
     profile,
+    partner,
     inviteCode: profile?.inviteCode ?? null,
     paired: Boolean(profile?.coupleId),
     pairWithCode,
+    updateProfile,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>

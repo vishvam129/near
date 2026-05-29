@@ -259,3 +259,82 @@ body {
   font-size: 13px;
   font-weight: 600;
 }
+
+/* ---- avatars ---- */
+.avatar-img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+.avatar-fallback {
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #fff;
+  background: var(--grad);
+}
+.avatar-preview {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 18px;
+}
+
+/* ---- person cards (dashboard) ---- */
+.people {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px 0;
+}
+.person {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  text-align: left;
+}
+.person-empty {
+  justify-content: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+.person-info {
+  min-width: 0;
+}
+.person-role {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+.person-name {
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.person-meta {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---- labelled form fields ---- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+.field-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+select.input {
+  appearance: none;
+  cursor: pointer;
+}

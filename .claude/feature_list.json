@@ -13,26 +13,26 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 2,
+  "current_feature_id": 3,
   "session": {
-    "count": 2,
-    "last_started_at": "2026-05-29T12:32:14.907227Z",
+    "count": 3,
+    "last_started_at": "2026-05-29T12:53:27.852837Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 1,
+    "passed": 2,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 94,
-    "completion_percentage": 1.0
+    "pending": 93,
+    "completion_percentage": 2.1
   },
   "categories": [
     {
       "name": "Accounts",
       "total": 3,
-      "passed": 1,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -233,19 +233,20 @@
       "verification": {
         "type": "manual",
         "criteria": "User A's code entered by User B creates a shared couple record",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Pairing verified end-to-end (A's code entered by B links both into a couple, both show connected). Review HIGH+MEDIUM fixed; residual rule hardening scoped to feature #4. Build passes.",
+        "requirements_addressed": [],
+        "verified_at": "2026-05-29T12:52:23.785570Z"
       },
       "research_refs": [
         "between"
       ],
       "rationale": "Between/Couplete model: a private space for just the two of you",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-05-29T12:32:14.907180Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-05-29T12:52:23.785590Z",
+      "commit_hash": "1152d220deeb78b08843d971794b4bef1da2ccee",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -255,7 +256,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 25,
+        "removed": 19,
+        "net": 6,
+        "files_changed": 2
+      }
     },
     {
       "id": 3,
@@ -273,9 +280,9 @@
         "cupla"
       ],
       "rationale": "Timezone/city power clocks, scheduling, and distance",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-05-29T12:53:27.852812Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3321,6 +3328,28 @@
       "timestamp": "2026-05-29T12:32:14.907245Z",
       "operation": "feature_started",
       "feature_id": 2,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-05-29T12:52:23.785613Z",
+      "operation": "feature_passed",
+      "feature_id": 2,
+      "details": {
+        "commit_hash": "1152d220deeb78b08843d971794b4bef1da2ccee",
+        "loc_stats": {
+          "added": 25,
+          "removed": 19,
+          "net": 6,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-05-29T12:53:27.852861Z",
+      "operation": "feature_started",
+      "feature_id": 3,
       "details": {
         "from_status": "pending"
       }

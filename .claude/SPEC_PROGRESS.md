@@ -2,32 +2,32 @@
 
 ## Current Status
 
-**In Progress:** #2 [Accounts] Invite-code pairing that links exactly two accounts into one couple
-   Started: 2026-05-29T12:32:14.907180Z
+**In Progress:** #3 [Accounts] Couple profile: name, photo, timezone, city
+   Started: 2026-05-29T12:53:27.852812Z
 
 ## Summary
 
-Progress: ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 1.0%
+Progress: ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 2.1%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 1 | 1.0% |
+| Passed | 2 | 2.1% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 94 | 97.9% |
+| Pending | 93 | 96.9% |
 
 ## Session Statistics
 
-- **Sessions:** 2
-- **Last Started:** 2026-05-29T12:32:14.907227Z
+- **Sessions:** 3
+- **Last Started:** 2026-05-29T12:53:27.852837Z
 
 ## Categories
 
 | Category | Progress | Passed | Failed | Skipped |
 |----------|----------|--------|--------|---------|
-| Accounts | ███░░░░░░░ 33% | 1 | 0 | 0 |
+| Accounts | ██████░░░░ 67% | 2 | 0 | 0 |
 | Security | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Time & Distance | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Messaging | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -54,6 +54,7 @@ Progress: ░░░░░░░░░░░░░░░░░░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #2 | passed | 20m 8s | 25 | 19 | 6 | 2 | 0 | yes |
 | #1 | passed | 28m 21s | 7873 | 2 | 7871 | 29 | 0 | yes |
 
 
@@ -62,8 +63,9 @@ Progress: ░░░░░░░░░░░░░░░░░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-05-29T12:52 | #2 Invite-code pairing that links exactly two account | P | 1152d22 |
 | 2026-05-29T12:31 | #1 Email/Google sign-in with Firebase Auth | P | 3f9ef3d |
 
 ---
-*Last updated: 2026-05-29T12:32:14.938168Z*
-*Session 2*
+*Last updated: 2026-05-29T12:53:27.888176Z*
+*Session 3*
