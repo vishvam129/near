@@ -32,7 +32,8 @@ export default function Home() {
   const { profile, partner } = useCouple()
   const [editing, setEditing] = useState(false)
 
-  if (editing) return <EditProfile onDone={() => setEditing(false)} />
+  // key on uid so the form re-initialises from fresh profile data if it changes
+  if (editing) return <EditProfile key={profile?.uid} onDone={() => setEditing(false)} />
 
   return (
     <div className="auth-wrap">
