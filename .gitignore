@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# builds
+dist/
+build/
+.output/
+
+# env & secrets (NEVER commit Firebase keys / service accounts)
+.env
+.env.*
+*.local
+google-services.json
+serviceAccountKey.json
+
+# capacitor / android
+android/app/build/
+android/.gradle/
+*.keystore
+*.jks
+
+# logs & os
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
