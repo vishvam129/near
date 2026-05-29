@@ -1,0 +1,31 @@
+rules_version = '2';
+
+// ============================================================================
+// TEMPORARY pairing-phase rules (feature #2).
+// These require sign-in but are intentionally permissive so the invite-code
+// pairing flow works (User B must update User A's `coupleId` to link them).
+// Feature #4 ("Firestore security rules limiting all couple data to its two
+// members") replaces this with strict, couple-scoped rules.
+// ============================================================================
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // User profiles. Any signed-in user can read (needed to look up a partner)
+    // and write (needed to set the partner's coupleId during pairing).
+    match /users/{uid} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null;
+    }
+
+    // Invite-code -> uid lookup table.
+    match /inviteCodes/{code} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+    }
+
+    // Couple records.
+    match /couples/{coupleId} {
+      allow read, create, update: if request.auth != null;
+    }
+  }
+}

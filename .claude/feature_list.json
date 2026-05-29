@@ -13,26 +13,26 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 1,
+  "current_feature_id": 2,
   "session": {
-    "count": 1,
-    "last_started_at": "2026-05-29T12:02:40.860841Z",
+    "count": 2,
+    "last_started_at": "2026-05-29T12:32:14.907227Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 0,
+    "passed": 1,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 95,
-    "completion_percentage": 0.0
+    "pending": 94,
+    "completion_percentage": 1.0
   },
   "categories": [
     {
       "name": "Accounts",
       "total": 3,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     },
@@ -193,20 +193,21 @@
       "verification": {
         "type": "manual",
         "criteria": "A new user can create an account and log back in",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Email/password + Google sign-in verified in browser; sign-out + log-back-in confirmed; build passes; code review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-05-29T12:31:02.716269Z"
       },
       "research_refs": [
         "between",
         "paired"
       ],
       "rationale": "Every couple app starts from authenticated identity",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-05-29T12:02:40.860821Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-05-29T12:31:02.716290Z",
+      "commit_hash": "3f9ef3d6167609a3be729584b88b6a0e08a63c79",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -216,7 +217,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 7873,
+        "removed": 2,
+        "net": 7871,
+        "files_changed": 29
+      }
     },
     {
       "id": 2,
@@ -234,9 +241,9 @@
         "between"
       ],
       "rationale": "Between/Couplete model: a private space for just the two of you",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-05-29T12:32:14.907180Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3292,6 +3299,28 @@
       "timestamp": "2026-05-29T12:02:40.860856Z",
       "operation": "feature_started",
       "feature_id": 1,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-05-29T12:31:02.716321Z",
+      "operation": "feature_passed",
+      "feature_id": 1,
+      "details": {
+        "commit_hash": "3f9ef3d6167609a3be729584b88b6a0e08a63c79",
+        "loc_stats": {
+          "added": 7873,
+          "removed": 2,
+          "net": 7871,
+          "files_changed": 29
+        }
+      }
+    },
+    {
+      "timestamp": "2026-05-29T12:32:14.907245Z",
+      "operation": "feature_started",
+      "feature_id": 2,
       "details": {
         "from_status": "pending"
       }

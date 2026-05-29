@@ -207,3 +207,55 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* ---- pairing screen ---- */
+.code-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.code-box {
+  width: 100%;
+  border: 1px dashed var(--accent-border, rgba(155, 109, 255, 0.5));
+  background: var(--panel-2);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: border-color 0.15s;
+}
+.code-box:hover {
+  border-color: var(--pink);
+}
+.code-box .code {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--txt);
+}
+.code-box .copy {
+  font-size: 11px;
+  color: var(--muted);
+}
+.code-input {
+  text-align: center;
+  letter-spacing: 4px;
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  text-transform: uppercase;
+}
+.paired-badge {
+  display: inline-block;
+  margin: 4px 0 4px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(61, 220, 132, 0.15);
+  color: #7ef0ab;
+  font-size: 13px;
+  font-weight: 600;
+}

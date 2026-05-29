@@ -1,5 +1,6 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider, type Auth } from 'firebase/auth'
+import { getFirestore, type Firestore } from 'firebase/firestore'
 
 // Values come from web/.env (see web/.env.example). Vite only exposes
 // variables prefixed with VITE_ to the browser.
@@ -18,12 +19,15 @@ export const firebaseEnabled = Boolean(cfg.apiKey)
 
 let app: FirebaseApp | undefined
 let authInstance: Auth | undefined
+let dbInstance: Firestore | undefined
 
 if (firebaseEnabled) {
   app = initializeApp(cfg)
   authInstance = getAuth(app)
+  dbInstance = getFirestore(app)
 }
 
 export const auth = authInstance
+export const db = dbInstance
 export const googleProvider = new GoogleAuthProvider()
 export { app }
