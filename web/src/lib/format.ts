@@ -18,6 +18,102 @@ export function timeInZone(tz: string, date: Date = new Date()): string {
   }
 }
 
+/** Format a 'YYYY-MM-DD' string as e.g. "10 Jul 2026". */
+export function prettyDate(dateStr: string): string {
+  const d = new Date(dateStr + 'T00:00:00')
+  if (isNaN(d.getTime())) return dateStr
+  return new Intl.DateTimeFormat([], {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(d)
+}
+
+/** A Date as a 'YYYY-MM-DD' string suitable for <input type="date">. */
+export function toDateInput(d: Date): string {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+/** Countdown from now to the start of `dateStr` ('YYYY-MM-DD'), in local time. */
+export function countdownTo(dateStr: string): {
+  days: number
+  hours: number
+  minutes: number
+  past: boolean
+} {
+  const target = new Date(dateStr + 'T00:00:00')
+  if (isNaN(target.getTime())) return { days: 0, hours: 0, minutes: 0, past: false }
+  const ms = target.getTime() - Date.now()
+  const past = ms <= 0
+  const abs = Math.abs(ms)
+  return {
+    days: Math.floor(abs / 86_400_000),
+    hours: Math.floor((abs % 86_400_000) / 3_600_000),
+    minutes: Math.floor((abs % 3_600_000) / 60_000),
+    past,
+  }
+}
+
+/** Calendar duration (years/months/days) from `dateStr` until today. */
+export function durationSince(
+  dateStr: string,
+): { years: number; months: number; days: number } | null {
+  const start = new Date(dateStr + 'T00:00:00')
+  if (isNaN(start.getTime())) return null
+  const now = new Date()
+  let years = now.getFullYear() - start.getFullYear()
+  let months = now.getMonth() - start.getMonth()
+  let days = now.getDate() - start.getDate()
+  if (days < 0) {
+    months -= 1
+    days += new Date(now.getFullYear(), now.getMonth(), 0).getDate()
+  }
+  if (months < 0) {
+    years -= 1
+    months += 12
+  }
+  if (years < 0) return { years: 0, months: 0, days: 0 }
+  return { years, months, days }
+}
+
+/** Human string like "1 year, 3 months, 12 days" (skips leading zero units). */
+export function formatDuration(d: { years: number; months: number; days: number }): string {
+  const unit = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`
+  const parts: string[] = []
+  if (d.years) parts.push(unit(d.years, 'year'))
+  if (d.months) parts.push(unit(d.months, 'month'))
+  parts.push(unit(d.days, 'day'))
+  return parts.join(', ')
+}
+
+/** Friendly, country-labelled shortlist for the top of the timezone picker. */
+export function commonTimezones(): { value: string; label: string }[] {
+  return [
+    { value: 'Asia/Kolkata', label: 'India — IST (all states)' },
+    { value: 'Asia/Dubai', label: 'UAE — Dubai' },
+    { value: 'Asia/Karachi', label: 'Pakistan — Karachi' },
+    { value: 'Asia/Dhaka', label: 'Bangladesh — Dhaka' },
+    { value: 'Europe/London', label: 'UK — London' },
+    { value: 'Europe/Paris', label: 'Central Europe — Paris' },
+    { value: 'Europe/Berlin', label: 'Germany — Berlin' },
+    { value: 'America/New_York', label: 'US Eastern — New York' },
+    { value: 'America/Chicago', label: 'US Central — Chicago' },
+    { value: 'America/Denver', label: 'US Mountain — Denver' },
+    { value: 'America/Los_Angeles', label: 'US Pacific — Los Angeles' },
+    { value: 'America/Toronto', label: 'Canada — Toronto' },
+    { value: 'America/Sao_Paulo', label: 'Brazil — São Paulo' },
+    { value: 'Asia/Singapore', label: 'Singapore' },
+    { value: 'Asia/Tokyo', label: 'Japan — Tokyo' },
+    { value: 'Australia/Sydney', label: 'Australia — Sydney' },
+    { value: 'Africa/Johannesburg', label: 'South Africa — Johannesburg' },
+    { value: 'Pacific/Auckland', label: 'New Zealand — Auckland' },
+    { value: 'UTC', label: 'UTC' },
+  ]
+}
+
 /** List of IANA timezones for a picker. Uses the browser list when available. */
 export function timezoneList(): string[] {
   const sv = (Intl as unknown as { supportedValuesOf?: (key: string) => string[] })

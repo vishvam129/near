@@ -36,14 +36,27 @@ export type ProfileEdits = {
   photoURL?: string | null
 }
 
+export type Meetup = { date: string; place: string }
+
+export type CoupleDoc = {
+  id: string
+  members: string[]
+  nextMeetup: Meetup | null
+  sinceDate: string | null
+  createdAt: Date | null
+}
+
 type CoupleContextValue = {
   loading: boolean
   profile: Profile | null
   partner: Profile | null
+  couple: CoupleDoc | null
   inviteCode: string | null
   paired: boolean
   pairWithCode: (code: string) => Promise<void>
   updateProfile: (edits: ProfileEdits) => Promise<void>
+  updateMeetup: (meetup: Meetup | null) => Promise<void>
+  updateSince: (date: string | null) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -93,6 +106,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [partner, setPartner] = useState<Profile | null>(null)
+  const [couple, setCouple] = useState<CoupleDoc | null>(null)
   const [loading, setLoading] = useState(true)
 
   // ---- own profile (create-if-absent, then live subscription) ----
@@ -152,35 +166,45 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     }
   }, [user])
 
-  // ---- partner profile (once paired) ----
+  // ---- couple doc (live: nextMeetup, sinceDate, members) ----
   useEffect(() => {
     const coupleId = profile?.coupleId
-    if (!db || !user || !coupleId) {
+    if (!db || !coupleId) {
+      setCouple(null)
+      return
+    }
+    return onSnapshot(doc(db, 'couples', coupleId), (s) => {
+      const d = s.data()
+      setCouple(
+        d
+          ? {
+              id: s.id,
+              members: d.members ?? [],
+              nextMeetup: d.nextMeetup ?? null,
+              sinceDate: d.sinceDate ?? null,
+              createdAt: d.createdAt?.toDate?.() ?? null,
+            }
+          : null,
+      )
+    })
+  }, [profile?.coupleId])
+
+  // ---- partner profile (derived from couple members) ----
+  useEffect(() => {
+    if (!db || !user || !couple) {
       setPartner(null)
       return
     }
-
-    let unsub: (() => void) | undefined
-    let cancelled = false
-
-    async function loadPartner() {
-      const coupleSnap = await getDoc(doc(db!, 'couples', coupleId!))
-      const members: string[] = coupleSnap.data()?.members ?? []
-      const partnerUid = members.find((m) => m !== user!.uid)
-      if (!partnerUid || cancelled) return
-      unsub = onSnapshot(doc(db!, 'users', partnerUid), (s) => {
-        const d = s.data()
-        setPartner(d ? toProfile(partnerUid, d) : null)
-      })
+    const partnerUid = couple.members.find((m) => m !== user.uid)
+    if (!partnerUid) {
+      setPartner(null)
+      return
     }
-
-    loadPartner().catch((err) => console.error('Failed to load partner:', err))
-
-    return () => {
-      cancelled = true
-      unsub?.()
-    }
-  }, [profile?.coupleId, user])
+    return onSnapshot(doc(db, 'users', partnerUid), (s) => {
+      const d = s.data()
+      setPartner(d ? toProfile(partnerUid, d) : null)
+    })
+  }, [couple, user])
 
   async function pairWithCode(rawCode: string) {
     if (!db || !user) throw new Error('Not signed in.')
@@ -228,14 +252,27 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'users', user.uid), patch)
   }
 
+  async function updateMeetup(meetup: Meetup | null) {
+    if (!db || !couple) throw new Error('Not connected yet.')
+    await updateDoc(doc(db, 'couples', couple.id), { nextMeetup: meetup })
+  }
+
+  async function updateSince(date: string | null) {
+    if (!db || !couple) throw new Error('Not connected yet.')
+    await updateDoc(doc(db, 'couples', couple.id), { sinceDate: date })
+  }
+
   const value: CoupleContextValue = {
     loading,
     profile,
     partner,
+    couple,
     inviteCode: profile?.inviteCode ?? null,
     paired: Boolean(profile?.coupleId),
     pairWithCode,
     updateProfile,
+    updateMeetup,
+    updateSince,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>

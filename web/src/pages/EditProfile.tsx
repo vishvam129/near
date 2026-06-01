@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useCouple } from '../couple/CoupleProvider'
-import { timezoneList } from '../lib/format'
+import { timezoneList, commonTimezones } from '../lib/format'
+import { INDIAN_STATES } from '../lib/india'
 import { fileToAvatarDataUrl } from '../lib/image'
 import { Avatar } from '../components/Avatar'
 
@@ -16,6 +17,9 @@ export default function EditProfile({ onDone }: { onDone: () => void }) {
   const fileRef = useRef<HTMLInputElement>(null)
 
   const zones = useMemo(() => timezoneList(), [])
+  const common = useMemo(() => commonTimezones(), [])
+  const inCommon = common.some((c) => c.value === timezone)
+  const isIndia = timezone === 'Asia/Kolkata'
 
   async function onPickFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -71,14 +75,22 @@ export default function EditProfile({ onDone }: { onDone: () => void }) {
           </label>
 
           <label className="field">
-            <span className="field-label">City</span>
+            <span className="field-label">{isIndia ? 'State / City' : 'City'}</span>
             <input
               className="input"
               type="text"
-              placeholder="e.g. London"
+              placeholder={isIndia ? 'e.g. Maharashtra or Mumbai' : 'e.g. London'}
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              list={isIndia ? 'india-states' : undefined}
             />
+            {isIndia && (
+              <datalist id="india-states">
+                {INDIAN_STATES.map((s) => (
+                  <option key={s} value={s} />
+                ))}
+              </datalist>
+            )}
           </label>
 
           <label className="field">
@@ -88,12 +100,23 @@ export default function EditProfile({ onDone }: { onDone: () => void }) {
               value={timezone}
               onChange={(e) => setTimezone(e.target.value)}
             >
-              {zones.includes(timezone) ? null : <option value={timezone}>{timezone}</option>}
-              {zones.map((z) => (
-                <option key={z} value={z}>
-                  {z.replace(/_/g, ' ')}
-                </option>
-              ))}
+              {!inCommon && !zones.includes(timezone) && (
+                <option value={timezone}>{timezone}</option>
+              )}
+              <optgroup label="Common">
+                {common.map((c) => (
+                  <option key={c.value} value={c.value}>
+                    {c.label}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="All timezones">
+                {zones.map((z) => (
+                  <option key={z} value={z}>
+                    {z.replace(/_/g, ' ')}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </label>
 

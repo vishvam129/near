@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 4,
+  "current_feature_id": 5,
   "session": {
-    "count": 4,
-    "last_started_at": "2026-05-29T13:12:07.560026Z",
+    "count": 5,
+    "last_started_at": "2026-06-01T05:15:31.824266Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 3,
+    "passed": 4,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 92,
-    "completion_percentage": 3.1
+    "pending": 91,
+    "completion_percentage": 4.2
   },
   "categories": [
     {
@@ -39,7 +39,7 @@
     {
       "name": "Security",
       "total": 4,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     },
@@ -311,19 +311,20 @@
       "verification": {
         "type": "manual",
         "criteria": "A third account cannot read another couple's data",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Strict couple-scoped rules: non-member denied on couples + subcollections; all client ops still pass; review APPROVE. Residual unconsented-write vectors require a server (deferred).",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-01T05:14:12.894217Z"
       },
       "research_refs": [
         "ourcal"
       ],
       "rationale": "Privacy is the core promise of a couple app",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-05-29T13:12:07.560003Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-01T05:14:12.894248Z",
+      "commit_hash": "17515ce",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -333,7 +334,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 112,
+        "removed": 54,
+        "net": 58,
+        "files_changed": 3
+      }
     },
     {
       "id": 5,
@@ -351,9 +358,9 @@
         "cupla"
       ],
       "rationale": "Knowing partner's local time is the #1 LDR need",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-01T05:15:31.824239Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3379,6 +3386,28 @@
       "timestamp": "2026-05-29T13:12:07.560044Z",
       "operation": "feature_started",
       "feature_id": 4,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-01T05:14:12.894277Z",
+      "operation": "feature_passed",
+      "feature_id": 4,
+      "details": {
+        "commit_hash": "17515ce",
+        "loc_stats": {
+          "added": 112,
+          "removed": 54,
+          "net": 58,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T05:15:31.824299Z",
+      "operation": "feature_started",
+      "feature_id": 5,
       "details": {
         "from_status": "pending"
       }
