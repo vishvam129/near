@@ -57,25 +57,43 @@ export function countdownTo(dateStr: string): {
   }
 }
 
-/** Calendar duration (years/months/days) from `dateStr` until today. */
+/**
+ * Calendar duration (years/months/days) from `dateStr` until today.
+ * Steps a cursor forward by whole years, then whole months, then counts the
+ * remaining days — so the result is always non-negative (no end-of-month
+ * borrow bugs like "1 month, -1 days").
+ */
 export function durationSince(
   dateStr: string,
 ): { years: number; months: number; days: number } | null {
   const start = new Date(dateStr + 'T00:00:00')
   if (isNaN(start.getTime())) return null
   const now = new Date()
-  let years = now.getFullYear() - start.getFullYear()
-  let months = now.getMonth() - start.getMonth()
-  let days = now.getDate() - start.getDate()
-  if (days < 0) {
-    months -= 1
-    days += new Date(now.getFullYear(), now.getMonth(), 0).getDate()
+  if (start.getTime() >= now.getTime()) return { years: 0, months: 0, days: 0 }
+
+  const cursor = new Date(start)
+
+  let years = 0
+  for (;;) {
+    const next = new Date(cursor)
+    next.setFullYear(cursor.getFullYear() + 1)
+    if (next.getTime() <= now.getTime()) {
+      cursor.setTime(next.getTime())
+      years++
+    } else break
   }
-  if (months < 0) {
-    years -= 1
-    months += 12
+
+  let months = 0
+  for (;;) {
+    const next = new Date(cursor)
+    next.setMonth(cursor.getMonth() + 1)
+    if (next.getTime() <= now.getTime()) {
+      cursor.setTime(next.getTime())
+      months++
+    } else break
   }
-  if (years < 0) return { years: 0, months: 0, days: 0 }
+
+  const days = Math.floor((now.getTime() - cursor.getTime()) / 86_400_000)
   return { years, months, days }
 }
 
