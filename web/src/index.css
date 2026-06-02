@@ -348,6 +348,156 @@ select.input {
   flex: 1;
 }
 
+/* ---- health score ---- */
+.health {
+  text-align: left;
+}
+.health-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.health-ring {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background:
+    conic-gradient(var(--pink) calc(var(--pct) * 1%), var(--panel-2) 0);
+  position: relative;
+}
+.health-ring::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--panel);
+}
+.health-num {
+  position: relative;
+  z-index: 1;
+  font-size: 20px;
+  font-weight: 800;
+}
+.health-label {
+  font-size: 15px;
+  font-weight: 700;
+}
+.health-tip {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ---- savings ---- */
+.savings {
+  text-align: left;
+}
+.savings-label {
+  font-size: 15px;
+  font-weight: 600;
+}
+.savings-amounts {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 4px 0 8px;
+}
+.savings-amounts strong {
+  color: var(--txt);
+}
+.savings-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.savings-bar i {
+  display: block;
+  height: 100%;
+  background: var(--grad);
+}
+.savings-add {
+  margin-bottom: 8px;
+}
+
+/* ---- expenses ---- */
+.expenses {
+  text-align: left;
+}
+.expense-amount {
+  max-width: 110px;
+}
+.split-summary {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 12px 0;
+  font-size: 14px;
+}
+.split-detail {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.split-balance {
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--pink);
+}
+
+/* ---- weekly check-in ---- */
+.checkin {
+  text-align: left;
+}
+.checkin-q {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+.checkin-faces {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.checkin-face {
+  flex: 1;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  border-radius: 12px;
+  font-size: clamp(18px, 5vw, 24px);
+  cursor: pointer;
+}
+.checkin-face.sel {
+  background: var(--grad);
+  border-color: transparent;
+}
+.checkin-results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.checkin-result {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.checkin-face-lg {
+  font-size: 26px;
+}
+.checkin-note {
+  font-size: 13px;
+  color: var(--muted);
+}
+
 /* ---- greeting ---- */
 .greeting {
   text-align: left;

@@ -5,6 +5,8 @@ import { OpenWhen } from '../components/OpenWhen'
 import { ReasonsJar } from '../components/ReasonsJar'
 import { ScheduleMessage } from '../components/ScheduleMessage'
 import { MemoryTimeline } from '../components/MemoryTimeline'
+import { SavingsGoal } from '../components/SavingsGoal'
+import { Expenses } from '../components/Expenses'
 
 export default function More() {
   return (
@@ -14,6 +16,8 @@ export default function More() {
           <span className="dot" /> More
         </div>
 
+        <SavingsGoal />
+        <Expenses />
         <MemoryTimeline />
         <DateIdeas />
         <ReasonsJar />

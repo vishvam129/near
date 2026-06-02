@@ -54,6 +54,7 @@ export type CoupleDoc = {
   streak: { count: number; lastDay: string } | null
   greeting: { type: string; from: string; at: Date | null } | null
   wyr: { idx: number; picks: Record<string, 'a' | 'b'> } | null
+  savings: { target: number; saved: number; label: string } | null
 }
 
 export type WatchState = {
@@ -84,6 +85,8 @@ type CoupleContextValue = {
   sendGreeting: (type: string) => Promise<void>
   newWyr: (idx: number) => Promise<void>
   pickWyr: (choice: 'a' | 'b') => Promise<void>
+  setSavingsGoal: (target: number, label: string) => Promise<void>
+  addToSavings: (amount: number) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -249,6 +252,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
           ? { type: d.greeting.type, from: d.greeting.from, at: d.greeting.at?.toDate?.() ?? null }
           : null,
         wyr: d.wyr ?? null,
+        savings: d.savings ?? null,
       })
     })
   }, [profile?.coupleId])
@@ -358,6 +362,32 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { [`moods.${user.uid}`]: emoji })
   }
 
+  async function setSavingsGoal(target: number, label: string) {
+    if (!db || !couple) return
+    const saved = couple.savings?.saved ?? 0
+    await updateDoc(doc(db, 'couples', couple.id), { savings: { target, label, saved } })
+  }
+
+  async function addToSavings(amount: number) {
+    if (!db || !couple || amount <= 0) return
+    const ref = doc(db, 'couples', couple.id)
+    // Transaction reads the current savings object and writes the whole thing
+    // back with an updated `saved` — robust regardless of field shape, and
+    // race-safe between the two partners.
+    await runTransaction(db, async (tx) => {
+      const snap = await tx.get(ref)
+      const sav = snap.data()?.savings
+      if (!sav) return
+      tx.update(ref, {
+        savings: {
+          target: Number(sav.target) || 0,
+          label: sav.label ?? '',
+          saved: (Number(sav.saved) || 0) + amount,
+        },
+      })
+    })
+  }
+
   async function sendGreeting(type: string) {
     if (!db || !user || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), {
@@ -417,6 +447,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     sendGreeting,
     newWyr,
     pickWyr,
+    setSavingsGoal,
+    addToSavings,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>
