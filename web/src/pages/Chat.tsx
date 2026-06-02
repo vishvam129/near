@@ -9,7 +9,7 @@ import {
 import { useMessages, type Message, type ReplyRef } from '../messages/useMessages'
 import { useCouple } from '../couple/CoupleProvider'
 import { fileToMessageImage } from '../lib/image'
-import { dayLabel, sameDay } from '../lib/format'
+import { dayLabel, sameDay, timeAgo } from '../lib/format'
 import { EmojiPicker } from '../components/EmojiPicker'
 import { MessageRow } from '../components/MessageRow'
 
@@ -52,6 +52,13 @@ export default function Chat() {
       void setTyping(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Re-evaluate the partner's online/last-seen status periodically.
+  const [, forcePresence] = useState(0)
+  useEffect(() => {
+    const id = window.setInterval(() => forcePresence((n) => n + 1), 20_000)
+    return () => window.clearInterval(id)
   }, [])
 
   function onType(e: ChangeEvent<HTMLInputElement>) {
@@ -157,6 +164,12 @@ export default function Chat() {
 
   const partnerUid = partner?.uid ?? null
   const partnerTyping = partnerUid ? Boolean(couple?.typing?.[partnerUid]) : false
+  const online = partner?.lastActive ? Date.now() - partner.lastActive.getTime() < 75_000 : false
+  const presence = online
+    ? 'online'
+    : partner?.lastActive
+      ? `last seen ${timeAgo(partner.lastActive)}`
+      : ''
   const lastMsg = messages[messages.length - 1]
   const partnerLastRead = partnerUid ? (couple?.lastRead?.[partnerUid] ?? null) : null
   const lastIsMine = !!lastMsg && lastMsg.from === myUid
@@ -177,6 +190,12 @@ export default function Chat() {
     <div className="chat-screen">
       <header className="chat-header">
         <span className="chat-title">{partner?.name || partner?.email || 'Chat'}</span>
+        {presence && (
+          <span className={`chat-presence ${online ? 'is-online' : ''}`}>
+            {online && <span className="online-dot" />}
+            {presence}
+          </span>
+        )}
       </header>
 
       <div className="chat-list">

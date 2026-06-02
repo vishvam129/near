@@ -18,6 +18,18 @@ export function timeInZone(tz: string, date: Date = new Date()): string {
   }
 }
 
+/** Relative "time ago" like "just now", "5m ago", "3h ago", "yesterday". */
+export function timeAgo(d: Date): string {
+  const s = Math.max(0, Math.floor((Date.now() - d.getTime()) / 1000))
+  if (s < 60) return 'just now'
+  const m = Math.floor(s / 60)
+  if (m < 60) return `${m}m ago`
+  const h = Math.floor(m / 60)
+  if (h < 24) return `${h}h ago`
+  const days = Math.floor(h / 24)
+  return days === 1 ? 'yesterday' : `${days}d ago`
+}
+
 export function sameDay(a: Date, b: Date): boolean {
   return (
     a.getFullYear() === b.getFullYear() &&

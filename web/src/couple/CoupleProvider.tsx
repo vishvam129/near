@@ -27,6 +27,7 @@ export type Profile = {
   city: string
   inviteCode: string
   coupleId: string | null
+  lastActive: Date | null
 }
 
 export type ProfileEdits = {
@@ -47,6 +48,7 @@ export type CoupleDoc = {
   typing: Record<string, boolean>
   lastRead: Record<string, Date | null>
   poke: { from: string; at: Date | null } | null
+  moods: Record<string, string>
 }
 
 type CoupleContextValue = {
@@ -63,6 +65,7 @@ type CoupleContextValue = {
   setTyping: (typing: boolean) => Promise<void>
   markRead: () => Promise<void>
   sendPoke: () => Promise<void>
+  setMood: (emoji: string) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -105,6 +108,7 @@ function toProfile(uid: string, d: DocumentData): Profile {
     city: d.city ?? '',
     inviteCode: d.inviteCode ?? '',
     coupleId: d.coupleId ?? null,
+    lastActive: d.lastActive?.toDate?.() ?? null,
   }
 }
 
@@ -172,6 +176,29 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     }
   }, [user])
 
+  // ---- presence heartbeat: keep our own lastActive fresh while app is open ----
+  useEffect(() => {
+    if (!db || !user) return
+    let cancelled = false
+    const ref = doc(db, 'users', user.uid)
+    const touch = () => {
+      if (!cancelled) updateDoc(ref, { lastActive: serverTimestamp() }).catch(() => {})
+    }
+    touch()
+    const id = window.setInterval(touch, 40_000)
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') touch()
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    window.addEventListener('focus', touch)
+    return () => {
+      cancelled = true
+      window.clearInterval(id)
+      document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('focus', touch)
+    }
+  }, [user])
+
   // ---- couple doc (live: nextMeetup, sinceDate, members) ----
   useEffect(() => {
     const coupleId = profile?.coupleId
@@ -197,6 +224,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         typing: d.typing ?? {},
         lastRead,
         poke: d.poke ? { from: d.poke.from, at: d.poke.at?.toDate?.() ?? null } : null,
+        moods: d.moods ?? {},
       })
     })
   }, [profile?.coupleId])
@@ -301,6 +329,11 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  async function setMood(emoji: string) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { [`moods.${user.uid}`]: emoji })
+  }
+
   const value: CoupleContextValue = {
     loading,
     profile,
@@ -315,6 +348,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     setTyping,
     markRead,
     sendPoke,
+    setMood,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>

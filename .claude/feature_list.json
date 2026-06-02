@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 19,
+  "current_feature_id": 49,
   "session": {
-    "count": 13,
-    "last_started_at": "2026-06-02T06:44:32.655639Z",
+    "count": 15,
+    "last_started_at": "2026-06-02T07:12:03.420641Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 11,
+    "passed": 13,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 84,
-    "completion_percentage": 11.5
+    "pending": 82,
+    "completion_percentage": 13.5
   },
   "categories": [
     {
@@ -60,7 +60,7 @@
     {
       "name": "Micro-connection",
       "total": 10,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     },
@@ -95,7 +95,7 @@
     {
       "name": "Daily Rituals",
       "total": 7,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     },
@@ -848,19 +848,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Tap delivers a push notification to partner",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Thinking-of-you tap delivers real-time heart burst+toast to partner; verified. Push-when-closed deferred to #57.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T07:11:15.231764Z"
       },
       "research_refs": [
         "bondtouch"
       ],
       "rationale": "Bond Touch's signature single-tap love",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-02T06:44:32.655604Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-02T07:11:15.231792Z",
+      "commit_hash": "0a804ac72bc540c3ddc3dccc88f017f5782ac116",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -870,7 +871,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 30,
+        "removed": 30,
+        "net": 0,
+        "files_changed": 3
+      }
     },
     {
       "id": 20,
@@ -1689,20 +1696,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Partner answer reveals only after you answer",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Daily question: shared per-day question, partner answer hidden until you answer; verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T07:11:15.650252Z"
       },
       "research_refs": [
         "paired",
         "lovewick"
       ],
       "rationale": "Paired's signature daily-question mechanic",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T07:11:15.436041Z",
+      "completed_at": "2026-06-02T07:11:15.650285Z",
+      "commit_hash": "0a804ac72bc540c3ddc3dccc88f017f5782ac116",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1712,7 +1720,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 30,
+        "removed": 30,
+        "net": 0,
+        "files_changed": 3
+      }
     },
     {
       "id": 46,
@@ -1827,9 +1841,9 @@
         "flamme"
       ],
       "rationale": "Emotional awareness at a distance",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-02T07:12:03.420615Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3633,6 +3647,50 @@
       "timestamp": "2026-06-02T06:44:32.655661Z",
       "operation": "feature_started",
       "feature_id": 19,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T07:11:15.231830Z",
+      "operation": "feature_passed",
+      "feature_id": 19,
+      "details": {
+        "commit_hash": "0a804ac72bc540c3ddc3dccc88f017f5782ac116",
+        "loc_stats": {
+          "added": 30,
+          "removed": 30,
+          "net": 0,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T07:11:15.436081Z",
+      "operation": "feature_started",
+      "feature_id": 45,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T07:11:15.650320Z",
+      "operation": "feature_passed",
+      "feature_id": 45,
+      "details": {
+        "commit_hash": "0a804ac72bc540c3ddc3dccc88f017f5782ac116",
+        "loc_stats": {
+          "added": 30,
+          "removed": 30,
+          "net": 0,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T07:12:03.420663Z",
+      "operation": "feature_started",
+      "feature_id": 49,
       "details": {
         "from_status": "pending"
       }

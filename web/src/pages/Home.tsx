@@ -5,6 +5,7 @@ import { Clocks } from '../components/Clocks'
 import { Countdown } from '../components/Countdown'
 import { TogetherCounter } from '../components/TogetherCounter'
 import { DailyQuestion } from '../components/DailyQuestion'
+import { Mood } from '../components/Mood'
 import EditProfile from './EditProfile'
 
 export default function Home() {
@@ -35,6 +36,8 @@ export default function Home() {
         <TogetherCounter />
 
         {profile && <Clocks you={profile} partner={partner} />}
+
+        <Mood />
 
         <Countdown />
 

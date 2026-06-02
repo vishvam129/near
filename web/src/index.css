@@ -348,6 +348,56 @@ select.input {
   flex: 1;
 }
 
+/* ---- mood ---- */
+.mood {
+  text-align: left;
+}
+.mood-row {
+  display: flex;
+  gap: 4px;
+}
+.mood-opt {
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  border-radius: 12px;
+  font-size: clamp(16px, 4.5vw, 20px);
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.mood-opt:hover {
+  transform: translateY(-2px);
+}
+.mood-opt.sel {
+  background: var(--grad);
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(255, 107, 139, 0.35);
+}
+.mood-more {
+  color: var(--muted);
+  font-weight: 700;
+}
+.mood-current {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.mood-current .link {
+  font-size: 12px;
+}
+.mood-partner {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.mood-partner-emoji {
+  font-size: 18px;
+  vertical-align: middle;
+}
+
 /* ---- daily question ---- */
 .daily {
   text-align: left;
@@ -644,6 +694,24 @@ select.input {
 .chat-title {
   font-weight: 700;
   font-size: 15px;
+}
+.chat-presence {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.chat-presence.is-online {
+  color: #7ef0ab;
+}
+.online-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3ddc84;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 .chat-list {
   flex: 1;
