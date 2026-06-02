@@ -11,18 +11,29 @@ import {
 import { db } from '../lib/firebase'
 import { useCouple } from '../couple/CoupleProvider'
 
-type BucketItem = { id: string; text: string; done: boolean }
+type Item = { id: string; text: string; done: boolean }
 
-export function BucketList() {
+/** Shared, checkable list backed by couples/{id}/{name}. Used for bucket list & to-dos. */
+export function CheckList({
+  name,
+  title,
+  placeholder,
+  emptyText,
+}: {
+  name: string
+  title: string
+  placeholder: string
+  emptyText: string
+}) {
   const { couple } = useCouple()
-  const [items, setItems] = useState<BucketItem[]>([])
+  const [items, setItems] = useState<Item[]>([])
   const [draft, setDraft] = useState('')
   const [busy, setBusy] = useState(false)
   const coupleId = couple?.id
 
   useEffect(() => {
     if (!db || !coupleId) return
-    return onSnapshot(collection(db, 'couples', coupleId, 'bucket'), (snap) => {
+    return onSnapshot(collection(db, 'couples', coupleId, name), (snap) => {
       setItems(
         snap.docs.map((d) => ({
           id: d.id,
@@ -31,9 +42,8 @@ export function BucketList() {
         })),
       )
     })
-  }, [coupleId])
+  }, [coupleId, name])
 
-  // unchecked first, then checked
   const sorted = [...items].sort((a, b) => Number(a.done) - Number(b.done))
 
   async function add(e: FormEvent) {
@@ -42,7 +52,7 @@ export function BucketList() {
     if (!t || !db || !coupleId) return
     setBusy(true)
     try {
-      await addDoc(collection(db, 'couples', coupleId, 'bucket'), {
+      await addDoc(collection(db, 'couples', coupleId, name), {
         text: t,
         done: false,
         createdAt: serverTimestamp(),
@@ -53,23 +63,23 @@ export function BucketList() {
     }
   }
 
-  async function toggle(it: BucketItem) {
+  async function toggle(it: Item) {
     if (db && coupleId)
-      await updateDoc(doc(db, 'couples', coupleId, 'bucket', it.id), { done: !it.done })
+      await updateDoc(doc(db, 'couples', coupleId, name, it.id), { done: !it.done })
   }
 
   async function remove(id: string) {
-    if (db && coupleId) await deleteDoc(doc(db, 'couples', coupleId, 'bucket', id))
+    if (db && coupleId) await deleteDoc(doc(db, 'couples', coupleId, name, id))
   }
 
   return (
     <div className="card">
-      <h3 className="card-h muted-h">Bucket list</h3>
+      <h3 className="card-h muted-h">{title}</h3>
       <form className="form entry-form" onSubmit={add}>
         <input
           className="input"
           type="text"
-          placeholder="Something to do together…"
+          placeholder={placeholder}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
         />
@@ -79,7 +89,7 @@ export function BucketList() {
       </form>
 
       {sorted.length === 0 ? (
-        <p className="entry-empty">No dreams yet — add something you want to do together.</p>
+        <p className="entry-empty">{emptyText}</p>
       ) : (
         <div className="entry-list">
           {sorted.map((it) => (

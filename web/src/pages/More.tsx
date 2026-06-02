@@ -1,5 +1,9 @@
-import { BucketList } from '../components/BucketList'
+import { CheckList } from '../components/CheckList'
 import { EntryList } from '../components/EntryList'
+import { DateIdeas } from '../components/DateIdeas'
+import { OpenWhen } from '../components/OpenWhen'
+import { ReasonsJar } from '../components/ReasonsJar'
+import { ScheduleMessage } from '../components/ScheduleMessage'
 
 export default function More() {
   return (
@@ -9,7 +13,23 @@ export default function More() {
           <span className="dot" /> More
         </div>
 
-        <BucketList />
+        <DateIdeas />
+        <ReasonsJar />
+        <OpenWhen />
+        <ScheduleMessage />
+
+        <CheckList
+          name="bucket"
+          title="Bucket list"
+          placeholder="Something to do together…"
+          emptyText="No dreams yet — add something you want to do together."
+        />
+        <CheckList
+          name="todos"
+          title="Shared to-do"
+          placeholder="A task for the two of you…"
+          emptyText="Nothing on the list yet."
+        />
 
         <EntryList
           name="journal"
@@ -18,7 +38,6 @@ export default function More() {
           emptyText="No entries yet — write your first."
           multiline
         />
-
         <EntryList
           name="gratitude"
           title="Gratitude notes"

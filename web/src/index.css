@@ -348,6 +348,85 @@ select.input {
   flex: 1;
 }
 
+/* ---- date ideas ---- */
+.date-ideas {
+  text-align: left;
+}
+.idea-text {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+/* ---- open-when letters ---- */
+.letter {
+  position: relative;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+.letter-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.letter-trigger {
+  font-size: 14px;
+  font-weight: 600;
+}
+.letter-who {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.letter-open {
+  margin-top: 8px;
+  display: inline-block;
+}
+.letter-text {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.letter-del {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+/* ---- reasons jar ---- */
+.reasons {
+  text-align: left;
+}
+.reason-pulled {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+.reason-by {
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.reasons-add {
+  margin-top: 12px;
+}
+
+/* ---- scheduled messages ---- */
+.scheduled-list {
+  margin-top: 12px;
+}
+
 /* ---- streak badge ---- */
 .streak-badge {
   align-self: center;
