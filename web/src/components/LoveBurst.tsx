@@ -13,23 +13,23 @@ export function LoveBurst() {
   const [active, setActive] = useState(false)
 
   useEffect(() => {
-    const p = couple?.poke
-    if (!p?.at) return
-    const t = p.at.getTime()
-    // Ignore whatever poke already exists when we first mount.
+    if (!couple) return
+    // Baseline is set on the first couple load (even when no poke exists yet),
+    // so the very first poke the couple exchanges still fires.
+    const t = couple.poke?.at?.getTime() ?? 0
     if (lastPoke.current === null) {
       lastPoke.current = t
       return
     }
     if (t > lastPoke.current) {
       lastPoke.current = t
-      if (p.from && p.from !== user?.uid) {
+      if (couple.poke?.from && couple.poke.from !== user?.uid) {
         setActive(true)
         const id = window.setTimeout(() => setActive(false), 2600)
         return () => window.clearTimeout(id)
       }
     }
-  }, [couple?.poke, user?.uid])
+  }, [couple, user?.uid])
 
   if (!active) return null
   const who = partner?.name || partner?.email || 'Your partner'

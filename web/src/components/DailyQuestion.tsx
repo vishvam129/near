@@ -4,12 +4,19 @@ import { db } from '../lib/firebase'
 import { useCouple } from '../couple/CoupleProvider'
 import { useAuth } from '../auth/AuthProvider'
 import { questionForDate } from '../lib/questions'
-import { toDateInput } from '../lib/format'
+
+// UTC day key so both partners (any timezone) always share the same question/doc.
+function utcDayKey(): string {
+  const d = new Date()
+  const m = String(d.getUTCMonth() + 1).padStart(2, '0')
+  const day = String(d.getUTCDate()).padStart(2, '0')
+  return `${d.getUTCFullYear()}-${m}-${day}`
+}
 
 export function DailyQuestion() {
   const { couple, partner } = useCouple()
   const { user } = useAuth()
-  const todayKey = toDateInput(new Date())
+  const todayKey = utcDayKey()
   const question = questionForDate(todayKey)
 
   const [answers, setAnswers] = useState<Record<string, string>>({})
