@@ -1,6 +1,6 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider, type Auth } from 'firebase/auth'
-import { getFirestore, type Firestore } from 'firebase/firestore'
+import { initializeFirestore, type Firestore } from 'firebase/firestore'
 
 // Values come from web/.env (see web/.env.example). Vite only exposes
 // variables prefixed with VITE_ to the browser.
@@ -24,7 +24,12 @@ let dbInstance: Firestore | undefined
 if (firebaseEnabled) {
   app = initializeApp(cfg)
   authInstance = getAuth(app)
-  dbInstance = getFirestore(app)
+  // Auto-detect long-polling so real-time listeners keep working on networks
+  // that block Firestore's default streaming channel (the "have to refresh to
+  // see new messages" symptom).
+  dbInstance = initializeFirestore(app, {
+    experimentalAutoDetectLongPolling: true,
+  })
 }
 
 export const auth = authInstance

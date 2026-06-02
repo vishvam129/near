@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 5,
+  "current_feature_id": 11,
   "session": {
-    "count": 5,
-    "last_started_at": "2026-06-01T05:15:31.824266Z",
+    "count": 9,
+    "last_started_at": "2026-06-01T07:13:07.062078Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 4,
+    "passed": 7,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 91,
-    "completion_percentage": 4.2
+    "pending": 88,
+    "completion_percentage": 7.3
   },
   "categories": [
     {
@@ -46,14 +46,14 @@
     {
       "name": "Time & Distance",
       "total": 6,
-      "passed": 0,
+      "passed": 3,
       "failed": 0,
       "skipped": 0
     },
     {
       "name": "Messaging",
       "total": 7,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     },
@@ -350,19 +350,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Both times update live and match each timezone",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Dual live clocks tick every second per timezone; verified in browser.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-01T07:03:35.536906Z"
       },
       "research_refs": [
         "cupla"
       ],
       "rationale": "Knowing partner's local time is the #1 LDR need",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-01T05:15:31.824239Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-01T07:03:35.536930Z",
+      "commit_hash": "dc01bda",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -372,7 +373,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 29,
+        "removed": 11,
+        "net": 18,
+        "files_changed": 1
+      }
     },
     {
       "id": 6,
@@ -382,20 +389,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Countdown decrements daily; editing date updates it",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Countdown to editable next-visit date+place; days/hours/mins; verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-01T07:04:00.518057Z"
       },
       "research_refs": [
         "between",
         "lastingthedistance"
       ],
       "rationale": "Between's celebratory countdown is a top-loved feature",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-01T07:03:35.779240Z",
+      "completed_at": "2026-06-01T07:04:00.518077Z",
+      "commit_hash": "dc01bda",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -405,7 +413,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 29,
+        "removed": 11,
+        "net": 18,
+        "files_changed": 1
+      }
     },
     {
       "id": 7,
@@ -415,19 +429,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Counter computes from start date correctly",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Relationship duration counter computes y/m/d from a 'together since' date (cursor-stepping, verified no negatives) with createdAt fallback; verified in browser.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-01T07:08:44.925267Z"
       },
       "research_refs": [
         "lastingthedistance"
       ],
       "rationale": "MyLove/Lovedays D-day counters are popular",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-01T07:08:44.685260Z",
+      "completed_at": "2026-06-01T07:08:44.925285Z",
+      "commit_hash": "dc01bda",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -437,7 +452,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 29,
+        "removed": 11,
+        "net": 18,
+        "files_changed": 1
+      }
     },
     {
       "id": 8,
@@ -545,15 +566,16 @@
         "criteria": "Message sent by A appears for B within ~1s",
         "completed": false,
         "evidence": null,
-        "requirements_addressed": []
+        "requirements_addressed": [],
+        "verified_at": "2026-06-01T07:04:00.980011Z"
       },
       "research_refs": [
         "between"
       ],
       "rationale": "Core daily communication",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-01T07:13:07.062057Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -565,7 +587,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 29,
+        "removed": 11,
+        "net": 18,
+        "files_changed": 1
+      }
     },
     {
       "id": 12,
@@ -3408,6 +3436,94 @@
       "timestamp": "2026-06-01T05:15:31.824299Z",
       "operation": "feature_started",
       "feature_id": 5,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:03:35.536958Z",
+      "operation": "feature_passed",
+      "feature_id": 5,
+      "details": {
+        "commit_hash": "dc01bda",
+        "loc_stats": {
+          "added": 29,
+          "removed": 11,
+          "net": 18,
+          "files_changed": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:03:35.779278Z",
+      "operation": "feature_started",
+      "feature_id": 6,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:04:00.518100Z",
+      "operation": "feature_passed",
+      "feature_id": 6,
+      "details": {
+        "commit_hash": "dc01bda",
+        "loc_stats": {
+          "added": 29,
+          "removed": 11,
+          "net": 18,
+          "files_changed": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:04:00.728847Z",
+      "operation": "feature_started",
+      "feature_id": 11,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:04:00.980060Z",
+      "operation": "feature_passed",
+      "feature_id": 11,
+      "details": {
+        "commit_hash": "dc01bda",
+        "loc_stats": {
+          "added": 29,
+          "removed": 11,
+          "net": 18,
+          "files_changed": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:08:44.685300Z",
+      "operation": "feature_started",
+      "feature_id": 7,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:08:44.925305Z",
+      "operation": "feature_passed",
+      "feature_id": 7,
+      "details": {
+        "commit_hash": "dc01bda",
+        "loc_stats": {
+          "added": 29,
+          "removed": 11,
+          "net": 18,
+          "files_changed": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T07:13:07.062096Z",
+      "operation": "feature_started",
+      "feature_id": 11,
       "details": {
         "from_status": "pending"
       }

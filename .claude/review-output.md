@@ -1,32 +1,32 @@
-# Code Review — Feature #4: Strict couple-scoped Firestore rules
+# Code Review — Dashboard batch (features #5 clocks, #6 countdown, #7 together-counter)
 
-File: web/firestore.rules. Reviewed for correctness (all client ops still pass),
-security (non-member isolation), and pitfalls.
+Files: CoupleProvider.tsx, Clocks.tsx, Countdown.tsx, TogetherCounter.tsx,
+lib/format.ts, lib/india.ts, EditProfile.tsx, Home.tsx. Build passes; verified in browser.
 
-## Correctness — all documented client operations pass
-own users read/onSnapshot/create; inviteCodes create (uid==self); couples getDoc as
-member; own-doc profile update; pairing (partner coupleId null->value, couple create
-size==2 + creator in members, own coupleId link); subcollection access via get() on
-the parent couple doc.
+## HIGH (fixed)
+- `durationSince` month-borrow produced negative days for end-of-month start dates
+  (e.g. Jan 31 → Mar 1 rendered "1 month, -1 days"). **Fixed**: replaced with a
+  cursor-stepping algorithm (advance whole years, then whole months, then count
+  remaining days) that is always non-negative. Verified across edge cases:
+  - 2024-01-31 → 2024-03-01 = 30 days
+  - 2023-03-31 → 2024-03-01 = 11 months
+  - 2020-12-31 → 2026-06-01 = 5y 4m 29d
+  No negative values in any tested case.
 
-## Security — deliverable met
-- Non-member read on `couples/{id}` denied (uid not in members).
-- Non-member subcollection access denied (get() parent membership check).
-- Membership immutable on update; no world-open collection; default-deny in effect.
+## LOW (acknowledged, no action)
+- countdownTo / durationSince parse the date at local midnight and diff against local
+  now; across a DST change the hours value can be off by one. Acceptable for a
+  days/months display.
 
-## Known limitations (require a server / Cloud Function — deferred; needs Blaze/card)
-- MEDIUM: any signed-in user can create a `couples` doc naming an unconsenting second uid
-  (can't read it usefully without that user also linking).
-- MEDIUM: the `coupleId` null->value cross-doc link doesn't validate the value references
-  a couple the target belongs to (griefing: set an unpaired user's coupleId to garbage).
-  Same-transaction get() can't see the just-created couple, so this is unsolvable purely
-  in rules. Document as a backend-hardening task.
-- LOW: inviteCodes are enumerable by signed-in users (by design — must be resolvable).
-- LOW (client contract): couple-doc updates must resend the unchanged `members` array or
-  the immutability check denies the write. Noted for future couple-field updates.
-
-## Verdict
-Read/write isolation for couple data is correct and enforced; remaining items are
-server-side hardening tasks that don't affect feature #4's guarantee.
+## Verified clean
+- CoupleProvider: all three effects return their unsubscribe; profile effect uses a
+  `cancelled` guard (StrictMode-safe); couple-doc and partner effects re-key correctly,
+  tearing down old listeners. No leak / double-subscribe.
+- updateMeetup/updateSince: field-merge updateDoc leaves `members` untouched → satisfies
+  the membership-immutability rule.
+- Interval cleanup in Clocks (1s) and Countdown (60s) correct; one interval drives both
+  clock columns.
+- countdownTo decomposition correct; india.ts (28 states + 8 UTs); EditProfile optgroup +
+  datalist + custom-tz fallback option; Home re-key on uid.
 
 VERDICT: APPROVE

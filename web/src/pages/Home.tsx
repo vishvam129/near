@@ -15,7 +15,7 @@ export default function Home() {
   if (editing) return <EditProfile key={profile?.uid} onDone={() => setEditing(false)} />
 
   return (
-    <div className="auth-wrap">
+    <div className="screen">
       <div className="card">
         <div className="brand">
           <span className="dot" /> Near

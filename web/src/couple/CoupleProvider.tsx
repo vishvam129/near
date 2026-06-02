@@ -44,6 +44,8 @@ export type CoupleDoc = {
   nextMeetup: Meetup | null
   sinceDate: string | null
   createdAt: Date | null
+  typing: Record<string, boolean>
+  lastRead: Record<string, Date | null>
 }
 
 type CoupleContextValue = {
@@ -57,6 +59,8 @@ type CoupleContextValue = {
   updateProfile: (edits: ProfileEdits) => Promise<void>
   updateMeetup: (meetup: Meetup | null) => Promise<void>
   updateSince: (date: string | null) => Promise<void>
+  setTyping: (typing: boolean) => Promise<void>
+  markRead: () => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -175,17 +179,22 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     }
     return onSnapshot(doc(db, 'couples', coupleId), (s) => {
       const d = s.data()
-      setCouple(
-        d
-          ? {
-              id: s.id,
-              members: d.members ?? [],
-              nextMeetup: d.nextMeetup ?? null,
-              sinceDate: d.sinceDate ?? null,
-              createdAt: d.createdAt?.toDate?.() ?? null,
-            }
-          : null,
-      )
+      if (!d) {
+        setCouple(null)
+        return
+      }
+      const lastRead: Record<string, Date | null> = {}
+      const lr = d.lastRead ?? {}
+      for (const k of Object.keys(lr)) lastRead[k] = lr[k]?.toDate?.() ?? null
+      setCouple({
+        id: s.id,
+        members: d.members ?? [],
+        nextMeetup: d.nextMeetup ?? null,
+        sinceDate: d.sinceDate ?? null,
+        createdAt: d.createdAt?.toDate?.() ?? null,
+        typing: d.typing ?? {},
+        lastRead,
+      })
     })
   }, [profile?.coupleId])
 
@@ -262,6 +271,26 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { sinceDate: date })
   }
 
+  async function setTyping(typing: boolean) {
+    if (!db || !user || !couple) return
+    try {
+      await updateDoc(doc(db, 'couples', couple.id), { [`typing.${user.uid}`]: typing })
+    } catch {
+      /* typing is best-effort; ignore transient failures */
+    }
+  }
+
+  async function markRead() {
+    if (!db || !user || !couple) return
+    try {
+      await updateDoc(doc(db, 'couples', couple.id), {
+        [`lastRead.${user.uid}`]: serverTimestamp(),
+      })
+    } catch {
+      /* read receipts are best-effort */
+    }
+  }
+
   const value: CoupleContextValue = {
     loading,
     profile,
@@ -273,6 +302,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     updateProfile,
     updateMeetup,
     updateSince,
+    setTyping,
+    markRead,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>

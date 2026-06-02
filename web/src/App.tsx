@@ -2,7 +2,7 @@ import { useAuth } from './auth/AuthProvider'
 import { useCouple } from './couple/CoupleProvider'
 import SignIn from './pages/SignIn'
 import Pairing from './pages/Pairing'
-import Home from './pages/Home'
+import Shell from './components/Shell'
 
 function Loading() {
   return (
@@ -19,5 +19,5 @@ export default function App() {
   if (authLoading) return <Loading />
   if (!user) return <SignIn />
   if (coupleLoading) return <Loading />
-  return paired ? <Home /> : <Pairing />
+  return paired ? <Shell /> : <Pairing />
 }

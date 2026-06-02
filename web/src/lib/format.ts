@@ -18,6 +18,28 @@ export function timeInZone(tz: string, date: Date = new Date()): string {
   }
 }
 
+export function sameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  )
+}
+
+/** "Today" / "Yesterday" / "12 Jun" (with year if not the current year). */
+export function dayLabel(d: Date): string {
+  const now = new Date()
+  const startOf = (x: Date) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime()
+  const diffDays = Math.round((startOf(now) - startOf(d)) / 86_400_000)
+  if (diffDays === 0) return 'Today'
+  if (diffDays === 1) return 'Yesterday'
+  return new Intl.DateTimeFormat([], {
+    day: 'numeric',
+    month: 'short',
+    year: d.getFullYear() === now.getFullYear() ? undefined : 'numeric',
+  }).format(d)
+}
+
 /** Format a 'YYYY-MM-DD' string as e.g. "10 Jul 2026". */
 export function prettyDate(dateStr: string): string {
   const d = new Date(dateStr + 'T00:00:00')
