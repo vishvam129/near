@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 34,
+  "current_feature_id": 48,
   "session": {
-    "count": 23,
-    "last_started_at": "2026-06-02T10:27:58.850336Z",
+    "count": 28,
+    "last_started_at": "2026-06-02T10:44:57.421415Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 21,
+    "passed": 26,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 74,
-    "completion_percentage": 21.9
+    "pending": 69,
+    "completion_percentage": 27.1
   },
   "categories": [
     {
@@ -81,7 +81,7 @@
     {
       "name": "Planning",
       "total": 8,
-      "passed": 2,
+      "passed": 3,
       "failed": 0,
       "skipped": 0
     },
@@ -144,7 +144,7 @@
     {
       "name": "Activities",
       "total": 5,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     },
@@ -172,7 +172,7 @@
     {
       "name": "Gestures",
       "total": 3,
-      "passed": 0,
+      "passed": 3,
       "failed": 0,
       "skipped": 0
     },
@@ -1355,19 +1355,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Items checked by one update for both",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Shared to-do list (CheckList); verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T10:43:10.621389Z"
       },
       "research_refs": [
         "cupla"
       ],
       "rationale": "Cupla shared lists",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-02T10:27:58.850314Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-02T10:43:10.621416Z",
+      "commit_hash": "a681b47",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1377,7 +1378,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 1023,
+        "removed": 191,
+        "net": 832,
+        "files_changed": 12
+      }
     },
     {
       "id": 35,
@@ -1843,9 +1850,9 @@
         "lastingthedistance"
       ],
       "rationale": "Bookend-the-day ritual across timezones",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-02T10:44:57.421367Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -2662,20 +2669,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Generator returns filtered date ideas",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #73 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T10:43:11.010041Z"
       },
       "research_refs": [
         "hairsoutofplace",
         "cupla"
       ],
       "rationale": "Solves 'what should we do tonight?'",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T10:43:10.809194Z",
+      "completed_at": "2026-06-02T10:43:11.010059Z",
+      "commit_hash": "a681b47",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2685,7 +2693,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 1023,
+        "removed": 191,
+        "net": 832,
+        "files_changed": 12
+      }
     },
     {
       "id": 74,
@@ -3145,19 +3159,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Letter stays locked until its trigger is chosen",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #88 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T10:43:11.391814Z"
       },
       "research_refs": [
         "openwhen"
       ],
       "rationale": "Classic LDR gesture, digitized",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T10:43:11.194765Z",
+      "completed_at": "2026-06-02T10:43:11.391835Z",
+      "commit_hash": "a681b47",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3167,7 +3182,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 1023,
+        "removed": 191,
+        "net": 832,
+        "files_changed": 12
+      }
     },
     {
       "id": 89,
@@ -3177,19 +3198,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Tap reveals a random saved reason",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #89 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T10:43:11.775899Z"
       },
       "research_refs": [
         "openwhen"
       ],
       "rationale": "Sweet on-demand affirmation",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T10:43:11.585329Z",
+      "completed_at": "2026-06-02T10:43:11.775917Z",
+      "commit_hash": "a681b47",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3199,7 +3221,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 1023,
+        "removed": 191,
+        "net": 832,
+        "files_changed": 12
+      }
     },
     {
       "id": 90,
@@ -3209,19 +3237,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Message delivers at its scheduled time",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #90 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T10:43:12.153433Z"
       },
       "research_refs": [
         "openwhen"
       ],
       "rationale": "Async surprises across timezones",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T10:43:11.962089Z",
+      "completed_at": "2026-06-02T10:43:12.153450Z",
+      "commit_hash": "a681b47",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3231,7 +3260,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 1023,
+        "removed": 191,
+        "net": 832,
+        "files_changed": 12
+      }
     },
     {
       "id": 91,
@@ -3923,6 +3958,116 @@
       "timestamp": "2026-06-02T10:27:58.850355Z",
       "operation": "feature_started",
       "feature_id": 34,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:10.621442Z",
+      "operation": "feature_passed",
+      "feature_id": 34,
+      "details": {
+        "commit_hash": "a681b47",
+        "loc_stats": {
+          "added": 1023,
+          "removed": 191,
+          "net": 832,
+          "files_changed": 12
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:10.809232Z",
+      "operation": "feature_started",
+      "feature_id": 73,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:11.010083Z",
+      "operation": "feature_passed",
+      "feature_id": 73,
+      "details": {
+        "commit_hash": "a681b47",
+        "loc_stats": {
+          "added": 1023,
+          "removed": 191,
+          "net": 832,
+          "files_changed": 12
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:11.194812Z",
+      "operation": "feature_started",
+      "feature_id": 88,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:11.391860Z",
+      "operation": "feature_passed",
+      "feature_id": 88,
+      "details": {
+        "commit_hash": "a681b47",
+        "loc_stats": {
+          "added": 1023,
+          "removed": 191,
+          "net": 832,
+          "files_changed": 12
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:11.585366Z",
+      "operation": "feature_started",
+      "feature_id": 89,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:11.775940Z",
+      "operation": "feature_passed",
+      "feature_id": 89,
+      "details": {
+        "commit_hash": "a681b47",
+        "loc_stats": {
+          "added": 1023,
+          "removed": 191,
+          "net": 832,
+          "files_changed": 12
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:11.962135Z",
+      "operation": "feature_started",
+      "feature_id": 90,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:43:12.153472Z",
+      "operation": "feature_passed",
+      "feature_id": 90,
+      "details": {
+        "commit_hash": "a681b47",
+        "loc_stats": {
+          "added": 1023,
+          "removed": 191,
+          "net": 832,
+          "files_changed": 12
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:44:57.421435Z",
+      "operation": "feature_started",
+      "feature_id": 48,
       "details": {
         "from_status": "pending"
       }

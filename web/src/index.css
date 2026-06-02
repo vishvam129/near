@@ -348,6 +348,206 @@ select.input {
   flex: 1;
 }
 
+/* ---- greeting ---- */
+.greeting {
+  text-align: left;
+}
+.greeting-row {
+  display: flex;
+  gap: 8px;
+}
+.greeting-btn {
+  flex: 1;
+  padding: 12px 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--txt);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.greeting-btn:disabled {
+  opacity: 0.7;
+}
+.greeting-from {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---- memory timeline ---- */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+.tl-item {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 14px;
+  position: relative;
+}
+.tl-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 16px;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
+.tl-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--grad);
+  margin-top: 4px;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.tl-body {
+  flex: 1;
+  min-width: 0;
+}
+.tl-date {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tl-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+.tl-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ---- games ---- */
+.game-card {
+  text-align: left;
+}
+.spicy-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+.td-prompt {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.td-kind {
+  display: block;
+  font-size: 11px;
+  color: var(--pink);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.wyr-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.wyr-opt {
+  position: relative;
+  text-align: left;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--txt);
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.wyr-opt.sel {
+  border-color: var(--pink);
+}
+.wyr-opt.theirs {
+  background: rgba(155, 109, 255, 0.14);
+}
+.wyr-or {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.wyr-tag {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px 7px;
+  color: var(--muted);
+}
+.wyr-tag.you {
+  color: var(--pink);
+}
+.wyr-hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 4px 0 10px;
+}
+.wyr-result {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 4px 0 10px;
+}
+.knowme-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.knowme-tab {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--muted);
+  border-radius: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.knowme-tab.active {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+}
+.knowme-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.knowme-guess {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+.knowme-answer {
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
 /* ---- date ideas ---- */
 .date-ideas {
   text-align: left;

@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #34 [Planning] Shared to-do lists
-   Started: 2026-06-02T10:27:58.850314Z
+**In Progress:** #48 [Daily Rituals] Good-morning / good-night ritual prompts
+   Started: 2026-06-02T10:44:57.421367Z
 
 ## Summary
 
-Progress: ██████░░░░░░░░░░░░░░░░░░░░░░░░ 21.9%
+Progress: ████████░░░░░░░░░░░░░░░░░░░░░░ 27.1%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 21 | 21.9% |
+| Passed | 26 | 27.1% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 74 | 77.1% |
+| Pending | 69 | 71.9% |
 
 ## Session Statistics
 
-- **Sessions:** 23
-- **Last Started:** 2026-06-02T10:27:58.850336Z
+- **Sessions:** 28
+- **Last Started:** 2026-06-02T10:44:57.421415Z
 
 ## Categories
 
@@ -34,7 +34,7 @@ Progress: ██████░░░░░░░░░░░░░░░░░�
 | Micro-connection | ██░░░░░░░░ 20% | 2 | 0 | 0 |
 | Watch Together | ██░░░░░░░░ 25% | 1 | 0 | 0 |
 | Games | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Planning | ██░░░░░░░░ 25% | 2 | 0 | 0 |
+| Planning | ███░░░░░░░ 38% | 3 | 0 | 0 |
 | Memories | ██░░░░░░░░ 20% | 1 | 0 | 0 |
 | Daily Rituals | █████░░░░░ 57% | 4 | 0 | 0 |
 | Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -43,17 +43,22 @@ Progress: ██████░░░░░░░░░░░░░░░░░�
 | Monetization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Differentiator | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | IoT | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Activities | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
+| Activities | ██░░░░░░░░ 20% | 1 | 0 | 0 |
 | Wellbeing | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Habits | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Finances | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Gestures | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
+| Gestures | ██████████ 100% | 3 | 0 | 0 |
 | Localization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 
 ## Feature Metrics
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #90 | passed | 0s | 1023 | 191 | 832 | 12 | 0 | yes |
+| #89 | passed | 0s | 1023 | 191 | 832 | 12 | 0 | yes |
+| #88 | passed | 0s | 1023 | 191 | 832 | 12 | 0 | yes |
+| #73 | passed | 0s | 1023 | 191 | 832 | 12 | 0 | yes |
+| #34 | passed | 15m 11s | 1023 | 191 | 832 | 12 | 0 | yes |
 | #51 | passed | 0s | 37 | 19 | 18 | 3 | 0 | yes |
 | #50 | passed | 0s | 37 | 19 | 18 | 3 | 0 | yes |
 | #42 | passed | 0s | 37 | 19 | 18 | 3 | 0 | yes |
@@ -82,17 +87,17 @@ Progress: ██████░░░░░░░░░░░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-02T10:43 | #90 Schedule a surprise message to arrive later | P | a681b47 |
+| 2026-06-02T10:43 | #89 Reasons-I-love-you jar (random on tap) | P | a681b47 |
+| 2026-06-02T10:43 | #88 Open-when digital letters unlocked by trigger | P | a681b47 |
+| 2026-06-02T10:43 | #73 Virtual date-idea generator (A-Z ideas, mood/budge | P | a681b47 |
+| 2026-06-02T10:43 | #34 Shared to-do lists | P | a681b47 |
 | 2026-06-02T10:24 | #51 Connection streaks (consecutive days both engaged) | P | 017da55 |
 | 2026-06-02T10:24 | #50 Gratitude / appreciation notes | P | 017da55 |
 | 2026-06-02T10:24 | #42 Shared journal & love letters | P | 017da55 |
 | 2026-06-02T10:24 | #37 Shared bucket list / wish box / goals | P | 017da55 |
 | 2026-06-02T10:24 | #25 Watch-together synced YouTube playback | P | 017da55 |
-| 2026-06-02T10:24 | #36 Important dates with reminders (anniversary, birth | P | 017da55 |
-| 2026-06-02T09:59 | #22 Live partner status (online, sleeping, busy) | P | 3221e44 |
-| 2026-06-02T09:59 | #49 Mood / feelings check-in tracker | P | 3221e44 |
-| 2026-06-02T07:11 | #45 Daily question hidden until both partners answer | P | 0a804ac |
-| 2026-06-02T07:11 | #19 Thinking-of-you tap that buzzes/notifies partner | P | 0a804ac |
 
 ---
-*Last updated: 2026-06-02T10:27:58.879820Z*
-*Session 23*
+*Last updated: 2026-06-02T10:44:57.450752Z*
+*Session 28*

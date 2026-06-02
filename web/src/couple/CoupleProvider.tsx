@@ -52,6 +52,8 @@ export type CoupleDoc = {
   moods: Record<string, string>
   watch: WatchState | null
   streak: { count: number; lastDay: string } | null
+  greeting: { type: string; from: string; at: Date | null } | null
+  wyr: { idx: number; picks: Record<string, 'a' | 'b'> } | null
 }
 
 export type WatchState = {
@@ -79,6 +81,9 @@ type CoupleContextValue = {
   setMood: (emoji: string) => Promise<void>
   updateWatch: (w: { videoId: string; playing: boolean; positionSec: number }) => Promise<void>
   bumpStreak: () => Promise<void>
+  sendGreeting: (type: string) => Promise<void>
+  newWyr: (idx: number) => Promise<void>
+  pickWyr: (choice: 'a' | 'b') => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -240,6 +245,10 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         moods: d.moods ?? {},
         watch: d.watch ?? null,
         streak: d.streak ?? null,
+        greeting: d.greeting
+          ? { type: d.greeting.type, from: d.greeting.from, at: d.greeting.at?.toDate?.() ?? null }
+          : null,
+        wyr: d.wyr ?? null,
       })
     })
   }, [profile?.coupleId])
@@ -349,6 +358,23 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { [`moods.${user.uid}`]: emoji })
   }
 
+  async function sendGreeting(type: string) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      greeting: { type, from: user.uid, at: serverTimestamp() },
+    })
+  }
+
+  async function newWyr(idx: number) {
+    if (!db || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { wyr: { idx, picks: {} } })
+  }
+
+  async function pickWyr(choice: 'a' | 'b') {
+    if (!db || !user || !couple?.wyr) return
+    await updateDoc(doc(db, 'couples', couple.id), { [`wyr.picks.${user.uid}`]: choice })
+  }
+
   async function updateWatch(w: { videoId: string; playing: boolean; positionSec: number }) {
     if (!db || !user || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), {
@@ -388,6 +414,9 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     setMood,
     updateWatch,
     bumpStreak,
+    sendGreeting,
+    newWyr,
+    pickWyr,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>

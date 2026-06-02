@@ -4,6 +4,7 @@ import { DateIdeas } from '../components/DateIdeas'
 import { OpenWhen } from '../components/OpenWhen'
 import { ReasonsJar } from '../components/ReasonsJar'
 import { ScheduleMessage } from '../components/ScheduleMessage'
+import { MemoryTimeline } from '../components/MemoryTimeline'
 
 export default function More() {
   return (
@@ -13,6 +14,7 @@ export default function More() {
           <span className="dot" /> More
         </div>
 
+        <MemoryTimeline />
         <DateIdeas />
         <ReasonsJar />
         <OpenWhen />

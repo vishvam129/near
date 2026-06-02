@@ -1,9 +1,10 @@
-export type Tab = 'home' | 'chat' | 'watch' | 'more'
+export type Tab = 'home' | 'chat' | 'watch' | 'games' | 'more'
 
 const TABS: { id: Tab; icon: string; label: string }[] = [
   { id: 'home', icon: '🏠', label: 'Home' },
   { id: 'chat', icon: '💬', label: 'Chat' },
   { id: 'watch', icon: '🍿', label: 'Watch' },
+  { id: 'games', icon: '🎮', label: 'Games' },
   { id: 'more', icon: '✨', label: 'More' },
 ]
 

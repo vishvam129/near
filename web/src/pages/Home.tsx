@@ -7,6 +7,7 @@ import { TogetherCounter } from '../components/TogetherCounter'
 import { DailyQuestion } from '../components/DailyQuestion'
 import { Mood } from '../components/Mood'
 import { ImportantDates } from '../components/ImportantDates'
+import { Greeting } from '../components/Greeting'
 import EditProfile from './EditProfile'
 
 export default function Home() {
@@ -41,6 +42,8 @@ export default function Home() {
         ) : null}
 
         {profile && <Clocks you={profile} partner={partner} />}
+
+        <Greeting />
 
         <Mood />
 
