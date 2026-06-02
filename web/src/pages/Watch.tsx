@@ -40,6 +40,18 @@ export default function Watch() {
   const [urlInput, setUrlInput] = useState('')
   const [error, setError] = useState<string | null>(null)
 
+  // Tear the player down when leaving the Watch tab.
+  useEffect(() => {
+    return () => {
+      try {
+        playerRef.current?.destroy?.()
+      } catch {
+        /* ignore */
+      }
+      playerRef.current = null
+    }
+  }, [])
+
   // Create the player once a video exists.
   useEffect(() => {
     if (!watch?.videoId || !hostRef.current || playerRef.current) return

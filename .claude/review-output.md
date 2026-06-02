@@ -1,22 +1,22 @@
-# Code Review — #49 mood check-in + #22 live partner presence
+# Code Review — batch: #36 dates, #25 watch, #37 bucket, #42 journal, #50 gratitude, #51 streak
 
-Reviewed CoupleProvider (moods + setMood, lastActive + heartbeat), Mood.tsx, Chat.tsx
-(presence header), format.ts (timeAgo). Build passes; both verified in browser.
+Reviewed Watch.tsx, CoupleProvider (watch/streak), EntryList, BucketList, ImportantDates,
+DailyQuestion, format.ts. Build passes; all verified in browser.
 
-## Heartbeat loop check (primary concern) — SAFE
-Heartbeat writes users/{uid}.lastActive; own-profile onSnapshot re-fires but the effect
-deps are [user] (no re-subscribe), couple effect keys on primitive coupleId, partner
-effect on [couple,user] — none re-fire from a heartbeat. Net: one benign re-render/40s.
-Cleanup (cancelled guard, interval, listeners) correct.
+## Fixed (was REJECT)
+- HIGH: bumpStreak was a non-transactional read-modify-write (race/double-count between
+  two clients) → now runTransaction (reads streak inside tx; idempotent under concurrency).
+- MEDIUM: Watch player never destroyed → added unmount cleanup calling player.destroy().
 
 ## Verified clean
-- setMood toggle/clear ('' falsy → hidden) round-trips correctly; partner mood display ok.
-- presence online null-guards lastActive; 20s re-eval; timeAgo correct.
-- rules permit lastActive self-write and moods.{uid} member write.
+- Watch sync converges (no echo/loop): apply skipped when updatedBy===me or
+  updatedAt<=lastApplied; applyingRemote suppresses programmatic echo; updatedAt monotonic.
+- EntryList null-createdAt sort is cosmetic/self-correcting; delete gated client-side
+  (rules trust members — by design).
+- ImportantDates recurring math correct.
 
-## Non-blocking notes
-- own-profile re-renders every 40s (lastActive changes) — harmless at couple scale.
-- online badge can lag up to ~20s past the 75s cutoff (re-eval cadence). Fine.
-- cleared mood lingers as '' rather than deleteField — acceptable.
+## Known minor (acceptable)
+- Watch updatedAt uses client clock (skew tolerable for a couple).
+- Subcollection delete not author-restricted at rules layer (trusted members).
 
 VERDICT: APPROVE

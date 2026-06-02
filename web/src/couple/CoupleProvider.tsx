@@ -358,11 +358,17 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
 
   async function bumpStreak() {
     if (!db || !couple) return
+    const coupleRef = doc(db, 'couples', couple.id)
     const today = utcDayKey()
-    const s = couple.streak
-    if (s?.lastDay === today) return // already counted today
-    const count = s?.lastDay === utcDayKey(-1) ? s.count + 1 : 1
-    await updateDoc(doc(db, 'couples', couple.id), { streak: { count, lastDay: today } })
+    const yesterday = utcDayKey(-1)
+    // Transaction so two clients bumping at once can't double-count or clobber.
+    await runTransaction(db, async (tx) => {
+      const snap = await tx.get(coupleRef)
+      const s = snap.data()?.streak as { count: number; lastDay: string } | undefined
+      if (s?.lastDay === today) return
+      const count = s?.lastDay === yesterday ? s.count + 1 : 1
+      tx.update(coupleRef, { streak: { count, lastDay: today } })
+    })
   }
 
   const value: CoupleContextValue = {
