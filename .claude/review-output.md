@@ -1,19 +1,20 @@
-# Code Review — batch: #34 to-do, #73 date ideas, #88 open-when, #89 reasons, #90 scheduled
+# Code Review — batch: #48 ritual, #41 timeline, #29 WYR, #30 know-me, #31 truth/dare
 
-Reviewed CheckList, DateIdeas, OpenWhen, ReasonsJar, ScheduleMessage, ScheduledDelivery,
-More, Shell. Build passes; all verified in browser.
+Reviewed CoupleProvider (greeting/wyr), Greeting, MemoryTimeline, WouldYouRather,
+KnowMeQuiz, TruthOrDare. Build passes; all verified in browser.
 
-## Verified correct
-- ScheduledDelivery: cross-collection transaction reads schedRef then update+set → the
-  real cross-client guard. snapshot+20s interval double-firing is idempotent (transaction
-  + delivered flag); deliveringRef arms/disarms in finally; cleanup unsub+clearInterval ok.
-  No double or missed delivery.
-- Random pick loops (ReasonsJar, DateIdeas) terminate for 0/1/n items.
-- OpenWhen reveal is client-only UI state (by design). CheckList correct.
+## Fixed (was HIGH)
+- KnowMeQuiz: own-doc snapshot overwrote in-progress typing (controlled inputs re-seeded
+  on every server echo → lost-update). Now seeds `mine` ONCE from the server (seeded ref,
+  reset per uid); local edits own the inputs afterward.
 
-## Known caveats (by design)
-- Scheduled messages deliver only while at least one partner has the app open (no server
-  cron). Server-side scheduling would come with a backend / #57.
-- deliverAt judged by client clock (skew tolerable).
+## Verified clean
+- WYR: pickWyr requires couple.wyr; buttons disabled after picking; newWyr resets picks.
+- Greeting null-safe; only shows partner's greeting.
+- MemoryTimeline date-string sort correct; form requires a date.
+- TruthOrDare local, in-bounds random.
+
+## Known minor (acceptable, loose-writes tolerance)
+- WYR: simultaneous "Next" by both can last-writer-wins flip the question; cosmetic, rare.
 
 VERDICT: APPROVE

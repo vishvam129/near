@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../lib/firebase'
 import { useAuth } from '../../auth/AuthProvider'
@@ -14,13 +14,20 @@ export function KnowMeQuiz() {
   const [revealed, setRevealed] = useState<Record<number, boolean>>({})
   const [busy, setBusy] = useState(false)
   const [saved, setSaved] = useState(false)
+  const seeded = useRef(false)
   const coupleId = couple?.id
 
+  // Seed my answers from the server ONCE; after that local edits own the inputs
+  // (so a save's snapshot echo can't wipe characters typed in the meantime).
   useEffect(() => {
     if (!db || !coupleId || !user) return
-    return onSnapshot(doc(db, 'couples', coupleId, 'knowme', user.uid), (s) =>
-      setMine(s.data()?.answers ?? {}),
-    )
+    seeded.current = false
+    return onSnapshot(doc(db, 'couples', coupleId, 'knowme', user.uid), (s) => {
+      if (!seeded.current) {
+        setMine(s.data()?.answers ?? {})
+        seeded.current = true
+      }
+    })
   }, [coupleId, user?.uid])
 
   useEffect(() => {
