@@ -65,7 +65,9 @@ export function MessageRow({
     swiping.current = false
     startX.current = e.clientX
     startY.current = e.clientY
-    e.currentTarget.setPointerCapture?.(e.pointerId)
+    // NOTE: do NOT capture the pointer here — capturing on pointer-down steals
+    // taps from child buttons (reactions, ＋, reply). We capture only once an
+    // actual horizontal swipe begins (in onPointerMove).
     clearLp()
     lpTimer.current = window.setTimeout(() => {
       if (!swiping.current) onToggleReactBar(m)
@@ -80,6 +82,7 @@ export function MessageRow({
       swiping.current = true
       setDragActive(true)
       clearLp()
+      e.currentTarget.setPointerCapture?.(e.pointerId) // capture only once swiping
     }
     if (swiping.current) {
       const mag = Math.min(SWIPE_MAX, Math.abs(ddx))
@@ -161,13 +164,14 @@ export function MessageRow({
             type="button"
             className="reply-trigger"
             aria-label="Reply"
+            onPointerDown={(e) => e.stopPropagation()}
             onClick={() => onReply(m)}
           >
             ↩
           </button>
 
           {reacting && (
-            <div className="react-bar">
+            <div className="react-bar" onPointerDown={(e) => e.stopPropagation()}>
               {REACTIONS.map((e) => (
                 <button
                   key={e}

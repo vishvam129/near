@@ -1,10 +1,20 @@
-import { useEffect, useRef } from 'react'
+import { useMemo, useState } from 'react'
 import data from '@emoji-mart/data'
-import { Picker } from 'emoji-mart'
 
-type EmojiPickerCtor = new (options: Record<string, unknown>) => HTMLElement
+type EmojiItem = {
+  id: string
+  name: string
+  keywords?: string[]
+  skins: { native: string }[]
+}
 
-/** Full searchable emoji picker (emoji-mart core) in a dismissable overlay. */
+// Reuse emoji-mart's full dataset, but render our own grid so taps are plain
+// React handlers (reliable) instead of going through the emoji-mart web component.
+const ALL: EmojiItem[] = Object.values(
+  (data as { emojis: Record<string, EmojiItem> }).emojis,
+)
+
+/** Full searchable emoji picker in a centered, dismissable card. */
 export function EmojiPicker({
   onPick,
   onClose,
@@ -12,31 +22,48 @@ export function EmojiPicker({
   onPick: (emoji: string) => void
   onClose: () => void
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  // Keep the latest onPick without rebuilding the picker on every parent render
-  // (an incoming message / typing update would otherwise reset search state).
-  const onPickRef = useRef(onPick)
-  onPickRef.current = onPick
+  const [q, setQ] = useState('')
 
-  useEffect(() => {
-    const host = ref.current
-    if (!host) return
-    const picker = new (Picker as EmojiPickerCtor)({
-      data,
-      theme: 'dark',
-      previewPosition: 'none',
-      skinTonePosition: 'none',
-      onEmojiSelect: (e: { native: string }) => onPickRef.current(e.native),
-    })
-    host.appendChild(picker)
-    return () => {
-      host.innerHTML = ''
-    }
-  }, [])
+  const list = useMemo(() => {
+    const query = q.trim().toLowerCase()
+    if (!query) return ALL
+    return ALL.filter(
+      (e) =>
+        e.id.includes(query) ||
+        e.name.toLowerCase().includes(query) ||
+        e.keywords?.some((k) => k.includes(query)),
+    )
+  }, [q])
 
   return (
     <div className="emoji-overlay" onClick={onClose}>
-      <div className="emoji-pop" ref={ref} onClick={(e) => e.stopPropagation()} />
+      <div className="emoji-pop" onClick={(e) => e.stopPropagation()}>
+        <div className="emoji-head">
+          <input
+            className="emoji-search"
+            type="text"
+            placeholder="Search emoji"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+          <button type="button" className="emoji-close" aria-label="Close" onClick={onClose}>
+            ✕
+          </button>
+        </div>
+        <div className="emoji-grid">
+          {list.map((e) => (
+            <button
+              key={e.id}
+              type="button"
+              className="emoji-cell"
+              title={e.name}
+              onClick={() => onPick(e.skins[0].native)}
+            >
+              {e.skins[0].native}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
