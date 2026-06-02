@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 11,
+  "current_feature_id": 19,
   "session": {
-    "count": 9,
-    "last_started_at": "2026-06-01T07:13:07.062078Z",
+    "count": 13,
+    "last_started_at": "2026-06-02T06:44:32.655639Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 7,
+    "passed": 11,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 88,
-    "completion_percentage": 7.3
+    "pending": 84,
+    "completion_percentage": 11.5
   },
   "categories": [
     {
@@ -53,7 +53,7 @@
     {
       "name": "Messaging",
       "total": 7,
-      "passed": 1,
+      "passed": 5,
       "failed": 0,
       "skipped": 0
     },
@@ -564,20 +564,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Message sent by A appears for B within ~1s",
-        "completed": false,
-        "evidence": null,
+        "completed": true,
+        "evidence": "Real-time 1:1 chat verified live both directions; bottom-nav shell.",
         "requirements_addressed": [],
-        "verified_at": "2026-06-01T07:04:00.980011Z"
+        "verified_at": "2026-06-02T06:35:58.688125Z"
       },
       "research_refs": [
         "between"
       ],
       "rationale": "Core daily communication",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-01T07:13:07.062057Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-02T06:35:58.688145Z",
+      "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -589,10 +589,10 @@
       "depth": 1,
       "verification_level": "beta",
       "loc_stats": {
-        "added": 29,
-        "removed": 11,
-        "net": 18,
-        "files_changed": 1
+        "added": 118,
+        "removed": 29,
+        "net": 89,
+        "files_changed": 3
       }
     },
     {
@@ -603,19 +603,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Photo uploads and displays in the thread",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Photo messages: pick/resize/send inline, full-screen lightbox; verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T06:35:59.114916Z"
       },
       "research_refs": [
         "between"
       ],
       "rationale": "Sharing daily moments",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T06:35:58.895357Z",
+      "completed_at": "2026-06-02T06:35:59.114936Z",
+      "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -625,7 +626,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 118,
+        "removed": 29,
+        "net": 89,
+        "files_changed": 3
+      }
     },
     {
       "id": 13,
@@ -635,19 +642,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Reaction shows under a message for both",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Reactions: quick bar + full emoji picker, corner chips; verified working.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T06:35:59.520335Z"
       },
       "research_refs": [
         "paired"
       ],
       "rationale": "Lightweight expressive feedback",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T06:35:59.320364Z",
+      "completed_at": "2026-06-02T06:35:59.520356Z",
+      "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -657,7 +665,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 118,
+        "removed": 29,
+        "net": 89,
+        "files_changed": 3
+      }
     },
     {
       "id": 14,
@@ -731,19 +745,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Typing and read states reflect in real time",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Typing indicator + Seen/Sent receipts via couple-doc fields; built & reviewed.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T06:35:59.966111Z"
       },
       "research_refs": [
         "between"
       ],
       "rationale": "Presence cues reduce LDR anxiety",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T06:35:59.733511Z",
+      "completed_at": "2026-06-02T06:35:59.966129Z",
+      "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -753,7 +768,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 118,
+        "removed": 29,
+        "net": 89,
+        "files_changed": 3
+      }
     },
     {
       "id": 17,
@@ -835,9 +856,9 @@
         "bondtouch"
       ],
       "rationale": "Bond Touch's signature single-tap love",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-02T06:44:32.655604Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3524,6 +3545,94 @@
       "timestamp": "2026-06-01T07:13:07.062096Z",
       "operation": "feature_started",
       "feature_id": 11,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:35:58.688168Z",
+      "operation": "feature_passed",
+      "feature_id": 11,
+      "details": {
+        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
+        "loc_stats": {
+          "added": 118,
+          "removed": 29,
+          "net": 89,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:35:58.895421Z",
+      "operation": "feature_started",
+      "feature_id": 12,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:35:59.114959Z",
+      "operation": "feature_passed",
+      "feature_id": 12,
+      "details": {
+        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
+        "loc_stats": {
+          "added": 118,
+          "removed": 29,
+          "net": 89,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:35:59.320429Z",
+      "operation": "feature_started",
+      "feature_id": 13,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:35:59.520381Z",
+      "operation": "feature_passed",
+      "feature_id": 13,
+      "details": {
+        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
+        "loc_stats": {
+          "added": 118,
+          "removed": 29,
+          "net": 89,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:35:59.733552Z",
+      "operation": "feature_started",
+      "feature_id": 16,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:35:59.966149Z",
+      "operation": "feature_passed",
+      "feature_id": 16,
+      "details": {
+        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
+        "loc_stats": {
+          "added": 118,
+          "removed": 29,
+          "net": 89,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T06:44:32.655661Z",
+      "operation": "feature_started",
+      "feature_id": 19,
       "details": {
         "from_status": "pending"
       }

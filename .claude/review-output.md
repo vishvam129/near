@@ -1,32 +1,29 @@
-# Code Review — Dashboard batch (features #5 clocks, #6 countdown, #7 together-counter)
+# Code Review — Messaging batch (#11 chat, #12 photos, #13 reactions, #16 typing/seen)
 
-Files: CoupleProvider.tsx, Clocks.tsx, Countdown.tsx, TogetherCounter.tsx,
-lib/format.ts, lib/india.ts, EditProfile.tsx, Home.tsx. Build passes; verified in browser.
+Reviewed: useMessages.ts, MessageRow.tsx, Chat.tsx, CoupleProvider.tsx, EmojiPicker.tsx,
+lib/image.ts, lib/format.ts. Build passes; verified working in the browser (real-time
+chat, photos, reactions via quick bar + full picker, swipe-to-reply, double-tap ❤️,
+long-press, unsend, day separators).
 
-## HIGH (fixed)
-- `durationSince` month-borrow produced negative days for end-of-month start dates
-  (e.g. Jan 31 → Mar 1 rendered "1 month, -1 days"). **Fixed**: replaced with a
-  cursor-stepping algorithm (advance whole years, then whole months, then count
-  remaining days) that is always non-negative. Verified across edge cases:
-  - 2024-01-31 → 2024-03-01 = 30 days
-  - 2023-03-31 → 2024-03-01 = 11 months
-  - 2020-12-31 → 2026-06-01 = 5y 4m 29d
-  No negative values in any tested case.
-
-## LOW (acknowledged, no action)
-- countdownTo / durationSince parse the date at local midnight and diff against local
-  now; across a DST change the hours value can be off by one. Acceptable for a
-  days/months display.
+## Resolved during review
+- Swipe could drop on a fast flick (read stale React state) → now uses a live `dxRef`.
+- Full emoji picker rebuilt on every parent render (flicker) → replaced the emoji-mart
+  web component with a custom React grid over the same dataset (also fixed taps not
+  registering) — centered modal, search, close button.
+- Pointer-capture on pointer-down stole taps from the in-message buttons (reactions, ＋,
+  reply) → capture only once a swipe starts; stopPropagation on those buttons.
 
 ## Verified clean
-- CoupleProvider: all three effects return their unsubscribe; profile effect uses a
-  `cancelled` guard (StrictMode-safe); couple-doc and partner effects re-key correctly,
-  tearing down old listeners. No leak / double-subscribe.
-- updateMeetup/updateSince: field-merge updateDoc leaves `members` untouched → satisfies
-  the membership-immutability rule.
-- Interval cleanup in Clocks (1s) and Countdown (60s) correct; one interval drives both
-  clock columns.
-- countdownTo decomposition correct; india.ts (28 states + 8 UTs); EditProfile optgroup +
-  datalist + custom-tz fallback option; Home re-key on uid.
+- Gesture disambiguation (tap/double-tap/long-press/swipe); timers cleared on
+  swipe-start/move/up/cancel; pointercancel resets state.
+- Outside-tap dismiss listener for the reaction bar adds/removes correctly.
+- Typing debounce clears + flushes on unmount; markRead writes once per message change.
+- Seen comparison guards nulls; setReaction/deleteField dotted writes correct.
+- deleteMessage gated to own messages in UI; couple-doc typing/lastRead writes satisfy
+  the members-unchanged rule.
+
+## Known minor (acceptable / deferred)
+- markRead writes one couple-doc update per inbound message (fine for 1:1).
+- Either member can technically delete a message at the rules layer (UI gates to own).
 
 VERDICT: APPROVE

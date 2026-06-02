@@ -4,12 +4,24 @@ import { useCouple } from '../couple/CoupleProvider'
 import { Clocks } from '../components/Clocks'
 import { Countdown } from '../components/Countdown'
 import { TogetherCounter } from '../components/TogetherCounter'
+import { DailyQuestion } from '../components/DailyQuestion'
 import EditProfile from './EditProfile'
 
 export default function Home() {
   const { logout } = useAuth()
-  const { profile, partner } = useCouple()
+  const { profile, partner, sendPoke } = useCouple()
   const [editing, setEditing] = useState(false)
+  const [poked, setPoked] = useState(false)
+
+  async function thinkingOfYou() {
+    try {
+      await sendPoke()
+      setPoked(true)
+      window.setTimeout(() => setPoked(false), 1800)
+    } catch {
+      /* best-effort */
+    }
+  }
 
   // key on uid so the form re-initialises from fresh profile data if it changes
   if (editing) return <EditProfile key={profile?.uid} onDone={() => setEditing(false)} />
@@ -26,7 +38,13 @@ export default function Home() {
 
         <Countdown />
 
-        <button className="btn" type="button" onClick={() => setEditing(true)}>
+        <DailyQuestion />
+
+        <button className="btn love-send" type="button" onClick={thinkingOfYou} disabled={poked}>
+          {poked ? 'Sent 💗' : '💗 Thinking of you'}
+        </button>
+
+        <button className="btn btn-ghost" type="button" onClick={() => setEditing(true)}>
           Edit your profile
         </button>
         <button className="btn btn-ghost" type="button" onClick={() => void logout()}>

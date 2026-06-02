@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #11 [Messaging] Real-time 1:1 text chat
-   Started: 2026-06-01T07:13:07.062057Z
+**In Progress:** #19 [Micro-connection] Thinking-of-you tap that buzzes/notifies partner
+   Started: 2026-06-02T06:44:32.655604Z
 
 ## Summary
 
-Progress: ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 7.3%
+Progress: ███░░░░░░░░░░░░░░░░░░░░░░░░░░░ 11.5%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 7 | 7.3% |
+| Passed | 11 | 11.5% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 88 | 91.7% |
+| Pending | 84 | 87.5% |
 
 ## Session Statistics
 
-- **Sessions:** 9
-- **Last Started:** 2026-06-01T07:13:07.062078Z
+- **Sessions:** 13
+- **Last Started:** 2026-06-02T06:44:32.655639Z
 
 ## Categories
 
@@ -30,7 +30,7 @@ Progress: ██░░░░░░░░░░░░░░░░░░░░░�
 | Accounts | ██████████ 100% | 3 | 0 | 0 |
 | Security | ██░░░░░░░░ 25% | 1 | 0 | 0 |
 | Time & Distance | █████░░░░░ 50% | 3 | 0 | 0 |
-| Messaging | █░░░░░░░░░ 14% | 1 | 0 | 0 |
+| Messaging | ███████░░░ 71% | 5 | 0 | 0 |
 | Micro-connection | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Watch Together | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Games | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -54,6 +54,10 @@ Progress: ██░░░░░░░░░░░░░░░░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #16 | passed | 0s | 118 | 29 | 89 | 3 | 0 | yes |
+| #13 | passed | 0s | 118 | 29 | 89 | 3 | 0 | yes |
+| #12 | passed | 0s | 118 | 29 | 89 | 3 | 0 | yes |
+| #11 | passed | 23h 22m 51s | 118 | 29 | 89 | 3 | 0 | yes |
 | #7 | passed | 0s | 29 | 11 | 18 | 1 | 0 | yes |
 | #6 | passed | 24s | 29 | 11 | 18 | 1 | 0 | yes |
 | #5 | passed | 1h 48m 3s | 29 | 11 | 18 | 1 | 0 | yes |
@@ -68,14 +72,17 @@ Progress: ██░░░░░░░░░░░░░░░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-02T06:35 | #16 Read receipts and typing indicator | P | 1dae1d8 |
+| 2026-06-02T06:35 | #13 Emoji reactions on messages | P | 1dae1d8 |
+| 2026-06-02T06:35 | #12 Photo sharing in chat (upload to Storage) | P | 1dae1d8 |
+| 2026-06-02T06:35 | #11 Real-time 1:1 text chat | P | 1dae1d8 |
 | 2026-06-01T07:08 | #7 Relationship duration counter (together for Xy Xm  | P | dc01bda |
 | 2026-06-01T07:04 | #6 Countdown to next visit with editable date and pla | P | dc01bda |
 | 2026-06-01T07:03 | #5 Two live clocks: your timezone and partner's side  | P | dc01bda |
 | 2026-06-01T05:14 | #4 Firestore security rules limiting all couple data  | P | 17515ce |
 | 2026-05-29T13:10 | #3 Couple profile: name, photo, timezone, city | P | 21855f3 |
 | 2026-05-29T12:52 | #2 Invite-code pairing that links exactly two account | P | 1152d22 |
-| 2026-05-29T12:31 | #1 Email/Google sign-in with Firebase Auth | P | 3f9ef3d |
 
 ---
-*Last updated: 2026-06-01T07:13:07.096563Z*
-*Session 9*
+*Last updated: 2026-06-02T06:44:32.701854Z*
+*Session 13*

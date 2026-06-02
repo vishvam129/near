@@ -46,6 +46,7 @@ export type CoupleDoc = {
   createdAt: Date | null
   typing: Record<string, boolean>
   lastRead: Record<string, Date | null>
+  poke: { from: string; at: Date | null } | null
 }
 
 type CoupleContextValue = {
@@ -61,6 +62,7 @@ type CoupleContextValue = {
   updateSince: (date: string | null) => Promise<void>
   setTyping: (typing: boolean) => Promise<void>
   markRead: () => Promise<void>
+  sendPoke: () => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -194,6 +196,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         createdAt: d.createdAt?.toDate?.() ?? null,
         typing: d.typing ?? {},
         lastRead,
+        poke: d.poke ? { from: d.poke.from, at: d.poke.at?.toDate?.() ?? null } : null,
       })
     })
   }, [profile?.coupleId])
@@ -291,6 +294,13 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function sendPoke() {
+    if (!db || !user || !couple) throw new Error('Not connected yet.')
+    await updateDoc(doc(db, 'couples', couple.id), {
+      poke: { from: user.uid, at: serverTimestamp() },
+    })
+  }
+
   const value: CoupleContextValue = {
     loading,
     profile,
@@ -304,6 +314,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     updateSince,
     setTyping,
     markRead,
+    sendPoke,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>
