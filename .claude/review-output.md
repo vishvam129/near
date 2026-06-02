@@ -1,20 +1,17 @@
-# Code Review — batch: #48 ritual, #41 timeline, #29 WYR, #30 know-me, #31 truth/dare
+# Code Review — batch: #39 savings, #86 expenses, #87 split, #81 check-in, #82 score
 
-Reviewed CoupleProvider (greeting/wyr), Greeting, MemoryTimeline, WouldYouRather,
-KnowMeQuiz, TruthOrDare. Build passes; all verified in browser.
+Reviewed CoupleProvider (savings + setSavingsGoal/addToSavings), SavingsGoal, Expenses,
+WeeklyCheckin, HealthScore. Build passes; all verified in browser.
 
-## Fixed (was HIGH)
-- KnowMeQuiz: own-doc snapshot overwrote in-progress typing (controlled inputs re-seeded
-  on every server echo → lost-update). Now seeds `mine` ONCE from the server (seeded ref,
-  reset per uid); local edits own the inputs afterward.
+## Verified correct
+- addToSavings: read-then-write inside runTransaction (race-safe, preserves label,
+  coerces numbers, guards amount<=0). setSavingsGoal preserves existing saved.
+- Expenses split: theirSum=total-mySum, balance=mySum-total/2, correct signs/who-owes;
+  all-square tolerance.
+- WeeklyCheckin: UTC-Monday key; setDoc(merge) deep-merges nested ratings/notes; reveal
+  gated (ratings always 1-5, no falsy-0). HealthScore null-safe + clamped.
 
-## Verified clean
-- WYR: pickWyr requires couple.wyr; buttons disabled after picking; newWyr resets picks.
-- Greeting null-safe; only shows partner's greeting.
-- MemoryTimeline date-string sort correct; form requires a date.
-- TruthOrDare local, in-bounds random.
-
-## Known minor (acceptable, loose-writes tolerance)
-- WYR: simultaneous "Next" by both can last-writer-wins flip the question; cosmetic, rare.
+## Polish applied
+- SavingsGoal "Edit goal" now pre-fills target/label from the saved goal.
 
 VERDICT: APPROVE

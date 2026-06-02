@@ -106,7 +106,15 @@ export function SavingsGoal() {
         </button>
       </form>
       {error && <div className="err">{error}</div>}
-      <button type="button" className="link" onClick={() => setEditing(true)}>
+      <button
+        type="button"
+        className="link"
+        onClick={() => {
+          setTarget(String(s.target))
+          setLabel(s.label)
+          setEditing(true)
+        }}
+      >
         Edit goal
       </button>
     </div>
