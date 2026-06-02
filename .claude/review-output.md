@@ -1,22 +1,22 @@
-# Code Review — #19 Thinking-of-you tap + #45 Daily question
+# Code Review — #49 mood check-in + #22 live partner presence
 
-Reviewed CoupleProvider (poke + sendPoke), LoveBurst, Home button, questions.ts,
-DailyQuestion. Build passes; both verified working in the browser.
+Reviewed CoupleProvider (moods + setMood, lastActive + heartbeat), Mood.tsx, Chat.tsx
+(presence header), format.ts (timeAgo). Build passes; both verified in browser.
 
-## Fixed
-- LoveBurst missed the couple's FIRST-ever poke (baseline not set when poke was null
-  at mount) → now sets baseline on first couple load (poke?.at ?? 0), so the first
-  poke fires.
-- Daily key switched to UTC so partners in different timezones share the same
-  question/answers doc (was local-time per device).
+## Heartbeat loop check (primary concern) — SAFE
+Heartbeat writes users/{uid}.lastActive; own-profile onSnapshot re-fires but the effect
+deps are [user] (no re-subscribe), couple effect keys on primitive coupleId, partner
+effect on [couple,user] — none re-fire from a heartbeat. Net: one benign re-render/40s.
+Cleanup (cancelled guard, interval, listeners) correct.
 
 ## Verified clean
-- Poke replay/self-poke guards correct (monotonic timestamp; from != me).
-- setDoc merge does not clobber partner's answer; deterministic questionForDate.
-- onSnapshot cleanup correct; sendPoke shape matches reader.
+- setMood toggle/clear ('' falsy → hidden) round-trips correctly; partner mood display ok.
+- presence online null-guards lastActive; 20s re-eval; timeAgo correct.
+- rules permit lastActive self-write and moods.{uid} member write.
 
-## Known limitation (acceptable)
-- Daily answers doc contains both answers; partner's is only UI-hidden until you answer
-  (true server-side hiding would need custom rules). Acceptable for MVP.
+## Non-blocking notes
+- own-profile re-renders every 40s (lastActive changes) — harmless at couple scale.
+- online badge can lag up to ~20s past the 75s cutoff (re-eval cadence). Fine.
+- cleared mood lingers as '' rather than deleteField — acceptable.
 
 VERDICT: APPROVE

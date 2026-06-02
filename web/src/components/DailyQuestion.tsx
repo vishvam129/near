@@ -14,7 +14,7 @@ function utcDayKey(): string {
 }
 
 export function DailyQuestion() {
-  const { couple, partner } = useCouple()
+  const { couple, partner, bumpStreak } = useCouple()
   const { user } = useAuth()
   const todayKey = utcDayKey()
   const question = questionForDate(todayKey)
@@ -34,6 +34,12 @@ export function DailyQuestion() {
   const myAnswer = user ? answers[user.uid] : undefined
   const partnerAnswer = partner ? answers[partner.uid] : undefined
   const partnerName = partner?.name || partner?.email || 'your partner'
+
+  // When both have answered today, count the day toward the connection streak.
+  useEffect(() => {
+    if (myAnswer && partnerAnswer) void bumpStreak()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myAnswer, partnerAnswer])
 
   async function submit(e: FormEvent) {
     e.preventDefault()

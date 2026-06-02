@@ -30,6 +30,15 @@ export function timeAgo(d: Date): string {
   return days === 1 ? 'yesterday' : `${days}d ago`
 }
 
+/** UTC 'YYYY-MM-DD' key (optionally offset by N days) — shared by both partners. */
+export function utcDayKey(offsetDays = 0): string {
+  const d = new Date()
+  d.setUTCDate(d.getUTCDate() + offsetDays)
+  const m = String(d.getUTCMonth() + 1).padStart(2, '0')
+  const day = String(d.getUTCDate()).padStart(2, '0')
+  return `${d.getUTCFullYear()}-${m}-${day}`
+}
+
 export function sameDay(a: Date, b: Date): boolean {
   return (
     a.getFullYear() === b.getFullYear() &&

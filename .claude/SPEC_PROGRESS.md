@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #49 [Daily Rituals] Mood / feelings check-in tracker
-   Started: 2026-06-02T07:12:03.420615Z
+**In Progress:** #36 [Planning] Important dates with reminders (anniversary, birthdays)
+   Started: 2026-06-02T10:00:14.535677Z
 
 ## Summary
 
-Progress: ████░░░░░░░░░░░░░░░░░░░░░░░░░░ 13.5%
+Progress: ████░░░░░░░░░░░░░░░░░░░░░░░░░░ 15.6%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 13 | 13.5% |
+| Passed | 15 | 15.6% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 82 | 85.4% |
+| Pending | 80 | 83.3% |
 
 ## Session Statistics
 
-- **Sessions:** 15
-- **Last Started:** 2026-06-02T07:12:03.420641Z
+- **Sessions:** 17
+- **Last Started:** 2026-06-02T10:00:14.535707Z
 
 ## Categories
 
@@ -31,12 +31,12 @@ Progress: ████░░░░░░░░░░░░░░░░░░░�
 | Security | ██░░░░░░░░ 25% | 1 | 0 | 0 |
 | Time & Distance | █████░░░░░ 50% | 3 | 0 | 0 |
 | Messaging | ███████░░░ 71% | 5 | 0 | 0 |
-| Micro-connection | █░░░░░░░░░ 10% | 1 | 0 | 0 |
+| Micro-connection | ██░░░░░░░░ 20% | 2 | 0 | 0 |
 | Watch Together | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Games | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Planning | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Memories | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Daily Rituals | █░░░░░░░░░ 14% | 1 | 0 | 0 |
+| Daily Rituals | ██░░░░░░░░ 29% | 2 | 0 | 0 |
 | Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Intimacy | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Platform | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -54,6 +54,8 @@ Progress: ████░░░░░░░░░░░░░░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #22 | passed | 0s | 301 | 39 | 262 | 8 | 0 | yes |
+| #49 | passed | 2h 47m 30s | 301 | 39 | 262 | 8 | 0 | yes |
 | #45 | passed | 0s | 30 | 30 | 0 | 3 | 0 | yes |
 | #19 | passed | 26m 42s | 30 | 30 | 0 | 3 | 0 | yes |
 | #16 | passed | 0s | 118 | 29 | 89 | 3 | 0 | yes |
@@ -74,6 +76,8 @@ Progress: ████░░░░░░░░░░░░░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-02T09:59 | #22 Live partner status (online, sleeping, busy) | P | 3221e44 |
+| 2026-06-02T09:59 | #49 Mood / feelings check-in tracker | P | 3221e44 |
 | 2026-06-02T07:11 | #45 Daily question hidden until both partners answer | P | 0a804ac |
 | 2026-06-02T07:11 | #19 Thinking-of-you tap that buzzes/notifies partner | P | 0a804ac |
 | 2026-06-02T06:35 | #16 Read receipts and typing indicator | P | 1dae1d8 |
@@ -82,9 +86,7 @@ Progress: ████░░░░░░░░░░░░░░░░░░░�
 | 2026-06-02T06:35 | #11 Real-time 1:1 text chat | P | 1dae1d8 |
 | 2026-06-01T07:08 | #7 Relationship duration counter (together for Xy Xm  | P | dc01bda |
 | 2026-06-01T07:04 | #6 Countdown to next visit with editable date and pla | P | dc01bda |
-| 2026-06-01T07:03 | #5 Two live clocks: your timezone and partner's side  | P | dc01bda |
-| 2026-06-01T05:14 | #4 Firestore security rules limiting all couple data  | P | 17515ce |
 
 ---
-*Last updated: 2026-06-02T07:12:03.451036Z*
-*Session 15*
+*Last updated: 2026-06-02T10:00:14.564837Z*
+*Session 17*

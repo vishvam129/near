@@ -6,11 +6,12 @@ import { Countdown } from '../components/Countdown'
 import { TogetherCounter } from '../components/TogetherCounter'
 import { DailyQuestion } from '../components/DailyQuestion'
 import { Mood } from '../components/Mood'
+import { ImportantDates } from '../components/ImportantDates'
 import EditProfile from './EditProfile'
 
 export default function Home() {
   const { logout } = useAuth()
-  const { profile, partner, sendPoke } = useCouple()
+  const { profile, partner, couple, sendPoke } = useCouple()
   const [editing, setEditing] = useState(false)
   const [poked, setPoked] = useState(false)
 
@@ -35,6 +36,10 @@ export default function Home() {
         </div>
         <TogetherCounter />
 
+        {couple?.streak?.count ? (
+          <div className="streak-badge">🔥 {couple.streak.count}-day streak</div>
+        ) : null}
+
         {profile && <Clocks you={profile} partner={partner} />}
 
         <Mood />
@@ -42,6 +47,8 @@ export default function Home() {
         <Countdown />
 
         <DailyQuestion />
+
+        <ImportantDates />
 
         <button className="btn love-send" type="button" onClick={thinkingOfYou} disabled={poked}>
           {poked ? 'Sent 💗' : '💗 Thinking of you'}

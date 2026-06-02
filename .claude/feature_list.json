@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 49,
+  "current_feature_id": 36,
   "session": {
-    "count": 15,
-    "last_started_at": "2026-06-02T07:12:03.420641Z",
+    "count": 17,
+    "last_started_at": "2026-06-02T10:00:14.535707Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 13,
+    "passed": 15,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 82,
-    "completion_percentage": 13.5
+    "pending": 80,
+    "completion_percentage": 15.6
   },
   "categories": [
     {
@@ -60,7 +60,7 @@
     {
       "name": "Micro-connection",
       "total": 10,
-      "passed": 1,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -95,7 +95,7 @@
     {
       "name": "Daily Rituals",
       "total": 7,
-      "passed": 1,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -952,19 +952,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Status changes propagate to partner",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Live partner presence: online dot / last-seen in chat header via lastActive heartbeat; verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T09:59:34.600589Z"
       },
       "research_refs": [
         "between"
       ],
       "rationale": "Presence awareness across timezones",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T09:59:34.399006Z",
+      "completed_at": "2026-06-02T09:59:34.600608Z",
+      "commit_hash": "3221e44",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -974,7 +975,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 301,
+        "removed": 39,
+        "net": 262,
+        "files_changed": 8
+      }
     },
     {
       "id": 23,
@@ -1415,9 +1422,9 @@
         "between"
       ],
       "rationale": "Never miss an anniversary",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-02T10:00:14.535677Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -1832,20 +1839,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Mood logged and shared with partner",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Mood check-in with quick moods + full emoji picker; partner mood shown live; verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T09:59:34.120106Z"
       },
       "research_refs": [
         "widgetable",
         "flamme"
       ],
       "rationale": "Emotional awareness at a distance",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-02T07:12:03.420615Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-02T09:59:34.120133Z",
+      "commit_hash": "3221e44",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1855,7 +1863,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 301,
+        "removed": 39,
+        "net": 262,
+        "files_changed": 8
+      }
     },
     {
       "id": 50,
@@ -3691,6 +3705,50 @@
       "timestamp": "2026-06-02T07:12:03.420663Z",
       "operation": "feature_started",
       "feature_id": 49,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T09:59:34.120162Z",
+      "operation": "feature_passed",
+      "feature_id": 49,
+      "details": {
+        "commit_hash": "3221e44",
+        "loc_stats": {
+          "added": 301,
+          "removed": 39,
+          "net": 262,
+          "files_changed": 8
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T09:59:34.399043Z",
+      "operation": "feature_started",
+      "feature_id": 22,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T09:59:34.600630Z",
+      "operation": "feature_passed",
+      "feature_id": 22,
+      "details": {
+        "commit_hash": "3221e44",
+        "loc_stats": {
+          "added": 301,
+          "removed": 39,
+          "net": 262,
+          "files_changed": 8
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T10:00:14.535735Z",
+      "operation": "feature_started",
+      "feature_id": 36,
       "details": {
         "from_status": "pending"
       }

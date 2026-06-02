@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Home from '../pages/Home'
 import Chat from '../pages/Chat'
+import Watch from '../pages/Watch'
+import More from '../pages/More'
 import { BottomNav, type Tab } from './BottomNav'
 import { LoveBurst } from './LoveBurst'
 
@@ -8,7 +10,12 @@ export default function Shell() {
   const [tab, setTab] = useState<Tab>('home')
   return (
     <div className="app">
-      <div className="app-body">{tab === 'home' ? <Home /> : <Chat />}</div>
+      <div className="app-body">
+        {tab === 'home' && <Home />}
+        {tab === 'chat' && <Chat />}
+        {tab === 'watch' && <Watch />}
+        {tab === 'more' && <More />}
+      </div>
       <BottomNav tab={tab} onTab={setTab} />
       <LoveBurst />
     </div>

@@ -1,8 +1,10 @@
-export type Tab = 'home' | 'chat'
+export type Tab = 'home' | 'chat' | 'watch' | 'more'
 
 const TABS: { id: Tab; icon: string; label: string }[] = [
   { id: 'home', icon: '🏠', label: 'Home' },
   { id: 'chat', icon: '💬', label: 'Chat' },
+  { id: 'watch', icon: '🍿', label: 'Watch' },
+  { id: 'more', icon: '✨', label: 'More' },
 ]
 
 export function BottomNav({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void }) {

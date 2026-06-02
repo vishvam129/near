@@ -348,6 +348,227 @@ select.input {
   flex: 1;
 }
 
+/* ---- streak badge ---- */
+.streak-badge {
+  align-self: center;
+  display: inline-block;
+  margin: 2px auto 0;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(255, 159, 67, 0.16);
+  color: #ffb877;
+  border: 1px solid rgba(255, 159, 67, 0.3);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ---- watch together ---- */
+.watch-card {
+  text-align: left;
+}
+.watch-player {
+  margin: 14px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+}
+.watch-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.watch-frame iframe {
+  width: 100%;
+  height: 100%;
+}
+.watch-empty {
+  margin: 14px 0;
+  padding: 22px 16px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+}
+.watch-form {
+  display: flex;
+  gap: 8px;
+}
+.watch-form .input {
+  flex: 1;
+}
+.watch-form .btn {
+  width: auto;
+  padding: 0 18px;
+}
+.watch-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+
+/* ---- more tab (entry lists) ---- */
+.more-stack {
+  width: 100%;
+  max-width: 412px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.more-brand {
+  padding: 0 2px;
+}
+.entry-form {
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.entry-form .input {
+  flex: 1;
+}
+.entry-form .btn {
+  width: auto;
+  padding: 0 16px;
+}
+.entry-textarea {
+  resize: vertical;
+  min-height: 44px;
+  font-family: inherit;
+}
+.entry-empty {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+.entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.entry-who {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.entry-text {
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.entry-del {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.bucket-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 9px 12px;
+}
+.bucket-check {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1.5px solid var(--line);
+  background: var(--panel);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+.bucket-item.done .bucket-check {
+  background: var(--grad);
+  border-color: transparent;
+}
+.bucket-text {
+  flex: 1;
+  font-size: 14px;
+}
+.bucket-item.done .bucket-text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* ---- important dates ---- */
+.dates {
+  text-align: left;
+}
+.dates-empty {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+.dates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.date-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.date-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.date-when {
+  font-size: 12px;
+  color: var(--muted);
+}
+.date-del {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.dates-form {
+  margin-top: 4px;
+}
+.dates-add {
+  width: 100%;
+}
+
 /* ---- mood ---- */
 .mood {
   text-align: left;

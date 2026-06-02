@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useAuth } from '../auth/AuthProvider'
+import { utcDayKey } from '../lib/format'
 
 export type Profile = {
   uid: string
@@ -49,6 +50,16 @@ export type CoupleDoc = {
   lastRead: Record<string, Date | null>
   poke: { from: string; at: Date | null } | null
   moods: Record<string, string>
+  watch: WatchState | null
+  streak: { count: number; lastDay: string } | null
+}
+
+export type WatchState = {
+  videoId: string
+  playing: boolean
+  positionSec: number
+  updatedBy: string
+  updatedAt: number
 }
 
 type CoupleContextValue = {
@@ -66,6 +77,8 @@ type CoupleContextValue = {
   markRead: () => Promise<void>
   sendPoke: () => Promise<void>
   setMood: (emoji: string) => Promise<void>
+  updateWatch: (w: { videoId: string; playing: boolean; positionSec: number }) => Promise<void>
+  bumpStreak: () => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -225,6 +238,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         lastRead,
         poke: d.poke ? { from: d.poke.from, at: d.poke.at?.toDate?.() ?? null } : null,
         moods: d.moods ?? {},
+        watch: d.watch ?? null,
+        streak: d.streak ?? null,
       })
     })
   }, [profile?.coupleId])
@@ -334,6 +349,22 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { [`moods.${user.uid}`]: emoji })
   }
 
+  async function updateWatch(w: { videoId: string; playing: boolean; positionSec: number }) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      watch: { ...w, updatedBy: user.uid, updatedAt: Date.now() },
+    })
+  }
+
+  async function bumpStreak() {
+    if (!db || !couple) return
+    const today = utcDayKey()
+    const s = couple.streak
+    if (s?.lastDay === today) return // already counted today
+    const count = s?.lastDay === utcDayKey(-1) ? s.count + 1 : 1
+    await updateDoc(doc(db, 'couples', couple.id), { streak: { count, lastDay: today } })
+  }
+
   const value: CoupleContextValue = {
     loading,
     profile,
@@ -349,6 +380,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     markRead,
     sendPoke,
     setMood,
+    updateWatch,
+    bumpStreak,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>
