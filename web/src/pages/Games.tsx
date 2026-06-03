@@ -5,6 +5,7 @@ import { DrawReveal } from '../components/games/DrawReveal'
 import { Whiteboard } from '../components/games/Whiteboard'
 import { KnowMeQuiz } from '../components/games/KnowMeQuiz'
 import { TruthOrDare } from '../components/games/TruthOrDare'
+import { SpicyZone } from '../components/games/SpicyZone'
 
 export default function Games() {
   return (
@@ -20,6 +21,7 @@ export default function Games() {
         <CompatQuiz />
         <KnowMeQuiz />
         <TruthOrDare />
+        <SpicyZone />
       </div>
     </div>
   )

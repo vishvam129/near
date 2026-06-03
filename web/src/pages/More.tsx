@@ -10,6 +10,9 @@ import { Expenses } from '../components/Expenses'
 import { TimeCapsule } from '../components/TimeCapsule'
 import { CookTogether } from '../components/CookTogether'
 import { Calendar } from '../components/Calendar'
+import { HabitTracker } from '../components/HabitTracker'
+import { CoopGoals } from '../components/CoopGoals'
+import { AmbientScenes } from '../components/AmbientScenes'
 
 export default function More() {
   return (
@@ -20,6 +23,9 @@ export default function More() {
         </div>
 
         <Calendar />
+        <HabitTracker />
+        <CoopGoals />
+        <AmbientScenes />
         <CookTogether />
         <SavingsGoal />
         <Expenses />

@@ -60,6 +60,7 @@ export type CoupleDoc = {
   cookEndsAt: number | null
   sleeping: Record<string, boolean>
   alarm: { at: number; label: string; setBy: string } | null
+  scene: string | null
 }
 
 export type WatchState = {
@@ -98,6 +99,7 @@ type CoupleContextValue = {
   setCookTimer: (endsAt: number | null) => Promise<void>
   setSleeping: (asleep: boolean) => Promise<void>
   setAlarm: (alarm: { at: number; label: string } | null) => Promise<void>
+  setScene: (scene: string | null) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -269,6 +271,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         cookEndsAt: d.cookEndsAt ?? null,
         sleeping: d.sleeping ?? {},
         alarm: d.alarm ?? null,
+        scene: d.scene ?? null,
       })
     })
   }, [profile?.coupleId])
@@ -427,6 +430,11 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { ttt: { ...t, cells, turn: pUid } })
   }
 
+  async function setScene(scene: string | null) {
+    if (!db || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { scene })
+  }
+
   async function setSleeping(asleep: boolean) {
     if (!db || !user || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), { [`sleeping.${user.uid}`]: asleep })
@@ -516,6 +524,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     setCookTimer,
     setSleeping,
     setAlarm,
+    setScene,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>

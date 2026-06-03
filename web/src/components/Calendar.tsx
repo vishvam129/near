@@ -13,16 +13,22 @@ import { db } from '../lib/firebase'
 import { useCouple } from '../couple/CoupleProvider'
 import { EventThread } from './EventThread'
 
-type Ev = { id: string; title: string; when: string }
+type Ev = { id: string; title: string; when: string; at: number }
 
-function fmt(when: string): string {
-  const d = new Date(when)
-  if (isNaN(d.getTime())) return when
-  return new Intl.DateTimeFormat([], { dateStyle: 'medium', timeStyle: 'short' }).format(d)
+function instantOf(ev: Ev): number {
+  return ev.at || new Date(ev.when).getTime()
+}
+function fmtTz(ms: number, tz?: string): string {
+  if (isNaN(ms) || !ms) return ''
+  return new Intl.DateTimeFormat([], {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: tz,
+  }).format(new Date(ms))
 }
 
 export function Calendar() {
-  const { couple } = useCouple()
+  const { couple, partner } = useCouple()
   const coupleId = couple?.id
   const [items, setItems] = useState<Ev[]>([])
   const [adding, setAdding] = useState(false)
@@ -40,6 +46,7 @@ export function Calendar() {
           id: d.id,
           title: d.data().title ?? '',
           when: d.data().when ?? '',
+          at: Number(d.data().at) || 0,
         })),
       ),
     )
@@ -53,6 +60,7 @@ export function Calendar() {
       await addDoc(collection(db, 'couples', coupleId, 'events'), {
         title: title.trim(),
         when,
+        at: new Date(when).getTime(), // absolute instant so both timezones agree
         createdAt: serverTimestamp(),
       })
       setTitle('')
@@ -80,8 +88,14 @@ export function Calendar() {
           <div key={ev.id} className="cal-event">
             <div className="cal-row">
               <div className="entry-body">
-                <span className="entry-who">{fmt(ev.when)}</span>
+                <span className="entry-who">{fmtTz(instantOf(ev))}</span>
                 <span className="entry-text">{ev.title}</span>
+                {partner?.timezone &&
+                  fmtTz(instantOf(ev), partner.timezone) !== fmtTz(instantOf(ev)) && (
+                    <span className="cal-tz">
+                      📍 {partner.name || 'their'} time: {fmtTz(instantOf(ev), partner.timezone)}
+                    </span>
+                  )}
               </div>
               <button
                 type="button"
