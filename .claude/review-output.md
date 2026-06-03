@@ -1,20 +1,19 @@
-# Code Review — batch: #32 calendar, #33 threads, #61 app lock, #92 alarm, #93 sleep
+# Code Review — #59 installable PWA
 
-Reviewed pin.ts, PinGate, PinSettings, App, Calendar, EventThread, CoupleProvider,
-Bedtime, AlarmWatcher. Build passes; all verified in browser.
+Reviewed sw.js, manifest.webmanifest, index.html, main.tsx. Build passes; prod preview
+serves manifest + sw.js.
 
 ## Verified correct
-- PIN: device-local hashed lock, honestly framed; wraps only Shell (never auth/pairing);
-  clearing localStorage recovers access — can't lock you out of your account. Session
-  unlock correct.
-- Calendar orderBy('when') lexical sort is correct for fixed datetime-local format.
-- EventThread path couples/{id}/events/{id}/comments valid.
-- Alarm: fires when at<=now & not dismissed; dismiss clears for both + guards re-fire;
-  client-clock + catch-on-open by design. sleeping/alarm dotted-path writes don't clobber.
+- Cross-origin (Firebase) requests left to the network (origin check) — auth/firestore
+  untouched. Non-GET bypassed. SPA navigations network-first with offline /index.html
+  fallback. SW registers only in PROD (dev HMR unaffected).
 
-## Known minor (acceptable)
-- Deleting an event doesn't cascade-delete its comments (orphaned, harmless).
-- No brute-force throttle on the casual PIN.
-- Client-clock alarm timing.
+## Applied
+- Asset cache now only stores successful same-origin responses (res.ok && type basic) —
+  no caching of 404/redirect.
+
+## Known (handle at deploy time)
+- Cache name 'near-v1' is fixed → bump per release so a deploy purges the old shell and
+  old hashed assets don't accumulate. Mitigated now by network-first navigation.
 
 VERDICT: APPROVE

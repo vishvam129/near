@@ -34,8 +34,11 @@ self.addEventListener('fetch', (e) => {
       (cached) =>
         cached ||
         fetch(req).then((res) => {
-          const copy = res.clone()
-          caches.open(CACHE).then((c) => c.put(req, copy))
+          // only cache successful same-origin responses (never errors/redirects)
+          if (res.ok && res.type === 'basic') {
+            const copy = res.clone()
+            caches.open(CACHE).then((c) => c.put(req, copy))
+          }
           return res
         }),
     ),
