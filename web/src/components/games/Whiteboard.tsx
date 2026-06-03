@@ -53,10 +53,18 @@ export function Whiteboard() {
   useEffect(() => {
     const c = canvasRef.current
     if (!c) return
-    const rect = c.getBoundingClientRect()
-    c.width = rect.width
-    c.height = rect.height
-    redraw()
+    // Keep the canvas bitmap matched to its displayed size (initial + on resize)
+    // so normalized strokes always render at the right scale for both partners.
+    const ro = new ResizeObserver(() => {
+      const r = c.getBoundingClientRect()
+      if (r.width && r.height) {
+        c.width = r.width
+        c.height = r.height
+        redraw()
+      }
+    })
+    ro.observe(c)
+    return () => ro.disconnect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

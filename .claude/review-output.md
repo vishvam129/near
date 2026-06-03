@@ -1,18 +1,22 @@
-# Code Review — batch: #14 voice, #15 doodle, #44 capsule, #43 on-this-day, #46 compat
+# Code Review — batch: #26 watch-chat, #74 ttt, #71 draw-reveal, #70 whiteboard, #69 cook
 
-Reviewed Chat (recording + doodle), useMessages (audio), MessageRow, DoodleCanvas,
-TimeCapsule, OnThisDay, CompatQuiz. Build passes; all verified in browser.
+Reviewed CoupleProvider (ttt/recipe/cook), TicTacToe, DrawReveal, Whiteboard, WatchChat,
+CookTogether. Build passes; all verified in browser.
+
+## Fixed (was HIGH)
+- Whiteboard canvas only sized once on mount → strokes distorted on viewport change /
+  risked drawing against a default-size bitmap. Now a ResizeObserver keeps the bitmap
+  matched to display size and redraws (correct scale for normalized strokes both sides).
 
 ## Verified correct
-- MediaRecorder lifecycle: auto-stop reads elapsed time in interval (not in a setState
-  updater); onstop cleans stream + sends; cancelRec nulls onstop so cancelled audio isn't
-  sent; unmount stops tracks + clears timers; <900KB size guard.
-- DoodleCanvas sizes to rect, white bg, pointer capture; PNG sent as image.
-- CompatQuiz: setDoc(merge) per-question; match% over both-answered; null until shared.
-- TimeCapsule: 30s tick flips sealed->open at unlock (≤30s late, acceptable).
-- OnThisDay month/day match with years>=0 guard.
+- TicTacToe: winnerOf (8 lines + draw) correct; turn-flip serializes alternating play so a
+  partner can't move out of turn; LWW writes acceptable (loose couple-doc writes).
+- DrawReveal: canvas re-inits on prompt/mode change; reveal gated on both images.
+- WatchChat reuses message thread; CookTogether shared absolute-end-time countdown (sync,
+  survives reload).
 
-## Hardening applied (LOW)
-- startRec double-start guard; recRef nulled in onstop + cancelRec.
+## Known minor (MVP-acceptable)
+- TicTacToe "New game" can reset mid-game and resetter becomes X (no confirm). Fairness
+  nicety, not a bug.
 
 VERDICT: APPROVE
