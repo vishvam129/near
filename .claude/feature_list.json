@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 32,
+  "current_feature_id": 59,
   "session": {
-    "count": 48,
-    "last_started_at": "2026-06-03T05:49:04.109409Z",
+    "count": 53,
+    "last_started_at": "2026-06-03T06:12:19.635292Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 46,
+    "passed": 51,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 49,
-    "completion_percentage": 47.9
+    "pending": 44,
+    "completion_percentage": 53.1
   },
   "categories": [
     {
@@ -39,7 +39,7 @@
     {
       "name": "Security",
       "total": 4,
-      "passed": 1,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -60,7 +60,7 @@
     {
       "name": "Micro-connection",
       "total": 10,
-      "passed": 2,
+      "passed": 4,
       "failed": 0,
       "skipped": 0
     },
@@ -81,7 +81,7 @@
     {
       "name": "Planning",
       "total": 8,
-      "passed": 4,
+      "passed": 6,
       "failed": 0,
       "skipped": 0
     },
@@ -1332,20 +1332,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Event created in app appears for both",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Shared calendar of events; verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T06:09:32.577259Z"
       },
       "research_refs": [
         "cupla",
         "raft"
       ],
       "rationale": "Cupla/Raft shared scheduling",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-03T05:49:04.109386Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-03T06:09:32.577917Z",
+      "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1355,7 +1356,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 829,
+        "removed": 68,
+        "net": 761,
+        "files_changed": 16
+      }
     },
     {
       "id": 33,
@@ -1365,19 +1372,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Comments attach to a specific event",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #33 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T06:09:33.018528Z"
       },
       "research_refs": [
         "ourcal"
       ],
       "rationale": "OurCal event-thread discussions",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T06:09:32.800000Z",
+      "completed_at": "2026-06-03T06:09:33.018547Z",
+      "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1387,7 +1395,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 829,
+        "removed": 68,
+        "net": 761,
+        "files_changed": 16
+      }
     },
     {
       "id": 34,
@@ -2309,9 +2323,9 @@
         "ourcal"
       ],
       "rationale": "Web reach without store",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-03T06:12:19.635270Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -2365,19 +2379,20 @@
       "verification": {
         "type": "manual",
         "criteria": "App requires PIN/biometric on open",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #61 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T06:09:33.448658Z"
       },
       "research_refs": [
         "between"
       ],
       "rationale": "Protects private couple data",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T06:09:33.221372Z",
+      "completed_at": "2026-06-03T06:09:33.448679Z",
+      "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2387,7 +2402,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 829,
+        "removed": 68,
+        "net": 761,
+        "files_changed": 16
+      }
     },
     {
       "id": 62,
@@ -3448,19 +3469,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Alarm coordinates both local times",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #92 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T06:09:33.952687Z"
       },
       "research_refs": [
         "lastingthedistance"
       ],
       "rationale": "Wake-up ritual despite timezones",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T06:09:33.721982Z",
+      "completed_at": "2026-06-03T06:09:33.952718Z",
+      "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3470,7 +3492,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 829,
+        "removed": 68,
+        "net": 761,
+        "files_changed": 16
+      }
     },
     {
       "id": 93,
@@ -3480,19 +3508,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Sleep status reflects to partner",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #93 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T06:09:34.400614Z"
       },
       "research_refs": [
         "littleriot"
       ],
       "rationale": "Know when partner is asleep",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T06:09:34.179395Z",
+      "completed_at": "2026-06-03T06:09:34.400637Z",
+      "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3502,7 +3531,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 829,
+        "removed": 68,
+        "net": 761,
+        "files_changed": 16
+      }
     },
     {
       "id": 94,
@@ -3602,66 +3637,6 @@
     }
   ],
   "audit_trail": [
-    {
-      "timestamp": "2026-05-29T12:02:33.592119Z",
-      "operation": "features_loaded",
-      "details": {
-        "count": 96,
-        "summary": "Near — long-distance couples app (web + Android, free stack)"
-      }
-    },
-    {
-      "timestamp": "2026-05-29T12:02:40.860856Z",
-      "operation": "feature_started",
-      "feature_id": 1,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-05-29T12:31:02.716321Z",
-      "operation": "feature_passed",
-      "feature_id": 1,
-      "details": {
-        "commit_hash": "3f9ef3d6167609a3be729584b88b6a0e08a63c79",
-        "loc_stats": {
-          "added": 7873,
-          "removed": 2,
-          "net": 7871,
-          "files_changed": 29
-        }
-      }
-    },
-    {
-      "timestamp": "2026-05-29T12:32:14.907245Z",
-      "operation": "feature_started",
-      "feature_id": 2,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-05-29T12:52:23.785613Z",
-      "operation": "feature_passed",
-      "feature_id": 2,
-      "details": {
-        "commit_hash": "1152d220deeb78b08843d971794b4bef1da2ccee",
-        "loc_stats": {
-          "added": 25,
-          "removed": 19,
-          "net": 6,
-          "files_changed": 2
-        }
-      }
-    },
-    {
-      "timestamp": "2026-05-29T12:53:27.852861Z",
-      "operation": "feature_started",
-      "feature_id": 3,
-      "details": {
-        "from_status": "pending"
-      }
-    },
     {
       "timestamp": "2026-05-29T13:10:38.626849Z",
       "operation": "feature_passed",
@@ -4648,6 +4623,116 @@
       "timestamp": "2026-06-03T05:49:04.109451Z",
       "operation": "feature_started",
       "feature_id": 32,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:32.577946Z",
+      "operation": "feature_passed",
+      "feature_id": 32,
+      "details": {
+        "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
+        "loc_stats": {
+          "added": 829,
+          "removed": 68,
+          "net": 761,
+          "files_changed": 16
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:32.800042Z",
+      "operation": "feature_started",
+      "feature_id": 33,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:33.018569Z",
+      "operation": "feature_passed",
+      "feature_id": 33,
+      "details": {
+        "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
+        "loc_stats": {
+          "added": 829,
+          "removed": 68,
+          "net": 761,
+          "files_changed": 16
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:33.221433Z",
+      "operation": "feature_started",
+      "feature_id": 61,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:33.448703Z",
+      "operation": "feature_passed",
+      "feature_id": 61,
+      "details": {
+        "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
+        "loc_stats": {
+          "added": 829,
+          "removed": 68,
+          "net": 761,
+          "files_changed": 16
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:33.722037Z",
+      "operation": "feature_started",
+      "feature_id": 92,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:33.952759Z",
+      "operation": "feature_passed",
+      "feature_id": 92,
+      "details": {
+        "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
+        "loc_stats": {
+          "added": 829,
+          "removed": 68,
+          "net": 761,
+          "files_changed": 16
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:34.179447Z",
+      "operation": "feature_started",
+      "feature_id": 93,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:09:34.400663Z",
+      "operation": "feature_passed",
+      "feature_id": 93,
+      "details": {
+        "commit_hash": "a67b08fb274954fd78089eab322955a1024d99d7",
+        "loc_stats": {
+          "added": 829,
+          "removed": 68,
+          "net": 761,
+          "files_changed": 16
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T06:12:19.635311Z",
+      "operation": "feature_started",
+      "feature_id": 59,
       "details": {
         "from_status": "pending"
       }

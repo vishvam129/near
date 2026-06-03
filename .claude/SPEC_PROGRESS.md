@@ -2,39 +2,39 @@
 
 ## Current Status
 
-**In Progress:** #32 [Planning] Shared calendar synced with Google/Apple
-   Started: 2026-06-03T05:49:04.109386Z
+**In Progress:** #59 [Platform] PWA installable from the browser
+   Started: 2026-06-03T06:12:19.635270Z
 
 ## Summary
 
-Progress: ██████████████░░░░░░░░░░░░░░░░ 47.9%
+Progress: ███████████████░░░░░░░░░░░░░░░ 53.1%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 46 | 47.9% |
+| Passed | 51 | 53.1% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 49 | 51.0% |
+| Pending | 44 | 45.8% |
 
 ## Session Statistics
 
-- **Sessions:** 48
-- **Last Started:** 2026-06-03T05:49:04.109409Z
+- **Sessions:** 53
+- **Last Started:** 2026-06-03T06:12:19.635292Z
 
 ## Categories
 
 | Category | Progress | Passed | Failed | Skipped |
 |----------|----------|--------|--------|---------|
 | Accounts | ██████████ 100% | 3 | 0 | 0 |
-| Security | ██░░░░░░░░ 25% | 1 | 0 | 0 |
+| Security | █████░░░░░ 50% | 2 | 0 | 0 |
 | Time & Distance | █████░░░░░ 50% | 3 | 0 | 0 |
 | Messaging | ██████████ 100% | 7 | 0 | 0 |
-| Micro-connection | ██░░░░░░░░ 20% | 2 | 0 | 0 |
+| Micro-connection | ████░░░░░░ 40% | 4 | 0 | 0 |
 | Watch Together | █████░░░░░ 50% | 2 | 0 | 0 |
 | Games | ██████████ 100% | 5 | 0 | 0 |
-| Planning | █████░░░░░ 50% | 4 | 0 | 0 |
+| Planning | ███████░░░ 75% | 6 | 0 | 0 |
 | Memories | ████████░░ 80% | 4 | 0 | 0 |
 | Daily Rituals | ████████░░ 86% | 6 | 0 | 0 |
 | Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -54,6 +54,11 @@ Progress: ██████████████░░░░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #93 | passed | 0s | 829 | 68 | 761 | 16 | 0 | yes |
+| #92 | passed | 0s | 829 | 68 | 761 | 16 | 0 | yes |
+| #61 | passed | 0s | 829 | 68 | 761 | 16 | 0 | yes |
+| #33 | passed | 0s | 829 | 68 | 761 | 16 | 0 | yes |
+| #32 | passed | 20m 28s | 829 | 68 | 761 | 16 | 0 | yes |
 | #69 | passed | 0s | 28 | 16 | 12 | 2 | 0 | yes |
 | #70 | passed | 0s | 28 | 16 | 12 | 2 | 0 | yes |
 | #71 | passed | 0s | 28 | 16 | 12 | 2 | 0 | yes |
@@ -107,17 +112,17 @@ Progress: ██████████████░░░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-03T06:09 | #93 Shared sleep status / good-night presence | P | a67b08f |
+| 2026-06-03T06:09 | #92 Synced alarm / wake-up together across timezones | P | a67b08f |
+| 2026-06-03T06:09 | #61 PIN / biometric app lock | P | a67b08f |
+| 2026-06-03T06:09 | #33 Event threads (chat inside a calendar event) | P | a67b08f |
+| 2026-06-03T06:09 | #32 Shared calendar synced with Google/Apple | P | a67b08f |
 | 2026-06-03T05:46 | #69 Cook-together mode: shared recipe, shopping list,  | P | 9326d77 |
 | 2026-06-03T05:46 | #70 Live shared whiteboard / draw together in real tim | P | 9326d77 |
 | 2026-06-03T05:46 | #71 Simultaneous-reveal drawing game | P | 9326d77 |
 | 2026-06-03T05:46 | #74 Board-game hub (chess, checkers, Yahtzee) | P | 9326d77 |
 | 2026-06-03T05:46 | #26 Watch-party chat overlay | P | 9326d77 |
-| 2026-06-03T05:16 | #46 Daily quiz / compatibility | P | 71f6841 |
-| 2026-06-03T05:16 | #43 On-this-day memory resurfacing | P | 71f6841 |
-| 2026-06-03T05:16 | #44 Time capsule message/video unlocking on a future d | P | 71f6841 |
-| 2026-06-03T05:16 | #15 Doodles/drawings sent in chat | P | 71f6841 |
-| 2026-06-03T05:16 | #14 Voice notes / audio memos | P | 71f6841 |
 
 ---
-*Last updated: 2026-06-03T05:49:04.151667Z*
-*Session 48*
+*Last updated: 2026-06-03T06:12:19.676907Z*
+*Session 53*

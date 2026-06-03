@@ -1,22 +1,20 @@
-# Code Review — batch: #26 watch-chat, #74 ttt, #71 draw-reveal, #70 whiteboard, #69 cook
+# Code Review — batch: #32 calendar, #33 threads, #61 app lock, #92 alarm, #93 sleep
 
-Reviewed CoupleProvider (ttt/recipe/cook), TicTacToe, DrawReveal, Whiteboard, WatchChat,
-CookTogether. Build passes; all verified in browser.
-
-## Fixed (was HIGH)
-- Whiteboard canvas only sized once on mount → strokes distorted on viewport change /
-  risked drawing against a default-size bitmap. Now a ResizeObserver keeps the bitmap
-  matched to display size and redraws (correct scale for normalized strokes both sides).
+Reviewed pin.ts, PinGate, PinSettings, App, Calendar, EventThread, CoupleProvider,
+Bedtime, AlarmWatcher. Build passes; all verified in browser.
 
 ## Verified correct
-- TicTacToe: winnerOf (8 lines + draw) correct; turn-flip serializes alternating play so a
-  partner can't move out of turn; LWW writes acceptable (loose couple-doc writes).
-- DrawReveal: canvas re-inits on prompt/mode change; reveal gated on both images.
-- WatchChat reuses message thread; CookTogether shared absolute-end-time countdown (sync,
-  survives reload).
+- PIN: device-local hashed lock, honestly framed; wraps only Shell (never auth/pairing);
+  clearing localStorage recovers access — can't lock you out of your account. Session
+  unlock correct.
+- Calendar orderBy('when') lexical sort is correct for fixed datetime-local format.
+- EventThread path couples/{id}/events/{id}/comments valid.
+- Alarm: fires when at<=now & not dismissed; dismiss clears for both + guards re-fire;
+  client-clock + catch-on-open by design. sleeping/alarm dotted-path writes don't clobber.
 
-## Known minor (MVP-acceptable)
-- TicTacToe "New game" can reset mid-game and resetter becomes X (no confirm). Fairness
-  nicety, not a bug.
+## Known minor (acceptable)
+- Deleting an event doesn't cascade-delete its comments (orphaned, harmless).
+- No brute-force throttle on the casual PIN.
+- Client-clock alarm timing.
 
 VERDICT: APPROVE
