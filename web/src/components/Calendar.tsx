@@ -84,18 +84,21 @@ export function Calendar() {
       )}
 
       <div className="entry-list">
-        {items.map((ev) => (
+        {items.map((ev) => {
+          const at = instantOf(ev)
+          const mine = fmtTz(at)
+          const theirs = partner?.timezone ? fmtTz(at, partner.timezone) : null
+          return (
           <div key={ev.id} className="cal-event">
             <div className="cal-row">
               <div className="entry-body">
-                <span className="entry-who">{fmtTz(instantOf(ev))}</span>
+                <span className="entry-who">{mine}</span>
                 <span className="entry-text">{ev.title}</span>
-                {partner?.timezone &&
-                  fmtTz(instantOf(ev), partner.timezone) !== fmtTz(instantOf(ev)) && (
-                    <span className="cal-tz">
-                      📍 {partner.name || 'their'} time: {fmtTz(instantOf(ev), partner.timezone)}
-                    </span>
-                  )}
+                {theirs && theirs !== mine && (
+                  <span className="cal-tz">
+                    📍 {partner?.name || 'their'} time: {theirs}
+                  </span>
+                )}
               </div>
               <button
                 type="button"
@@ -115,7 +118,8 @@ export function Calendar() {
             </div>
             {openId === ev.id && <EventThread eventId={ev.id} />}
           </div>
-        ))}
+          )
+        })}
       </div>
 
       {adding ? (

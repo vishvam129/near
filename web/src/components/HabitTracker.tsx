@@ -13,21 +13,17 @@ import {
 import { db } from '../lib/firebase'
 import { useAuth } from '../auth/AuthProvider'
 import { useCouple } from '../couple/CoupleProvider'
-import { toDateInput } from '../lib/format'
+import { utcDayKey } from '../lib/format'
 
 type Habit = { id: string; name: string; log: Record<string, string[]> }
 
-function dayKey(offset: number): string {
-  const d = new Date()
-  d.setDate(d.getDate() + offset)
-  return toDateInput(d)
-}
-
+// One shared day-key convention (UTC) so both partners — in different
+// timezones by design — agree on what "today" is near day boundaries.
 function streakFor(log: Record<string, string[]>, uid: string): number {
-  const done = (k: string) => (log[k] ?? []).includes(uid)
-  let off = done(dayKey(0)) ? 0 : -1 // today still counts even if not done yet
+  const done = (off: number) => (log[utcDayKey(off)] ?? []).includes(uid)
+  let off = done(0) ? 0 : -1 // today still counts even if not done yet
   let n = 0
-  while (done(dayKey(off))) {
+  while (done(off)) {
     n++
     off--
   }
@@ -41,7 +37,7 @@ export function HabitTracker() {
   const [habits, setHabits] = useState<Habit[]>([])
   const [name, setName] = useState('')
   const [busy, setBusy] = useState(false)
-  const today = dayKey(0)
+  const today = utcDayKey(0)
 
   useEffect(() => {
     if (!db || !coupleId) return

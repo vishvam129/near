@@ -3,10 +3,9 @@ import {
   collection,
   onSnapshot,
   addDoc,
-  updateDoc,
   deleteDoc,
   doc,
-  increment,
+  runTransaction,
   serverTimestamp,
 } from 'firebase/firestore'
 import { db } from '../lib/firebase'
@@ -57,10 +56,16 @@ export function CoopGoals() {
 
   async function bump(g: Goal, amt: number) {
     if (!db || !coupleId) return
-    const next = Math.max(0, Math.min(g.target, g.progress + amt))
-    if (next === g.progress) return
-    await updateDoc(doc(db, 'couples', coupleId, 'goals', g.id), {
-      progress: increment(next - g.progress),
+    const ref = doc(db, 'couples', coupleId, 'goals', g.id)
+    // Re-read inside a transaction so concurrent taps from both partners
+    // can't push progress past the target (or below zero).
+    await runTransaction(db, async (tx) => {
+      const snap = await tx.get(ref)
+      if (!snap.exists()) return
+      const cur = Number(snap.data().progress) || 0
+      const tgt = Number(snap.data().target) || 1
+      const next = Math.max(0, Math.min(tgt, cur + amt))
+      if (next !== cur) tx.update(ref, { progress: next })
     })
   }
 
