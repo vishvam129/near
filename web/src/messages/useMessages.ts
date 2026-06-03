@@ -23,6 +23,7 @@ export type Message = {
   from: string
   text: string
   imageUrl: string | null
+  audioUrl: string | null
   reactions: Record<string, string>
   replyTo: ReplyRef | null
   sentAt: Date | null
@@ -61,6 +62,7 @@ export function useMessages() {
               from: d.from,
               text: d.text ?? '',
               imageUrl: d.imageUrl ?? null,
+              audioUrl: d.audioUrl ?? null,
               reactions: d.reactions ?? {},
               replyTo: d.replyTo ?? null,
               // serverTimestamp is null locally until the server resolves it
@@ -102,6 +104,18 @@ export function useMessages() {
     })
   }
 
+  async function sendAudio(audioUrl: string, replyTo: ReplyRef | null = null) {
+    if (!audioUrl || !db || !coupleId || !user) return
+    await addDoc(collection(db, 'couples', coupleId, 'messages'), {
+      from: user.uid,
+      text: '',
+      audioUrl,
+      type: 'audio',
+      replyTo: replyTo ?? null,
+      sentAt: serverTimestamp(),
+    })
+  }
+
   async function setReaction(messageId: string, emoji: string | null) {
     if (!db || !coupleId || !user) return
     const ref = doc(db, 'couples', coupleId, 'messages', messageId)
@@ -118,6 +132,7 @@ export function useMessages() {
     loading,
     send,
     sendImage,
+    sendAudio,
     setReaction,
     deleteMessage,
     myUid: user?.uid ?? null,

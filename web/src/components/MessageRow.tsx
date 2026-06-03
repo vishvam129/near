@@ -155,6 +155,9 @@ export function MessageRow({
                 }}
               />
             )}
+            {m.audioUrl && (
+              <audio className="bubble-audio" controls preload="metadata" src={m.audioUrl} />
+            )}
             {m.text && <span className="bubble-text">{m.text}</span>}
             <span className="bubble-time">{m.pending ? '…' : timeLabel(m.sentAt)}</span>
             {reacts.length > 0 && <div className="reaction-chip">{reacts.join('')}</div>}

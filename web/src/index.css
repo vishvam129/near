@@ -1517,6 +1517,174 @@ select.input {
   opacity: 0.5;
   cursor: default;
 }
+.bubble-audio {
+  height: 36px;
+  max-width: 220px;
+}
+.recording-bar {
+  align-items: center;
+  gap: 10px;
+}
+.rec-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #ff4d5e;
+  animation: pulse 1.2s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+.rec-time {
+  flex: 1;
+  font-size: 14px;
+  color: var(--txt);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- doodle ---- */
+.doodle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.doodle-pop {
+  width: 100%;
+  max-width: 380px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+}
+.doodle-colors {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.doodle-color {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  cursor: pointer;
+}
+.doodle-canvas {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: #fff;
+  touch-action: none;
+  display: block;
+}
+.doodle-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.doodle-actions .btn {
+  width: auto;
+  padding: 0 18px;
+}
+
+/* ---- time capsule ---- */
+.capsule {
+  position: relative;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+.capsule-locked {
+  font-size: 14px;
+  color: var(--muted);
+}
+.capsule-open {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.capsule-text {
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.capsule-who {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+.capsule-del {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+/* ---- on this day ---- */
+.on-this-day {
+  text-align: left;
+}
+.otd-item {
+  font-size: 14px;
+}
+.otd-years {
+  color: var(--muted);
+}
+
+/* ---- compatibility quiz ---- */
+.compat-score {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.compat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.compat-q {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.compat-opt {
+  flex: 1;
+  padding: 9px 6px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--txt);
+  border-radius: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.compat-opt.sel {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+}
+.compat-mark {
+  width: 22px;
+  text-align: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
 
 /* ---- reactions ---- */
 .msg-row {

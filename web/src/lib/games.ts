@@ -62,6 +62,21 @@ export const DARES: { clean: string[]; spicy: string[] } = {
   ],
 }
 
+export const COMPAT: { a: string; b: string }[] = [
+  { a: 'Tea', b: 'Coffee' },
+  { a: 'Beach', b: 'Mountains' },
+  { a: 'Early bird', b: 'Night owl' },
+  { a: 'Texting', b: 'Calling' },
+  { a: 'Sweet', b: 'Savory' },
+  { a: 'Movies', b: 'Series' },
+  { a: 'Planner', b: 'Spontaneous' },
+  { a: 'Cats', b: 'Dogs' },
+  { a: 'Stay in', b: 'Go out' },
+  { a: 'Summer', b: 'Winter' },
+  { a: 'Save', b: 'Spend' },
+  { a: 'Sweet texts', b: 'Funny memes' },
+]
+
 export const KNOWME_PROMPTS: string[] = [
   'My favorite food is…',
   'My comfort movie is…',

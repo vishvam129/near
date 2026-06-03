@@ -12,6 +12,16 @@ import { fileToMessageImage } from '../lib/image'
 import { dayLabel, sameDay, timeAgo } from '../lib/format'
 import { EmojiPicker } from '../components/EmojiPicker'
 import { MessageRow } from '../components/MessageRow'
+import { DoodleCanvas } from '../components/DoodleCanvas'
+
+function blobToDataURL(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader()
+    r.onload = () => resolve(r.result as string)
+    r.onerror = reject
+    r.readAsDataURL(blob)
+  })
+}
 
 function previewText(m: Message): string {
   if (m.imageUrl && !m.text) return '📷 Photo'
@@ -20,7 +30,8 @@ function previewText(m: Message): string {
 }
 
 export default function Chat() {
-  const { messages, loading, send, sendImage, setReaction, deleteMessage, myUid } = useMessages()
+  const { messages, loading, send, sendImage, sendAudio, setReaction, deleteMessage, myUid } =
+    useMessages()
   const { partner, couple, setTyping, markRead } = useCouple()
   const [text, setText] = useState('')
   const [err, setErr] = useState<string | null>(null)
@@ -29,11 +40,18 @@ export default function Chat() {
   const [fullPickerId, setFullPickerId] = useState<string | null>(null)
   const [lightbox, setLightbox] = useState<string | null>(null)
   const [replyTo, setReplyTo] = useState<ReplyRef | null>(null)
+  const [doodle, setDoodle] = useState(false)
+  const [recording, setRecording] = useState(false)
+  const [recSec, setRecSec] = useState(0)
   const fileRef = useRef<HTMLInputElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
   const typingActive = useRef(false)
   const typingTimer = useRef<number | undefined>(undefined)
+  const recRef = useRef<MediaRecorder | null>(null)
+  const chunksRef = useRef<Blob[]>([])
+  const streamRef = useRef<MediaStream | null>(null)
+  const recTimer = useRef<number | undefined>(undefined)
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: 'end' })
@@ -50,6 +68,8 @@ export default function Chat() {
     return () => {
       if (typingTimer.current) window.clearTimeout(typingTimer.current)
       void setTyping(false)
+      if (recTimer.current) window.clearInterval(recTimer.current)
+      streamRef.current?.getTracks().forEach((t) => t.stop())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -159,6 +179,83 @@ export default function Chat() {
       setErr(permissionHint(error))
     } finally {
       setUploading(false)
+    }
+  }
+
+  function cleanupStream() {
+    streamRef.current?.getTracks().forEach((t) => t.stop())
+    streamRef.current = null
+  }
+
+  async function startRec() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      streamRef.current = stream
+      chunksRef.current = []
+      const rec = new MediaRecorder(stream)
+      rec.ondataavailable = (ev) => {
+        if (ev.data.size) chunksRef.current.push(ev.data)
+      }
+      rec.onstop = async () => {
+        cleanupStream()
+        const blob = new Blob(chunksRef.current, { type: rec.mimeType || 'audio/webm' })
+        const url = await blobToDataURL(blob)
+        if (url.length > 900_000) {
+          setErr('Voice note too long — keep it under ~45s.')
+          return
+        }
+        try {
+          await sendAudio(url)
+        } catch (error) {
+          setErr(permissionHint(error))
+        }
+      }
+      recRef.current = rec
+      rec.start()
+      setRecording(true)
+      setRecSec(0)
+      setErr(null)
+      recTimer.current = window.setInterval(() => {
+        setRecSec((s) => {
+          const n = s + 1
+          if (n >= 60) stopRec()
+          return n
+        })
+      }, 1000)
+    } catch {
+      setErr('Microphone access was blocked.')
+    }
+  }
+
+  function stopRec() {
+    if (recTimer.current) window.clearInterval(recTimer.current)
+    setRecording(false)
+    try {
+      recRef.current?.stop()
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function cancelRec() {
+    if (recTimer.current) window.clearInterval(recTimer.current)
+    setRecording(false)
+    if (recRef.current) recRef.current.onstop = null
+    try {
+      recRef.current?.stop()
+    } catch {
+      /* ignore */
+    }
+    cleanupStream()
+    chunksRef.current = []
+  }
+
+  async function sendDoodle(dataUrl: string) {
+    setDoodle(false)
+    try {
+      await sendImage(dataUrl)
+    } catch (error) {
+      setErr(permissionHint(error))
     }
   }
 
@@ -273,30 +370,69 @@ export default function Chat() {
         </div>
       )}
 
-      <form className="composer" onSubmit={submit}>
-        <input ref={fileRef} type="file" accept="image/*" hidden onChange={onPickPhoto} />
-        <button
-          type="button"
-          className="composer-photo"
-          onClick={() => fileRef.current?.click()}
-          disabled={uploading}
-          aria-label="Send a photo"
-        >
-          {uploading ? '…' : '📷'}
-        </button>
-        <input
-          ref={inputRef}
-          className="composer-input"
-          type="text"
-          placeholder="Message…"
-          value={text}
-          onChange={onType}
-          autoComplete="off"
-        />
-        <button className="composer-send" type="submit" disabled={!text.trim()} aria-label="Send">
-          ➤
-        </button>
-      </form>
+      {recording ? (
+        <div className="composer recording-bar">
+          <span className="rec-dot" />
+          <span className="rec-time">
+            Recording… {Math.floor(recSec / 60)}:{String(recSec % 60).padStart(2, '0')}
+          </span>
+          <button type="button" className="link" onClick={cancelRec}>
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="composer-send"
+            onClick={stopRec}
+            aria-label="Send voice note"
+          >
+            ➤
+          </button>
+        </div>
+      ) : (
+        <form className="composer" onSubmit={submit}>
+          <input ref={fileRef} type="file" accept="image/*" hidden onChange={onPickPhoto} />
+          <button
+            type="button"
+            className="composer-photo"
+            onClick={() => fileRef.current?.click()}
+            disabled={uploading}
+            aria-label="Send a photo"
+          >
+            {uploading ? '…' : '📷'}
+          </button>
+          <button
+            type="button"
+            className="composer-photo"
+            onClick={() => setDoodle(true)}
+            aria-label="Doodle"
+          >
+            ✏️
+          </button>
+          <input
+            ref={inputRef}
+            className="composer-input"
+            type="text"
+            placeholder="Message…"
+            value={text}
+            onChange={onType}
+            autoComplete="off"
+          />
+          {text.trim() ? (
+            <button className="composer-send" type="submit" aria-label="Send">
+              ➤
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="composer-send"
+              onClick={() => void startRec()}
+              aria-label="Record voice note"
+            >
+              🎤
+            </button>
+          )}
+        </form>
+      )}
 
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
@@ -316,6 +452,8 @@ export default function Chat() {
           onClose={() => setFullPickerId(null)}
         />
       )}
+
+      {doodle && <DoodleCanvas onSend={sendDoodle} onClose={() => setDoodle(false)} />}
     </div>
   )
 }

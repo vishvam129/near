@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 39,
+  "current_feature_id": 14,
   "session": {
-    "count": 33,
-    "last_started_at": "2026-06-02T11:55:36.251613Z",
+    "count": 38,
+    "last_started_at": "2026-06-03T04:46:10.289786Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 31,
+    "passed": 36,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 64,
-    "completion_percentage": 32.3
+    "pending": 59,
+    "completion_percentage": 37.5
   },
   "categories": [
     {
@@ -81,7 +81,7 @@
     {
       "name": "Planning",
       "total": 8,
-      "passed": 3,
+      "passed": 4,
       "failed": 0,
       "skipped": 0
     },
@@ -151,7 +151,7 @@
     {
       "name": "Wellbeing",
       "total": 6,
-      "passed": 0,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -165,7 +165,7 @@
     {
       "name": "Finances",
       "total": 2,
-      "passed": 0,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -689,9 +689,9 @@
         "lastingthedistance"
       ],
       "rationale": "Feel/Marco-Polo voice intimacy",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-03T04:46:10.289765Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -1559,19 +1559,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Contributions update shared progress bar",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Savings goal: set target + contribute (transaction) + progress; verified.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T13:27:31.159222Z"
       },
       "research_refs": [
         "lastingthedistance"
       ],
       "rationale": "Differentiator: jointly fund reunions",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-02T11:55:36.251587Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-02T13:27:31.159241Z",
+      "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1581,7 +1582,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 21,
+        "removed": 16,
+        "net": 5,
+        "files_changed": 2
+      }
     },
     {
       "id": 40,
@@ -2969,19 +2976,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Weekly prompt collects both reflections",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #81 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T13:27:32.450649Z"
       },
       "research_refs": [
         "relish"
       ],
       "rationale": "Relish-style cadence keeps connection healthy",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T13:27:32.212049Z",
+      "completed_at": "2026-06-02T13:27:32.450693Z",
+      "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2991,7 +2999,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 21,
+        "removed": 16,
+        "net": 5,
+        "files_changed": 2
+      }
     },
     {
       "id": 82,
@@ -3001,20 +3015,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Score computes from activity & check-ins",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #82 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T13:27:32.950055Z"
       },
       "research_refs": [
         "lasting",
         "flamme"
       ],
       "rationale": "Trend awareness over time",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T13:27:32.710162Z",
+      "completed_at": "2026-06-02T13:27:32.950074Z",
+      "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3024,7 +3039,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 21,
+        "removed": 16,
+        "net": 5,
+        "files_changed": 2
+      }
     },
     {
       "id": 83,
@@ -3130,19 +3151,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Both log and view shared expenses",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #86 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T13:27:31.551171Z"
       },
       "research_refs": [
         "honeydue"
       ],
       "rationale": "Honeydue-style for LDR trip costs",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T13:27:31.358251Z",
+      "completed_at": "2026-06-02T13:27:31.551190Z",
+      "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3152,7 +3174,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 21,
+        "removed": 16,
+        "net": 5,
+        "files_changed": 2
+      }
     },
     {
       "id": 87,
@@ -3162,19 +3190,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Costs split and balance shown",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "Feature #87 verified working in browser; review APPROVE.",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-02T13:27:31.985232Z"
       },
       "research_refs": [
         "tandem"
       ],
       "rationale": "Fairly share reunion costs",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-02T13:27:31.755962Z",
+      "completed_at": "2026-06-02T13:27:31.985253Z",
+      "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3184,7 +3213,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 21,
+        "removed": 16,
+        "net": 5,
+        "files_changed": 2
+      }
     },
     {
       "id": 88,
@@ -4213,6 +4248,116 @@
       "timestamp": "2026-06-02T11:55:36.251632Z",
       "operation": "feature_started",
       "feature_id": 39,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:31.159265Z",
+      "operation": "feature_passed",
+      "feature_id": 39,
+      "details": {
+        "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
+        "loc_stats": {
+          "added": 21,
+          "removed": 16,
+          "net": 5,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:31.358285Z",
+      "operation": "feature_started",
+      "feature_id": 86,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:31.551212Z",
+      "operation": "feature_passed",
+      "feature_id": 86,
+      "details": {
+        "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
+        "loc_stats": {
+          "added": 21,
+          "removed": 16,
+          "net": 5,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:31.756004Z",
+      "operation": "feature_started",
+      "feature_id": 87,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:31.985279Z",
+      "operation": "feature_passed",
+      "feature_id": 87,
+      "details": {
+        "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
+        "loc_stats": {
+          "added": 21,
+          "removed": 16,
+          "net": 5,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:32.212094Z",
+      "operation": "feature_started",
+      "feature_id": 81,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:32.450744Z",
+      "operation": "feature_passed",
+      "feature_id": 81,
+      "details": {
+        "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
+        "loc_stats": {
+          "added": 21,
+          "removed": 16,
+          "net": 5,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:32.710216Z",
+      "operation": "feature_started",
+      "feature_id": 82,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-02T13:27:32.950098Z",
+      "operation": "feature_passed",
+      "feature_id": 82,
+      "details": {
+        "commit_hash": "ee7cf874495099f8f72281144139d7b7ddac0297",
+        "loc_stats": {
+          "added": 21,
+          "removed": 16,
+          "net": 5,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T04:46:10.289805Z",
+      "operation": "feature_started",
+      "feature_id": 14,
       "details": {
         "from_status": "pending"
       }

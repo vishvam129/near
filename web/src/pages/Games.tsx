@@ -1,4 +1,5 @@
 import { WouldYouRather } from '../components/games/WouldYouRather'
+import { CompatQuiz } from '../components/games/CompatQuiz'
 import { KnowMeQuiz } from '../components/games/KnowMeQuiz'
 import { TruthOrDare } from '../components/games/TruthOrDare'
 
@@ -10,6 +11,7 @@ export default function Games() {
           <span className="dot" /> Games
         </div>
         <WouldYouRather />
+        <CompatQuiz />
         <KnowMeQuiz />
         <TruthOrDare />
       </div>

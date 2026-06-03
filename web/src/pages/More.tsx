@@ -7,6 +7,7 @@ import { ScheduleMessage } from '../components/ScheduleMessage'
 import { MemoryTimeline } from '../components/MemoryTimeline'
 import { SavingsGoal } from '../components/SavingsGoal'
 import { Expenses } from '../components/Expenses'
+import { TimeCapsule } from '../components/TimeCapsule'
 
 export default function More() {
   return (
@@ -19,6 +20,7 @@ export default function More() {
         <SavingsGoal />
         <Expenses />
         <MemoryTimeline />
+        <TimeCapsule />
         <DateIdeas />
         <ReasonsJar />
         <OpenWhen />

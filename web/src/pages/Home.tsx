@@ -8,6 +8,7 @@ import { DailyQuestion } from '../components/DailyQuestion'
 import { Mood } from '../components/Mood'
 import { ImportantDates } from '../components/ImportantDates'
 import { Greeting } from '../components/Greeting'
+import { OnThisDay } from '../components/OnThisDay'
 import { HealthScore } from '../components/HealthScore'
 import { WeeklyCheckin } from '../components/WeeklyCheckin'
 import EditProfile from './EditProfile'
@@ -44,6 +45,8 @@ export default function Home() {
         ) : null}
 
         {profile && <Clocks you={profile} partner={partner} />}
+
+        <OnThisDay />
 
         <HealthScore />
 
