@@ -55,6 +55,9 @@ export type CoupleDoc = {
   greeting: { type: string; from: string; at: Date | null } | null
   wyr: { idx: number; picks: Record<string, 'a' | 'b'> } | null
   savings: { target: number; saved: number; label: string } | null
+  ttt: { cells: string; turn: string; x: string } | null
+  recipe: string | null
+  cookEndsAt: number | null
 }
 
 export type WatchState = {
@@ -87,6 +90,10 @@ type CoupleContextValue = {
   pickWyr: (choice: 'a' | 'b') => Promise<void>
   setSavingsGoal: (target: number, label: string) => Promise<void>
   addToSavings: (amount: number) => Promise<void>
+  newTtt: () => Promise<void>
+  playTtt: (i: number) => Promise<void>
+  setRecipe: (recipe: string | null) => Promise<void>
+  setCookTimer: (endsAt: number | null) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -253,6 +260,9 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
           : null,
         wyr: d.wyr ?? null,
         savings: d.savings ?? null,
+        ttt: d.ttt ?? null,
+        recipe: d.recipe ?? null,
+        cookEndsAt: d.cookEndsAt ?? null,
       })
     })
   }, [profile?.coupleId])
@@ -388,6 +398,39 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  function partnerUidOf(): string | null {
+    if (!couple || !user) return null
+    return couple.members.find((m) => m !== user.uid) ?? null
+  }
+
+  async function newTtt() {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      ttt: { cells: '         ', turn: user.uid, x: user.uid },
+    })
+  }
+
+  async function playTtt(i: number) {
+    if (!db || !user || !couple?.ttt) return
+    const t = couple.ttt
+    const pUid = partnerUidOf()
+    if (t.turn !== user.uid || !pUid) return
+    if (t.cells[i] !== ' ') return
+    const mark = user.uid === t.x ? 'X' : 'O'
+    const cells = t.cells.substring(0, i) + mark + t.cells.substring(i + 1)
+    await updateDoc(doc(db, 'couples', couple.id), { ttt: { ...t, cells, turn: pUid } })
+  }
+
+  async function setRecipe(recipe: string | null) {
+    if (!db || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { recipe })
+  }
+
+  async function setCookTimer(endsAt: number | null) {
+    if (!db || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { cookEndsAt: endsAt })
+  }
+
   async function sendGreeting(type: string) {
     if (!db || !user || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), {
@@ -449,6 +492,10 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     pickWyr,
     setSavingsGoal,
     addToSavings,
+    newTtt,
+    playTtt,
+    setRecipe,
+    setCookTimer,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>

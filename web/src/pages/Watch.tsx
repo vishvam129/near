@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { useCouple } from '../couple/CoupleProvider'
+import { WatchChat } from '../components/WatchChat'
 
 function extractVideoId(input: string): string | null {
   const s = input.trim()
@@ -133,7 +134,8 @@ export default function Watch() {
 
   return (
     <div className="screen watch-screen">
-      <div className="card watch-card">
+      <div className="more-stack">
+        <div className="card watch-card">
         <div className="brand">
           <span className="dot" /> Watch together
         </div>
@@ -166,6 +168,8 @@ export default function Watch() {
         <p className="watch-hint">
           ▶ Press play/pause or skip — it stays in sync for both of you.
         </p>
+        </div>
+        <WatchChat />
       </div>
     </div>
   )

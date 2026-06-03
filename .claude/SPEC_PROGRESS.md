@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #14 [Messaging] Voice notes / audio memos
-   Started: 2026-06-03T04:46:10.289765Z
+**In Progress:** #26 [Watch Together] Watch-party chat overlay
+   Started: 2026-06-03T05:18:29.866379Z
 
 ## Summary
 
-Progress: ███████████░░░░░░░░░░░░░░░░░░░ 37.5%
+Progress: ████████████░░░░░░░░░░░░░░░░░░ 42.7%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 36 | 37.5% |
+| Passed | 41 | 42.7% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 59 | 61.5% |
+| Pending | 54 | 56.2% |
 
 ## Session Statistics
 
-- **Sessions:** 38
-- **Last Started:** 2026-06-03T04:46:10.289786Z
+- **Sessions:** 43
+- **Last Started:** 2026-06-03T05:18:29.866399Z
 
 ## Categories
 
@@ -30,13 +30,13 @@ Progress: ███████████░░░░░░░░░░░░�
 | Accounts | ██████████ 100% | 3 | 0 | 0 |
 | Security | ██░░░░░░░░ 25% | 1 | 0 | 0 |
 | Time & Distance | █████░░░░░ 50% | 3 | 0 | 0 |
-| Messaging | ███████░░░ 71% | 5 | 0 | 0 |
+| Messaging | ██████████ 100% | 7 | 0 | 0 |
 | Micro-connection | ██░░░░░░░░ 20% | 2 | 0 | 0 |
 | Watch Together | ██░░░░░░░░ 25% | 1 | 0 | 0 |
 | Games | ██████░░░░ 60% | 3 | 0 | 0 |
 | Planning | █████░░░░░ 50% | 4 | 0 | 0 |
-| Memories | ████░░░░░░ 40% | 2 | 0 | 0 |
-| Daily Rituals | ███████░░░ 71% | 5 | 0 | 0 |
+| Memories | ████████░░ 80% | 4 | 0 | 0 |
+| Daily Rituals | ████████░░ 86% | 6 | 0 | 0 |
 | Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Intimacy | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Platform | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -54,6 +54,11 @@ Progress: ███████████░░░░░░░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #46 | passed | 0s | 28 | 17 | 11 | 3 | 0 | yes |
+| #43 | passed | 0s | 28 | 17 | 11 | 3 | 0 | yes |
+| #44 | passed | 0s | 28 | 17 | 11 | 3 | 0 | yes |
+| #15 | passed | 0s | 28 | 17 | 11 | 3 | 0 | yes |
+| #14 | passed | 30m 9s | 28 | 17 | 11 | 3 | 0 | yes |
 | #82 | passed | 0s | 21 | 16 | 5 | 2 | 0 | yes |
 | #81 | passed | 0s | 21 | 16 | 5 | 2 | 0 | yes |
 | #87 | passed | 0s | 21 | 16 | 5 | 2 | 0 | yes |
@@ -97,17 +102,17 @@ Progress: ███████████░░░░░░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-03T05:16 | #46 Daily quiz / compatibility | P | 71f6841 |
+| 2026-06-03T05:16 | #43 On-this-day memory resurfacing | P | 71f6841 |
+| 2026-06-03T05:16 | #44 Time capsule message/video unlocking on a future d | P | 71f6841 |
+| 2026-06-03T05:16 | #15 Doodles/drawings sent in chat | P | 71f6841 |
+| 2026-06-03T05:16 | #14 Voice notes / audio memos | P | 71f6841 |
 | 2026-06-02T13:27 | #82 Relationship health insights / connection score | P | ee7cf87 |
 | 2026-06-02T13:27 | #81 Weekly relationship check-in | P | ee7cf87 |
 | 2026-06-02T13:27 | #87 Visit/trip budget split between partners | P | ee7cf87 |
 | 2026-06-02T13:27 | #86 Shared expense tracking for visits & trips | P | ee7cf87 |
 | 2026-06-02T13:27 | #39 Shared savings goal toward visits/flights | P | ee7cf87 |
-| 2026-06-02T11:29 | #31 Truth-or-dare with clean and spicy modes | P | a3c42a6 |
-| 2026-06-02T11:29 | #29 Couple games: would-you-rather and trivia | P | a3c42a6 |
-| 2026-06-02T11:29 | #30 How-well-do-you-know-me quiz | P | a3c42a6 |
-| 2026-06-02T11:29 | #41 Relationship / memory timeline | P | a3c42a6 |
-| 2026-06-02T11:29 | #48 Good-morning / good-night ritual prompts | P | a3c42a6 |
 
 ---
-*Last updated: 2026-06-03T04:46:10.323415Z*
-*Session 38*
+*Last updated: 2026-06-03T05:18:29.912854Z*
+*Session 43*

@@ -8,6 +8,7 @@ import { MemoryTimeline } from '../components/MemoryTimeline'
 import { SavingsGoal } from '../components/SavingsGoal'
 import { Expenses } from '../components/Expenses'
 import { TimeCapsule } from '../components/TimeCapsule'
+import { CookTogether } from '../components/CookTogether'
 
 export default function More() {
   return (
@@ -17,6 +18,7 @@ export default function More() {
           <span className="dot" /> More
         </div>
 
+        <CookTogether />
         <SavingsGoal />
         <Expenses />
         <MemoryTimeline />
