@@ -13,6 +13,7 @@ import {
   runTransaction,
   collection,
   updateDoc,
+  deleteField,
   type DocumentData,
 } from 'firebase/firestore'
 import { db } from '../lib/firebase'
@@ -64,6 +65,8 @@ export type CoupleDoc = {
   signal: { type: string; from: string; color: string | null; at: Date | null } | null
   battery: Record<string, { level: number; charging: boolean; at: Date | null }>
   loveLang: Record<string, string>
+  pinnedNote: { from: string; text: string; at: Date | null } | null
+  cycle: Record<string, { start: string; length: number }>
 }
 
 export type WatchState = {
@@ -106,6 +109,8 @@ type CoupleContextValue = {
   sendSignal: (type: 'lamp' | 'kiss' | 'heartbeat', color?: string) => Promise<void>
   updateBattery: (level: number, charging: boolean) => Promise<void>
   setLoveLang: (lang: string) => Promise<void>
+  setPinnedNote: (text: string | null) => Promise<void>
+  setCycle: (info: { start: string; length: number } | null) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -300,6 +305,19 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
           }),
         ),
         loveLang: d.loveLang ?? {},
+        pinnedNote: d.pinnedNote
+          ? {
+              from: d.pinnedNote.from,
+              text: d.pinnedNote.text ?? '',
+              at: d.pinnedNote.at?.toDate?.() ?? null,
+            }
+          : null,
+        cycle: Object.fromEntries(
+          Object.entries(d.cycle ?? {}).map(([uid, c]) => {
+            const v = c as { start?: string; length?: number }
+            return [uid, { start: v.start ?? '', length: Number(v.length) || 28 }]
+          }),
+        ),
       })
     })
   }, [profile?.coupleId])
@@ -426,6 +444,20 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
   async function setLoveLang(lang: string) {
     if (!db || !user || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), { [`loveLang.${user.uid}`]: lang })
+  }
+
+  async function setPinnedNote(text: string | null) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      pinnedNote: text ? { from: user.uid, text, at: serverTimestamp() } : deleteField(),
+    })
+  }
+
+  async function setCycle(info: { start: string; length: number } | null) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      [`cycle.${user.uid}`]: info ?? deleteField(),
+    })
   }
 
   async function setSavingsGoal(target: number, label: string) {
@@ -560,6 +592,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     sendSignal,
     updateBattery,
     setLoveLang,
+    setPinnedNote,
+    setCycle,
     setMood,
     updateWatch,
     bumpStreak,

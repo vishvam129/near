@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 65,
+  "current_feature_id": 84,
   "session": {
-    "count": 59,
-    "last_started_at": "2026-06-03T09:51:34.435993Z",
+    "count": 64,
+    "last_started_at": "2026-06-03T10:21:05.126772Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 57,
+    "passed": 62,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 38,
-    "completion_percentage": 59.4
+    "pending": 33,
+    "completion_percentage": 64.6
   },
   "categories": [
     {
@@ -60,7 +60,7 @@
     {
       "name": "Micro-connection",
       "total": 10,
-      "passed": 4,
+      "passed": 7,
       "failed": 0,
       "skipped": 0
     },
@@ -95,7 +95,7 @@
     {
       "name": "Daily Rituals",
       "total": 7,
-      "passed": 6,
+      "passed": 7,
       "failed": 0,
       "skipped": 0
     },
@@ -137,7 +137,7 @@
     {
       "name": "IoT",
       "total": 2,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     },
@@ -1012,19 +1012,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Partner battery % shows in app",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "855e9817",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T09:55:20.968711Z"
       },
       "research_refs": [
         "lastingthedistance"
       ],
       "rationale": "Know when to call before phone dies",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T09:55:20.764528Z",
+      "completed_at": "2026-06-03T09:55:20.968730Z",
+      "commit_hash": "855e9817",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1034,7 +1035,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 145,
+        "removed": 101,
+        "net": 44,
+        "files_changed": 6
+      }
     },
     {
       "id": 24,
@@ -1908,19 +1915,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Quiz result drives tailored nudges",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "855e9817",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T09:55:21.466266Z"
       },
       "research_refs": [
         "lovenudge"
       ],
       "rationale": "Love Nudge 5-love-languages",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T09:55:21.209917Z",
+      "completed_at": "2026-06-03T09:55:21.466286Z",
+      "commit_hash": "855e9817",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1930,7 +1938,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 145,
+        "removed": 101,
+        "net": 44,
+        "files_changed": 6
+      }
     },
     {
       "id": 48,
@@ -2537,19 +2551,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Tap lights partner's lamp view with chosen color",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "855e9817",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T09:55:19.754812Z"
       },
       "research_refs": [
         "luvlink"
       ],
       "rationale": "LuvLink friendship-lamp magic, no hardware needed",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-03T09:51:34.435970Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-03T09:55:19.754832Z",
+      "commit_hash": "855e9817",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2559,7 +2574,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 145,
+        "removed": 101,
+        "net": 44,
+        "files_changed": 6
+      }
     },
     {
       "id": 66,
@@ -2601,20 +2622,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Captured heartbeat plays on partner device",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "855e9817",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T09:55:20.568275Z"
       },
       "research_refs": [
         "littleriot",
         "feel"
       ],
       "rationale": "Little Riot/Feel intimacy of a heartbeat",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T09:55:20.355755Z",
+      "completed_at": "2026-06-03T09:55:20.568302Z",
+      "commit_hash": "855e9817",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2624,7 +2646,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 145,
+        "removed": 101,
+        "net": 44,
+        "files_changed": 6
+      }
     },
     {
       "id": 68,
@@ -2634,19 +2662,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Kiss gesture animates on partner screen",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "855e9817",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T09:55:20.159539Z"
       },
       "research_refs": [
         "kissenger"
       ],
       "rationale": "Kissenger-style playful affection",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T09:55:19.957651Z",
+      "completed_at": "2026-06-03T09:55:20.159557Z",
+      "commit_hash": "855e9817",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2656,7 +2685,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 145,
+        "removed": 101,
+        "net": 44,
+        "files_changed": 6
+      }
     },
     {
       "id": 69,
@@ -3221,9 +3256,9 @@
         "fitnesspact"
       ],
       "rationale": "Fitness Pact-style healthy competition",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-03T10:21:05.126751Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3679,116 +3714,6 @@
     }
   ],
   "audit_trail": [
-    {
-      "timestamp": "2026-06-02T06:35:58.688168Z",
-      "operation": "feature_passed",
-      "feature_id": 11,
-      "details": {
-        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
-        "loc_stats": {
-          "added": 118,
-          "removed": 29,
-          "net": 89,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T06:35:58.895421Z",
-      "operation": "feature_started",
-      "feature_id": 12,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T06:35:59.114959Z",
-      "operation": "feature_passed",
-      "feature_id": 12,
-      "details": {
-        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
-        "loc_stats": {
-          "added": 118,
-          "removed": 29,
-          "net": 89,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T06:35:59.320429Z",
-      "operation": "feature_started",
-      "feature_id": 13,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T06:35:59.520381Z",
-      "operation": "feature_passed",
-      "feature_id": 13,
-      "details": {
-        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
-        "loc_stats": {
-          "added": 118,
-          "removed": 29,
-          "net": 89,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T06:35:59.733552Z",
-      "operation": "feature_started",
-      "feature_id": 16,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T06:35:59.966149Z",
-      "operation": "feature_passed",
-      "feature_id": 16,
-      "details": {
-        "commit_hash": "1dae1d89269c46950d88e804a9ade7b867491c8d",
-        "loc_stats": {
-          "added": 118,
-          "removed": 29,
-          "net": 89,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T06:44:32.655661Z",
-      "operation": "feature_started",
-      "feature_id": 19,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T07:11:15.231830Z",
-      "operation": "feature_passed",
-      "feature_id": 19,
-      "details": {
-        "commit_hash": "0a804ac72bc540c3ddc3dccc88f017f5782ac116",
-        "loc_stats": {
-          "added": 30,
-          "removed": 30,
-          "net": 0,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T07:11:15.436081Z",
-      "operation": "feature_started",
-      "feature_id": 45,
-      "details": {
-        "from_status": "pending"
-      }
-    },
     {
       "timestamp": "2026-06-02T07:11:15.650320Z",
       "operation": "feature_passed",
@@ -4775,6 +4700,116 @@
       "timestamp": "2026-06-03T09:51:34.436012Z",
       "operation": "feature_started",
       "feature_id": 65,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:19.754856Z",
+      "operation": "feature_passed",
+      "feature_id": 65,
+      "details": {
+        "commit_hash": "855e9817",
+        "loc_stats": {
+          "added": 145,
+          "removed": 101,
+          "net": 44,
+          "files_changed": 6
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:19.957687Z",
+      "operation": "feature_started",
+      "feature_id": 68,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:20.159582Z",
+      "operation": "feature_passed",
+      "feature_id": 68,
+      "details": {
+        "commit_hash": "855e9817",
+        "loc_stats": {
+          "added": 145,
+          "removed": 101,
+          "net": 44,
+          "files_changed": 6
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:20.355793Z",
+      "operation": "feature_started",
+      "feature_id": 67,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:20.568328Z",
+      "operation": "feature_passed",
+      "feature_id": 67,
+      "details": {
+        "commit_hash": "855e9817",
+        "loc_stats": {
+          "added": 145,
+          "removed": 101,
+          "net": 44,
+          "files_changed": 6
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:20.764567Z",
+      "operation": "feature_started",
+      "feature_id": 23,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:20.968754Z",
+      "operation": "feature_passed",
+      "feature_id": 23,
+      "details": {
+        "commit_hash": "855e9817",
+        "loc_stats": {
+          "added": 145,
+          "removed": 101,
+          "net": 44,
+          "files_changed": 6
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:21.209959Z",
+      "operation": "feature_started",
+      "feature_id": 47,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:55:21.466310Z",
+      "operation": "feature_passed",
+      "feature_id": 47,
+      "details": {
+        "commit_hash": "855e9817",
+        "loc_stats": {
+          "added": 145,
+          "removed": 101,
+          "net": 44,
+          "files_changed": 6
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T10:21:05.126790Z",
+      "operation": "feature_started",
+      "feature_id": 84,
       "details": {
         "from_status": "pending"
       }

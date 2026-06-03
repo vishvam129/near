@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #65 [Micro-connection] In-app friendship lamp: tap to glow partner's screen in your color
-   Started: 2026-06-03T09:51:34.435970Z
+**In Progress:** #84 [Habits] Couple fitness challenge / pact
+   Started: 2026-06-03T10:21:05.126751Z
 
 ## Summary
 
-Progress: █████████████████░░░░░░░░░░░░░ 59.4%
+Progress: ███████████████████░░░░░░░░░░░ 64.6%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 57 | 59.4% |
+| Passed | 62 | 64.6% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 38 | 39.6% |
+| Pending | 33 | 34.4% |
 
 ## Session Statistics
 
-- **Sessions:** 59
-- **Last Started:** 2026-06-03T09:51:34.435993Z
+- **Sessions:** 64
+- **Last Started:** 2026-06-03T10:21:05.126772Z
 
 ## Categories
 
@@ -31,18 +31,18 @@ Progress: █████████████████░░░░░░�
 | Security | █████░░░░░ 50% | 2 | 0 | 0 |
 | Time & Distance | ██████░░░░ 67% | 4 | 0 | 0 |
 | Messaging | ██████████ 100% | 7 | 0 | 0 |
-| Micro-connection | ████░░░░░░ 40% | 4 | 0 | 0 |
+| Micro-connection | ███████░░░ 70% | 7 | 0 | 0 |
 | Watch Together | █████░░░░░ 50% | 2 | 0 | 0 |
 | Games | ██████████ 100% | 5 | 0 | 0 |
 | Planning | ███████░░░ 75% | 6 | 0 | 0 |
 | Memories | ████████░░ 80% | 4 | 0 | 0 |
-| Daily Rituals | ████████░░ 86% | 6 | 0 | 0 |
+| Daily Rituals | ██████████ 100% | 7 | 0 | 0 |
 | Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Intimacy | █████░░░░░ 50% | 1 | 0 | 0 |
 | Platform | ███░░░░░░░ 33% | 1 | 0 | 0 |
 | Monetization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Differentiator | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| IoT | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
+| IoT | █████░░░░░ 50% | 1 | 0 | 0 |
 | Activities | ████████░░ 80% | 4 | 0 | 0 |
 | Wellbeing | ███░░░░░░░ 33% | 2 | 0 | 0 |
 | Habits | ██████░░░░ 67% | 2 | 0 | 0 |
@@ -54,6 +54,11 @@ Progress: █████████████████░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #47 | passed | 0s | 145 | 101 | 44 | 6 | 0 | yes |
+| #23 | passed | 0s | 145 | 101 | 44 | 6 | 0 | yes |
+| #67 | passed | 0s | 145 | 101 | 44 | 6 | 0 | yes |
+| #68 | passed | 0s | 145 | 101 | 44 | 6 | 0 | yes |
+| #65 | passed | 3m 45s | 145 | 101 | 44 | 6 | 0 | yes |
 | #55 | passed | 0s | 104 | 40 | 64 | 4 | 0 | yes |
 | #75 | passed | 0s | 104 | 40 | 64 | 4 | 0 | yes |
 | #8 | passed | 0s | 104 | 40 | 64 | 4 | 0 | yes |
@@ -118,17 +123,17 @@ Progress: █████████████████░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-03T09:55 | #47 Love-language quiz and care nudges | P | 855e981 |
+| 2026-06-03T09:55 | #23 Battery-level sharing | P | 855e981 |
+| 2026-06-03T09:55 | #67 Heartbeat send / heartbeat-pillow integration | P | 855e981 |
+| 2026-06-03T09:55 | #68 Virtual kiss with animation | P | 855e981 |
+| 2026-06-03T09:55 | #65 In-app friendship lamp: tap to glow partner's scre | P | 855e981 |
 | 2026-06-03T08:50 | #55 Spicy questions & dares, PIN-gated | P | 112a7fa |
 | 2026-06-03T08:50 | #75 Ambient virtual-location scenes shared on call | P | 112a7fa |
 | 2026-06-03T08:50 | #8 Auto timezone conversion when scheduling a call or | P | 112a7fa |
 | 2026-06-03T08:50 | #85 Co-op goals with shared streaks & nudges | P | 112a7fa |
 | 2026-06-03T08:49 | #83 Shared habit tracker with partner visibility | P | 112a7fa |
-| 2026-06-03T06:22 | #59 PWA installable from the browser | P | 37ed9e6 |
-| 2026-06-03T06:09 | #93 Shared sleep status / good-night presence | P | a67b08f |
-| 2026-06-03T06:09 | #92 Synced alarm / wake-up together across timezones | P | a67b08f |
-| 2026-06-03T06:09 | #61 PIN / biometric app lock | P | a67b08f |
-| 2026-06-03T06:09 | #33 Event threads (chat inside a calendar event) | P | a67b08f |
 
 ---
-*Last updated: 2026-06-03T09:51:34.475919Z*
-*Session 59*
+*Last updated: 2026-06-03T10:21:05.167726Z*
+*Session 64*

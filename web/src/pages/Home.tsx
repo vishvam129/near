@@ -14,6 +14,7 @@ import { HealthScore } from '../components/HealthScore'
 import { WeeklyCheckin } from '../components/WeeklyCheckin'
 import { ConnectionDeck } from '../components/ConnectionDeck'
 import { BatteryShare } from '../components/BatteryShare'
+import { LoveNotePin } from '../components/LoveNotePin'
 import EditProfile from './EditProfile'
 
 export default function Home() {
@@ -48,6 +49,8 @@ export default function Home() {
         ) : null}
 
         {profile && <Clocks you={profile} partner={partner} />}
+
+        <LoveNotePin />
 
         <OnThisDay />
 

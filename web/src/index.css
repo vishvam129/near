@@ -1837,6 +1837,157 @@ select.input {
   margin-bottom: 12px;
 }
 
+/* ---- fitness pact ---- */
+.pact-tally {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 8px 0;
+}
+.pact-tally b {
+  color: var(--txt);
+}
+.pact-log {
+  width: 100%;
+}
+
+/* ---- active listening ---- */
+.listen-steps {
+  margin: 8px 0 12px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.listen-prompt {
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  padding: 16px 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-bottom: 10px;
+}
+
+/* ---- repair flow ---- */
+.repair-label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 10px 0 6px;
+}
+.repair-feelings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--txt);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.chip-on {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+}
+.repair-area {
+  resize: vertical;
+  font-family: inherit;
+}
+.repair-item {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.repair-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.repair-feel {
+  font-weight: 600;
+  font-size: 14px;
+}
+.repair-time {
+  font-size: 12px;
+  color: var(--muted);
+}
+.repair-need,
+.repair-mine {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.repair-ack {
+  margin-top: 8px;
+  width: auto;
+  padding: 6px 16px;
+}
+.repair-done {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--pink);
+}
+
+/* ---- cycle awareness ---- */
+.cycle-partner {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.cycle-phase {
+  font-size: 14px;
+  font-weight: 600;
+}
+.cycle-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.cycle-form {
+  display: flex;
+  flex-direction: column;
+}
+.cycle-mine {
+  margin-top: 4px;
+}
+
+/* ---- pinned love note ---- */
+.note-pin-got {
+  background: linear-gradient(135deg, #ff6f9c22, #ffb87722);
+  border-color: var(--pink);
+  text-align: center;
+}
+.note-pin-from {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.note-pin-text {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.note-pin-status {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
 /* ---- dual clocks ---- */
 .clocks {
   display: grid;

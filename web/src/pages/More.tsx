@@ -14,6 +14,10 @@ import { HabitTracker } from '../components/HabitTracker'
 import { CoopGoals } from '../components/CoopGoals'
 import { AmbientScenes } from '../components/AmbientScenes'
 import { LoveLanguageQuiz } from '../components/LoveLanguageQuiz'
+import { FitnessPact } from '../components/FitnessPact'
+import { RepairFlow } from '../components/RepairFlow'
+import { ActiveListening } from '../components/ActiveListening'
+import { CycleAwareness } from '../components/CycleAwareness'
 
 export default function More() {
   return (
@@ -28,6 +32,10 @@ export default function More() {
         <CoopGoals />
         <AmbientScenes />
         <LoveLanguageQuiz />
+        <FitnessPact />
+        <RepairFlow />
+        <ActiveListening />
+        <CycleAwareness />
         <CookTogether />
         <SavingsGoal />
         <Expenses />
