@@ -1,60 +1,68 @@
-# Code Review — HEAD 11ce9a2c
+# Code Review — HEAD 91b74cb4
 
-Reviewing the 5-feature commit (FitnessPact #84, RepairFlow #79, ActiveListening #80, CycleAwareness #91, LoveNotePin #21) plus CoupleProvider / format / CSS / page wiring.
-
-Files reviewed:
-- web/src/couple/CoupleProvider.tsx
-- web/src/components/CycleAwareness.tsx
-- web/src/components/FitnessPact.tsx
-- web/src/components/RepairFlow.tsx
-- web/src/components/ActiveListening.tsx
-- web/src/components/LoveNotePin.tsx
-- web/src/lib/format.ts
-- web/firestore.rules
-
----
+Reviewed: DistanceMap (#10), CoupleAvatars (#96), GuidedCourses (#78), ConversationDecks (#63),
+DateNightPlanner (#35), CoupleProvider writers/doc-mapping, lib/growth.ts. Focus: correctness —
+haversine/projection math, geolocation error/permission flow, no-repeat shuffle, lesson
+indexing/restart, Firestore writes & subcollection usage, React state staleness.
 
 ## HIGH
 
-### H1. CycleAwareness next-date prediction is off by a day for users west of UTC. Confidence 88
-File: web/src/components/CycleAwareness.tsx:22 and :62
-
-`dayOfCycle` computes the day count entirely in UTC, then builds `nextStart` as a UTC-midnight Date:
+### H1 — ConversationDecks: immediate repeat across the reshuffle boundary
+`web/src/components/ConversationDecks.tsx:15-26`
+The no-repeat-until-exhausted logic is correct *within* a cycle. But when the deck exhausts,
+the fresh `pool` is reset to ALL indices — including the card just shown (the last entry in
+`seen`). The next random pick can therefore land on the same card twice in a row, which is the
+exact repeat the feature promises to prevent. For a 6-card deck this occurs ~1/6 of every wrap.
+Fix: exclude the last-seen index when reshuffling, e.g.
 ```
-const today = new Date(toDateInput(new Date()) + 'T00:00:00Z').getTime()  // UTC midnight
-const nextStart = new Date(today + (length - inCycle) * 86400000)         // still UTC midnight
+pool = d.cards.map((_, i) => i)
+const last = seen[seen.length - 1]
+if (pool.length > 1 && last !== undefined) pool = pool.filter((i) => i !== last)
+nextSeen = []
 ```
-At line 62 it renders `prettyDate(toDateInput(nextStart))`. But `toDateInput` reads LOCAL components (`getFullYear/getMonth/getDate`). A UTC-midnight Date, viewed in any negative-offset zone (America/New_York, America/Los_Angeles — both in this app's supported timezone list), is the PREVIOUS calendar day locally. So `toDateInput(nextStart)` yields the day before, and the predicted "next around …" date is shown one day early for all western users.
-
-The function is internally inconsistent: it deliberately normalizes `today` to a UTC boundary for the modulo math, but then converts `nextStart` back through the local-based `toDateInput`. The two halves use different time bases.
-
-Fix: format `nextStart` with UTC getters (or add `length - inCycle` days to the UTC date string directly) before passing to `prettyDate`, so the whole pipeline stays in UTC.
-
-### H2. dayOfCycle returns `day` (UTC-based) and `nextStart` (rendered local) on different time bases. Confidence 80
-File: web/src/components/CycleAwareness.tsx:16-23
-
-Same root cause as H1, called out separately because it is a latent trap: `day` (Day N) is computed and displayed purely in UTC and is correct/stable everywhere, but `nextStart` only becomes correct once it is also formatted in UTC. Any future edit that trusts these two outputs to share a timezone will reintroduce the off-by-one. Resolve by keeping the function UTC end-to-end and documenting the contract.
-
----
 
 ## MEDIUM
 
-### M1. RepairFlow: orderBy('createdAt') + serverTimestamp causes a transient null-sort flicker; no missing index. Confidence 78
-File: web/src/components/RepairFlow.tsx:45-49 and :87
+### M1 — DistanceMap: 10-minute cached fix can show stale distance with no recency cue
+`web/src/components/DistanceMap.tsx:48`
+`maximumAge: 600000` lets the browser return a position up to 10 minutes old. `geo[uid].at` is
+stored in Firestore but never surfaced, so after travel the mileage can be silently wrong. Not a
+formula bug; consider `maximumAge: 0` on explicit taps and/or rendering "updated X ago".
 
-A single-field `orderBy('createdAt','desc')` does NOT need a composite index (single-field indexes are automatic), so there is no missing-index crash — the query is fine as written. However, a just-added repair has `createdAt === null` locally until the server timestamp resolves; during that window Firestore may sort the pending doc to an unexpected position or transiently drop it from the `limit(5)` view. It self-heals on the server round-trip. Minor UX flicker only. Documented so it is not mistaken for a data-loss bug.
+### M2 — DateNightPlanner: a stale geolocation-style permission-denied path is the only error UX
+`web/src/components/DistanceMap.tsx:44-47`
+The error callback collapses every failure (denial, timeout, position-unavailable) into one
+"permission denied?" message. A 10s timeout or unavailable signal will mislead the user into
+thinking they denied permission. Branch on `err.code` (`PERMISSION_DENIED` vs `TIMEOUT` vs
+`POSITION_UNAVAILABLE`) for an accurate message. Low severity.
 
----
+## LOW
 
-## LOW / CONFIRMED-OK
+### L1 — DistanceMap: equirectangular projection distorts the drawn line at high latitudes
+`web/src/components/DistanceMap.tsx:18-20`
+The displayed haversine mile count is correct. The SVG pins/line use a plain equirectangular
+projection, so the rendered line length doesn't scale with true distance away from the equator.
+Acceptable for a decorative map; the mile number is the source of truth.
 
-- setCycle uses `[`cycle.${uid}`]: deleteField()` — CORRECT. A dotted-path + deleteField removes only that partner's nested map entry, leaving the other partner's cycle intact. Contrast with setPinnedNote using whole-field `pinnedNote: deleteField()`, also correct since pinnedNote is a single shared field. Both deleteField usages are right.
-- Firestore rules: couples/{id}/{document=**} grants read/write to members, so the new pacts/ and repairs/ subcollections are covered. OK.
-- Effect cleanup: FitnessPact, RepairFlow, and the CoupleProvider couple-doc effect all return the onSnapshot unsubscribe function correctly — no listener leak. ActiveListening is local-only and needs none.
-- FitnessPact daysFor: counts keys whose array includes the uid; an emptied day-array (after arrayRemove) correctly contributes 0, and pct is clamped to 100. No bug.
-- Cycle opt-in privacy: cycle data is only written on explicit Save; "Stop sharing" deletes the nested key. The partner UI shows only a coarse phase label + day. NOTE for the "no details" claim: the raw `start` date and `length` are stored in the shared couple doc and are technically readable by the partner's client (rules let members read the whole couple doc). The UI never renders them, but the data model does expose them. Worth documenting given the explicit "no details" copy.
+### L2 — DateNightPlanner: saved plans accumulate unbounded in Firestore
+`web/src/components/DateNightPlanner.tsx:69-101`
+Only the latest 5 are queried (`limit(5)`), but `save()` never prunes older docs, so the
+`dateplans` subcollection grows forever. This matches the existing RepairFlow convention in the
+codebase (`web/src/components/RepairFlow.tsx:48`), so it is consistent, not a regression.
 
----
-
-## Privacy note (product, not a bug)
-LoveNotePin: when the partner taps "Got it", `setPinnedNote(null)` deletes the shared field for both users, so the sender's "waiting" card vanishes with no read/dismiss distinction. Intended behavior; flagged only because the sender cannot tell "seen" from "I took it down."
+## Correctness items explicitly verified OK
+- Haversine (R=3958.8 mi, toRad, `2*R*asin(sqrt(s))`) — correct.
+- ConversationDecks core no-repeat-until-exhausted — correct except H1 boundary case. `seen`
+  read from closure is fine (draws are per user click, no batching staleness).
+- GuidedCourses: current lesson `idx = min(done, len-1)`; "Mark done · next" writes `idx+1`;
+  `complete` when `done >= len`; Restart writes 0; list-view `pct` uses clamped `done` — all
+  correct and mutually consistent.
+- CoupleProvider writers (`setGeo`/`setAvatar`/`setCourseProgress`) use dotted-path field
+  updates (`geo.${uid}`, `avatars.${uid}`, `courses.${courseId}`) — correct, won't clobber the
+  partner's nested entry; all guard on db+user+couple.
+- CoupleProvider doc-mapping for geo/avatars/courses with `Number()||0` / string fallbacks and
+  `at?.toDate?.()` — correct and null-safe.
+- DateNightPlanner: `onSnapshot` cleanup returned from effect; `coupleId` dependency correct;
+  `save`/`remove` guard on db+coupleId. `pick<T>` random selection fine.
+- DistanceMap pin React keys `p.label + p.me` — unique across the two pins (`me` boolean differs).
+- CoupleAvatars: `mine` falls back to a default object; edit writes via `setAvatar`; no staleness.

@@ -41,11 +41,17 @@ export function DistanceMap() {
       (pos) => {
         void setGeo(pos.coords.latitude, pos.coords.longitude).finally(() => setBusy(false))
       },
-      () => {
-        setErr('Couldn’t get your location (permission denied?).')
+      (e) => {
+        const msg =
+          e.code === e.PERMISSION_DENIED
+            ? 'Location permission was denied.'
+            : e.code === e.TIMEOUT
+              ? 'Timed out getting your location — try again.'
+              : 'Couldn’t determine your location right now.'
+        setErr(msg)
         setBusy(false)
       },
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 0 },
     )
   }
 

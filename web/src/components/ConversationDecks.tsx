@@ -17,7 +17,11 @@ export function ConversationDecks() {
     let pool = d.cards.map((_, i) => i).filter((i) => !seen.includes(i))
     let nextSeen = seen
     if (pool.length === 0) {
-      pool = d.cards.map((_, i) => i)
+      // Reshuffle, but exclude the card just shown so it can't repeat across
+      // the boundary (guard the degenerate 1-card deck).
+      const last = seen[seen.length - 1]
+      pool = d.cards.map((_, i) => i).filter((i) => i !== last)
+      if (pool.length === 0) pool = d.cards.map((_, i) => i)
       nextSeen = []
     }
     const pick = pool[Math.floor(Math.random() * pool.length)]
