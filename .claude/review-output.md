@@ -1,78 +1,102 @@
-# Code Review — HEAD 4b148a92
+# Code Review — commit 688e872b (friendship lamp / kiss / heartbeat / battery / love-language quiz)
 
-Scope: the 5 features in commit 4b148a92 (HabitTracker, CoopGoals, Calendar timezone,
-AmbientScenes, SpicyZone) plus CoupleProvider/More/Games wiring.
+Reviewed:
+- web/src/components/SignalOverlay.tsx
+- web/src/components/BatteryShare.tsx
+- web/src/components/ConnectionDeck.tsx
+- web/src/components/LoveLanguageQuiz.tsx
+- web/src/couple/CoupleProvider.tsx
+- web/src/pages/Home.tsx, More.tsx, components/Shell.tsx
+
+Compared against the established pattern in web/src/components/LoveBurst.tsx.
+
+---
 
 ## HIGH
 
-### H1 — Habit streak & toggle use *local* date keys, breaking across timezones
-File: `web/src/components/HabitTracker.tsx` (`dayKey`, `toggle`, `streakFor`)
+### H1 — SignalOverlay timeout is cancelled by unrelated couple updates; full-screen overlay gets stuck
+File: web/src/components/SignalOverlay.tsx (lines 16-34)
 
-`dayKey()` derives the log key from `toDateInput(new Date())`, which formats in the
-*device's local* timezone (`d.getDate()`/`getMonth`/`getFullYear`). This is a
-long-distance-couple app: the two partners are in different timezones by definition.
-Consequences:
-- The same wall-clock "day" produces different keys for each partner. When partner A
-  (UTC+5) and partner B (UTC-5) both check in on what they each call "today", they can
-  write to two *different* `log[dateKey]` entries, so `theirsDone` shows false and the
-  shared-habit feel breaks near day boundaries.
-- `streakFor(log, user.uid)` walks `dayKey(off)` in the local zone, so a user crossing a
-  DST boundary or traveling can skip/duplicate a key and lose a valid streak.
+The effect depends on `[couple, user?.uid]`, so it re-runs on EVERY couple-doc snapshot
+(typing, mood, battery, lastRead, etc.). On a signal it does:
 
-The codebase already ships `utcDayKey()` in `lib/format.ts` for exactly this purpose
-(other day-scoped features use it). Use a single shared day-key convention (UTC, or the
-couple's agreed zone) for both writing the log and computing the streak so both partners
-resolve to the same key. Confidence: 85.
+```ts
+setActive({...})
+const id = window.setTimeout(() => setActive(null), ms)
+return () => window.clearTimeout(id)
+```
 
-### H2 — Spicy PIN gate is security theater (does not protect the content)
-File: `web/src/components/games/SpicyZone.tsx`
+React runs the previous effect's cleanup before each re-run. So when any unrelated couple
+snapshot arrives while the overlay is showing, React calls the cleanup (`clearTimeout(id)`),
+then re-runs the effect — but now `t === last.current`, the `t > last.current` branch is NOT
+entered, no new timeout is scheduled, and the effect returns `undefined`. Result: `active` is
+never reset to null and the full-screen overlay stays up indefinitely (until the next *new*
+signal arrives).
 
-- The "lock" is a client-side React state flag (`unlocked`). The spicy prompts come from
-  the bundled `TRUTHS.spicy` / `DARES.spicy` arrays shipped in the JS bundle — anyone can
-  read them from devtools/sources regardless of the PIN.
-- The PIN is stored as a 32-bit `hash()` (`h*31+c`) in `localStorage`. This is a
-  non-cryptographic checksum, trivially brute-forced for a 4-digit PIN (10k candidates)
-  and readable by anyone with the device.
-- There is no rate limiting on `doUnlock`.
-- The *same* spicy content is already reachable with no PIN via the existing
-  `TruthOrDare` "Spicy 🌶️" checkbox, so the gate adds no real protection while implying
-  privacy ("private", "lock this section").
+This is dramatically more likely now because the SAME commit mounts BatteryShare, which writes
+`battery.<uid>` to the couple doc on every rounded-percent / charging change. Each such write
+yields a couple snapshot that can kill the in-flight signal timeout. Typing indicators and
+moods do the same. LoveBurst.tsx shares this structural pattern, but its overlay is small/
+non-blocking and the couple doc previously had fewer high-frequency writers; SignalOverlay's
+lamp/kiss/heartbeat overlay is full-screen, so a stuck overlay is much worse.
 
-If the intent is genuine privacy, this needs a real approach (don't ship the content to
-unauthorized clients, or gate server-side). At minimum, do not present it as a security
-boundary. Confidence: 88.
+Fix: keep the timeout in a ref decoupled from effect re-runs — clear/reset it only when a NEW
+signal fires, and clear once on unmount:
+
+```ts
+const timeoutRef = useRef<number | null>(null)
+// in the "new signal" branch:
+if (timeoutRef.current) window.clearTimeout(timeoutRef.current)
+setActive({...})
+timeoutRef.current = window.setTimeout(() => setActive(null), ms)
+// separate unmount-only effect clears timeoutRef.current
+```
+
+---
 
 ## MEDIUM
 
-### M1 — CoopGoals `bump` clamps against stale local state → can overshoot target
-File: `web/src/components/CoopGoals.tsx` (`bump`)
+### M1 — BatteryShare: getBattery() rejection is unhandled; UI stuck on "—" with no fallback message
+File: web/src/components/BatteryShare.tsx (lines 44-50)
 
-`bump` computes `next = clamp(g.progress + amt, 0, target)` from the locally-snapshotted
-`g.progress`, then writes `increment(next - g.progress)`. The clamp is only correct
-relative to the value the client last saw. If both partners tap +1 near the target
-concurrently (or one taps faster than the snapshot round-trips), the `increment()`
-deltas stack on the server and `progress` can exceed `target` (e.g. stored 6/5). The UI
-caps `pct` at 100 but the stored value is wrong. Use a transaction that re-reads
-`progress`, or accept overshoot and clamp on read. Confidence: 80.
+`nav.getBattery().then(...)` has no `.catch`. Some browsers reject (insecure origin, permission
+policy, or feature blocked) instead of leaving `getBattery` undefined. On rejection: an
+unhandled promise rejection is logged, `supported` stays `true`, and "You" renders "—" forever
+instead of the "not shared / can't read battery" message (which only shows when `supported` is
+false). Add `.catch(() => { if (!cancelled) setSupported(false) })`.
+
+### M2 — `signal` is a single last-writer-wins field; rapid/overlapping signals coalesce
+File: web/src/couple/CoupleProvider.tsx (sendSignal, lines 412-417) + SignalOverlay.tsx
+
+`sendSignal` overwrites the whole `signal` object and the receiver fires only when
+`at.getTime() > last.current`. If a kiss is sent while a lamp glow is still animating, the kiss
+overwrites the lamp; the receiver re-baselines and the lamp color/animation can mismatch
+briefly. Consistent with the existing greeting/poke approach and acceptable for an ephemeral
+affection signal, but worth noting that simultaneous signals from both partners are not
+independently delivered.
+
+---
 
 ## LOW
 
-### L1 — Calendar timezone label double-formats per render
-File: `web/src/components/Calendar.tsx` (render)
+### L1 — Unchecked `as Lang` cast can throw if loveLang holds an unexpected value
+File: web/src/components/LoveLanguageQuiz.tsx (lines 62-63, 110-111, 119-121)
 
-`fmtTz(instantOf(ev), partner.timezone) !== fmtTz(instantOf(ev))` calls `fmtTz` three
-times per event per render (constructing `Intl.DateTimeFormat` each time). Correct but
-wasteful for long lists; compute the two strings once. Confidence: 80.
+`couple?.loveLang?.[uid]` is typed `string` and cast to `Lang`. If the stored value is ever not
+one of the five keys, `LANGS[mine]` is `undefined` and `LANGS[mine].emoji` throws, breaking the
+card render. Low risk (only this quiz writes the field), but guard with
+`mine && LANGS[mine] ? ... : fallback`.
 
-### L2 — `at` not backfilled for pre-existing events
-File: `web/src/components/Calendar.tsx` (`instantOf`)
+### L2 — Love-language tie-break is first-key-wins (order-biased)
+File: web/src/components/LoveLanguageQuiz.tsx (line 68)
 
-New events store `at`; old events have `at: 0`, so `instantOf` falls back to
-`new Date(ev.when).getTime()` parsed in the *viewer's* zone — the ambiguity `at` was
-added to fix. Acceptable as a fallback, but old events won't render the partner's-time
-line correctly. Confidence: 80.
+`reduce((a, b) => next[b] > next[a] ? b : a)` keeps the first-seen max on ties; with 8 questions
+over 5 langs ties are common, biasing toward the earliest object key (words → time → acts →
+touch → gifts). Fine for a casual quiz; flagging as approximate.
 
-## Firestore rules note (no regression in this commit)
-The new `habits`/`goals`/`scene` writes fall under `couples/{id}/**` (or the couples
-doc), already member-scoped by the existing rules. No rule changes needed and no new
-exposure introduced. The `scene` field is plain couple-doc data — fine.
+### L3 — Battery low threshold expressed in two units, easy to desync
+File: web/src/components/BatteryShare.tsx (lines 12-15 vs 82)
+
+`batIcon` low check is `level <= 0.15` (fraction) while the "low" text class uses
+`theirs.level <= 15` (percent). Both correct today (level stored as percent, divided by 100 for
+the icon), but the duplicated constant in two units is a future-desync hazard. Not a current bug.

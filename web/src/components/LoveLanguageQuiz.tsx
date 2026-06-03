@@ -59,8 +59,10 @@ export function LoveLanguageQuiz() {
 
   if (!paired) return null
 
-  const mine = (user && couple?.loveLang?.[user.uid]) as Lang | undefined
-  const theirs = (partner && couple?.loveLang?.[partner.uid]) as Lang | undefined
+  const asLang = (v: string | null | undefined): Lang | undefined =>
+    v && v in LANGS ? (v as Lang) : undefined
+  const mine = user ? asLang(couple?.loveLang?.[user.uid]) : undefined
+  const theirs = partner ? asLang(couple?.loveLang?.[partner.uid]) : undefined
 
   function answer(lang: Lang) {
     const next = { ...scores, [lang]: scores[lang] + 1 }

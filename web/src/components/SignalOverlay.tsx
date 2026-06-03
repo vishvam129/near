@@ -11,8 +11,12 @@ export function SignalOverlay() {
   const { user } = useAuth()
   const { couple, partner } = useCouple()
   const last = useRef<number | null>(null)
+  const timer = useRef<number | null>(null)
   const [active, setActive] = useState<Active | null>(null)
 
+  // The dismiss timer lives in a ref, not the effect's cleanup, so unrelated
+  // couple-doc snapshots (e.g. the partner's battery updates) re-running this
+  // effect can't cancel an in-flight animation and leave the overlay stuck.
   useEffect(() => {
     if (!couple) return
     const t = couple.signal?.at?.getTime() ?? 0
@@ -26,12 +30,18 @@ export function SignalOverlay() {
       const sig = couple.signal
       if (sig?.from && sig.from !== user?.uid) {
         setActive({ type: sig.type, color: sig.color })
+        if (timer.current) window.clearTimeout(timer.current)
         const ms = sig.type === 'lamp' ? 4000 : 2600
-        const id = window.setTimeout(() => setActive(null), ms)
-        return () => window.clearTimeout(id)
+        timer.current = window.setTimeout(() => {
+          setActive(null)
+          timer.current = null
+        }, ms)
       }
     }
   }, [couple, user?.uid])
+
+  // Clear the pending timer only when the component truly unmounts.
+  useEffect(() => () => void (timer.current && window.clearTimeout(timer.current)), [])
 
   if (!active) return null
   const who = partner?.name || partner?.email || 'Your partner'

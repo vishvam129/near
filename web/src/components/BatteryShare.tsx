@@ -9,9 +9,11 @@ type BatteryLike = {
   removeEventListener: (t: string, cb: () => void) => void
 }
 
-function batIcon(level: number, charging: boolean): string {
+const LOW_PCT = 15
+
+function batIcon(pct: number, charging: boolean): string {
   if (charging) return '🔌'
-  if (level <= 0.15) return '🪫'
+  if (pct <= LOW_PCT) return '🪫'
   return '🔋'
 }
 
@@ -41,13 +43,16 @@ export function BatteryShare() {
       lastPct = pct
       void updateBattery(pct, bat.charging)
     }
-    nav.getBattery().then((b) => {
-      if (cancelled) return
-      bat = b
-      push()
-      b.addEventListener('levelchange', push)
-      b.addEventListener('chargingchange', push)
-    })
+    nav
+      .getBattery()
+      .then((b) => {
+        if (cancelled) return
+        bat = b
+        push()
+        b.addEventListener('levelchange', push)
+        b.addEventListener('chargingchange', push)
+      })
+      .catch(() => setSupported(false))
     return () => {
       cancelled = true
       if (bat) {
@@ -70,7 +75,7 @@ export function BatteryShare() {
           <span className="battery-who">You</span>
           {mine ? (
             <span className="battery-val">
-              {batIcon(mine.level / 100, mine.charging)} {mine.level}%
+              {batIcon(mine.level, mine.charging)} {mine.level}%
             </span>
           ) : (
             <span className="battery-val muted">{supported ? '—' : 'not shared'}</span>
@@ -79,8 +84,10 @@ export function BatteryShare() {
         <div className="battery-one">
           <span className="battery-who">{partner?.name || 'Partner'}</span>
           {theirs ? (
-            <span className={`battery-val ${theirs.level <= 15 && !theirs.charging ? 'low' : ''}`}>
-              {batIcon(theirs.level / 100, theirs.charging)} {theirs.level}%
+            <span
+              className={`battery-val ${theirs.level <= LOW_PCT && !theirs.charging ? 'low' : ''}`}
+            >
+              {batIcon(theirs.level, theirs.charging)} {theirs.level}%
             </span>
           ) : (
             <span className="battery-val muted">—</span>

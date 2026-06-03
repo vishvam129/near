@@ -13,10 +13,10 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": null,
+  "current_feature_id": 65,
   "session": {
-    "count": 58,
-    "last_started_at": "2026-06-03T08:50:22.326450Z",
+    "count": 59,
+    "last_started_at": "2026-06-03T09:51:34.435993Z",
     "total_duration_minutes": 0
   },
   "stats": {
@@ -24,8 +24,8 @@
     "passed": 57,
     "failed": 0,
     "skipped": 0,
-    "in_progress": 0,
-    "pending": 39,
+    "in_progress": 1,
+    "pending": 38,
     "completion_percentage": 59.4
   },
   "categories": [
@@ -2545,9 +2545,9 @@
         "luvlink"
       ],
       "rationale": "LuvLink friendship-lamp magic, no hardware needed",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-03T09:51:34.435970Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -3680,14 +3680,6 @@
   ],
   "audit_trail": [
     {
-      "timestamp": "2026-06-01T07:13:07.062096Z",
-      "operation": "feature_started",
-      "feature_id": 11,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
       "timestamp": "2026-06-02T06:35:58.688168Z",
       "operation": "feature_passed",
       "feature_id": 11,
@@ -4777,6 +4769,14 @@
           "net": 64,
           "files_changed": 4
         }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T09:51:34.436012Z",
+      "operation": "feature_started",
+      "feature_id": 65,
+      "details": {
+        "from_status": "pending"
       }
     }
   ]
