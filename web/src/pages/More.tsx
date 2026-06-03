@@ -9,6 +9,7 @@ import { SavingsGoal } from '../components/SavingsGoal'
 import { Expenses } from '../components/Expenses'
 import { TimeCapsule } from '../components/TimeCapsule'
 import { CookTogether } from '../components/CookTogether'
+import { Calendar } from '../components/Calendar'
 
 export default function More() {
   return (
@@ -18,6 +19,7 @@ export default function More() {
           <span className="dot" /> More
         </div>
 
+        <Calendar />
         <CookTogether />
         <SavingsGoal />
         <Expenses />

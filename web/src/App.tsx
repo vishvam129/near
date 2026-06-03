@@ -3,6 +3,7 @@ import { useCouple } from './couple/CoupleProvider'
 import SignIn from './pages/SignIn'
 import Pairing from './pages/Pairing'
 import Shell from './components/Shell'
+import { PinGate } from './components/PinGate'
 
 function Loading() {
   return (
@@ -19,5 +20,10 @@ export default function App() {
   if (authLoading) return <Loading />
   if (!user) return <SignIn />
   if (coupleLoading) return <Loading />
-  return paired ? <Shell /> : <Pairing />
+  if (!paired) return <Pairing />
+  return (
+    <PinGate>
+      <Shell />
+    </PinGate>
+  )
 }

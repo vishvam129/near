@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #26 [Watch Together] Watch-party chat overlay
-   Started: 2026-06-03T05:18:29.866379Z
+**In Progress:** #32 [Planning] Shared calendar synced with Google/Apple
+   Started: 2026-06-03T05:49:04.109386Z
 
 ## Summary
 
-Progress: ████████████░░░░░░░░░░░░░░░░░░ 42.7%
+Progress: ██████████████░░░░░░░░░░░░░░░░ 47.9%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 41 | 42.7% |
+| Passed | 46 | 47.9% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 54 | 56.2% |
+| Pending | 49 | 51.0% |
 
 ## Session Statistics
 
-- **Sessions:** 43
-- **Last Started:** 2026-06-03T05:18:29.866399Z
+- **Sessions:** 48
+- **Last Started:** 2026-06-03T05:49:04.109409Z
 
 ## Categories
 
@@ -32,8 +32,8 @@ Progress: ████████████░░░░░░░░░░░�
 | Time & Distance | █████░░░░░ 50% | 3 | 0 | 0 |
 | Messaging | ██████████ 100% | 7 | 0 | 0 |
 | Micro-connection | ██░░░░░░░░ 20% | 2 | 0 | 0 |
-| Watch Together | ██░░░░░░░░ 25% | 1 | 0 | 0 |
-| Games | ██████░░░░ 60% | 3 | 0 | 0 |
+| Watch Together | █████░░░░░ 50% | 2 | 0 | 0 |
+| Games | ██████████ 100% | 5 | 0 | 0 |
 | Planning | █████░░░░░ 50% | 4 | 0 | 0 |
 | Memories | ████████░░ 80% | 4 | 0 | 0 |
 | Daily Rituals | ████████░░ 86% | 6 | 0 | 0 |
@@ -43,7 +43,7 @@ Progress: ████████████░░░░░░░░░░░�
 | Monetization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Differentiator | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | IoT | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Activities | ██░░░░░░░░ 20% | 1 | 0 | 0 |
+| Activities | ██████░░░░ 60% | 3 | 0 | 0 |
 | Wellbeing | ███░░░░░░░ 33% | 2 | 0 | 0 |
 | Habits | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Finances | ██████████ 100% | 2 | 0 | 0 |
@@ -54,6 +54,11 @@ Progress: ████████████░░░░░░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #69 | passed | 0s | 28 | 16 | 12 | 2 | 0 | yes |
+| #70 | passed | 0s | 28 | 16 | 12 | 2 | 0 | yes |
+| #71 | passed | 0s | 28 | 16 | 12 | 2 | 0 | yes |
+| #74 | passed | 0s | 28 | 16 | 12 | 2 | 0 | yes |
+| #26 | passed | 28m 7s | 28 | 16 | 12 | 2 | 0 | yes |
 | #46 | passed | 0s | 28 | 17 | 11 | 3 | 0 | yes |
 | #43 | passed | 0s | 28 | 17 | 11 | 3 | 0 | yes |
 | #44 | passed | 0s | 28 | 17 | 11 | 3 | 0 | yes |
@@ -102,17 +107,17 @@ Progress: ████████████░░░░░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-03T05:46 | #69 Cook-together mode: shared recipe, shopping list,  | P | 9326d77 |
+| 2026-06-03T05:46 | #70 Live shared whiteboard / draw together in real tim | P | 9326d77 |
+| 2026-06-03T05:46 | #71 Simultaneous-reveal drawing game | P | 9326d77 |
+| 2026-06-03T05:46 | #74 Board-game hub (chess, checkers, Yahtzee) | P | 9326d77 |
+| 2026-06-03T05:46 | #26 Watch-party chat overlay | P | 9326d77 |
 | 2026-06-03T05:16 | #46 Daily quiz / compatibility | P | 71f6841 |
 | 2026-06-03T05:16 | #43 On-this-day memory resurfacing | P | 71f6841 |
 | 2026-06-03T05:16 | #44 Time capsule message/video unlocking on a future d | P | 71f6841 |
 | 2026-06-03T05:16 | #15 Doodles/drawings sent in chat | P | 71f6841 |
 | 2026-06-03T05:16 | #14 Voice notes / audio memos | P | 71f6841 |
-| 2026-06-02T13:27 | #82 Relationship health insights / connection score | P | ee7cf87 |
-| 2026-06-02T13:27 | #81 Weekly relationship check-in | P | ee7cf87 |
-| 2026-06-02T13:27 | #87 Visit/trip budget split between partners | P | ee7cf87 |
-| 2026-06-02T13:27 | #86 Shared expense tracking for visits & trips | P | ee7cf87 |
-| 2026-06-02T13:27 | #39 Shared savings goal toward visits/flights | P | ee7cf87 |
 
 ---
-*Last updated: 2026-06-03T05:18:29.912854Z*
-*Session 43*
+*Last updated: 2026-06-03T05:49:04.151667Z*
+*Session 48*

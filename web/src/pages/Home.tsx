@@ -8,6 +8,7 @@ import { DailyQuestion } from '../components/DailyQuestion'
 import { Mood } from '../components/Mood'
 import { ImportantDates } from '../components/ImportantDates'
 import { Greeting } from '../components/Greeting'
+import { Bedtime } from '../components/Bedtime'
 import { OnThisDay } from '../components/OnThisDay'
 import { HealthScore } from '../components/HealthScore'
 import { WeeklyCheckin } from '../components/WeeklyCheckin'
@@ -51,6 +52,8 @@ export default function Home() {
         <HealthScore />
 
         <Greeting />
+
+        <Bedtime />
 
         <Mood />
 

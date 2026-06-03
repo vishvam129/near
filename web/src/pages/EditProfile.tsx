@@ -4,6 +4,7 @@ import { timezoneList, commonTimezones } from '../lib/format'
 import { INDIAN_STATES } from '../lib/india'
 import { fileToAvatarDataUrl } from '../lib/image'
 import { Avatar } from '../components/Avatar'
+import { PinSettings } from '../components/PinSettings'
 
 export default function EditProfile({ onDone }: { onDone: () => void }) {
   const { profile, updateProfile } = useCouple()
@@ -160,6 +161,8 @@ export default function EditProfile({ onDone }: { onDone: () => void }) {
             Cancel
           </button>
         </form>
+
+        <PinSettings />
       </div>
     </div>
   )

@@ -7,6 +7,7 @@ import More from '../pages/More'
 import { BottomNav, type Tab } from './BottomNav'
 import { LoveBurst } from './LoveBurst'
 import { ScheduledDelivery } from './ScheduledDelivery'
+import { AlarmWatcher } from './AlarmWatcher'
 
 export default function Shell() {
   const [tab, setTab] = useState<Tab>('home')
@@ -22,6 +23,7 @@ export default function Shell() {
       <BottomNav tab={tab} onTab={setTab} />
       <LoveBurst />
       <ScheduledDelivery />
+      <AlarmWatcher />
     </div>
   )
 }

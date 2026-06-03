@@ -58,6 +58,8 @@ export type CoupleDoc = {
   ttt: { cells: string; turn: string; x: string } | null
   recipe: string | null
   cookEndsAt: number | null
+  sleeping: Record<string, boolean>
+  alarm: { at: number; label: string; setBy: string } | null
 }
 
 export type WatchState = {
@@ -94,6 +96,8 @@ type CoupleContextValue = {
   playTtt: (i: number) => Promise<void>
   setRecipe: (recipe: string | null) => Promise<void>
   setCookTimer: (endsAt: number | null) => Promise<void>
+  setSleeping: (asleep: boolean) => Promise<void>
+  setAlarm: (alarm: { at: number; label: string } | null) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -263,6 +267,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         ttt: d.ttt ?? null,
         recipe: d.recipe ?? null,
         cookEndsAt: d.cookEndsAt ?? null,
+        sleeping: d.sleeping ?? {},
+        alarm: d.alarm ?? null,
       })
     })
   }, [profile?.coupleId])
@@ -421,6 +427,18 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { ttt: { ...t, cells, turn: pUid } })
   }
 
+  async function setSleeping(asleep: boolean) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { [`sleeping.${user.uid}`]: asleep })
+  }
+
+  async function setAlarm(alarm: { at: number; label: string } | null) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      alarm: alarm ? { ...alarm, setBy: user.uid } : null,
+    })
+  }
+
   async function setRecipe(recipe: string | null) {
     if (!db || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), { recipe })
@@ -496,6 +514,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     playTtt,
     setRecipe,
     setCookTimer,
+    setSleeping,
+    setAlarm,
   }
 
   return <CoupleContext.Provider value={value}>{children}</CoupleContext.Provider>
