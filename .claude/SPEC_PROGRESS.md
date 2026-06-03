@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #84 [Habits] Couple fitness challenge / pact
-   Started: 2026-06-03T10:21:05.126751Z
+**In Progress:** #10 [Time & Distance] Distance map showing both locations and miles apart
+   Started: 2026-06-03T12:09:15.406595Z
 
 ## Summary
 
-Progress: ███████████████████░░░░░░░░░░░ 64.6%
+Progress: ████████████████████░░░░░░░░░░ 69.8%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 62 | 64.6% |
+| Passed | 67 | 69.8% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
 | In Progress | 1 | - |
-| Pending | 33 | 34.4% |
+| Pending | 28 | 29.2% |
 
 ## Session Statistics
 
-- **Sessions:** 64
-- **Last Started:** 2026-06-03T10:21:05.126772Z
+- **Sessions:** 69
+- **Last Started:** 2026-06-03T12:09:15.406676Z
 
 ## Categories
 
@@ -31,7 +31,7 @@ Progress: ███████████████████░░░░�
 | Security | █████░░░░░ 50% | 2 | 0 | 0 |
 | Time & Distance | ██████░░░░ 67% | 4 | 0 | 0 |
 | Messaging | ██████████ 100% | 7 | 0 | 0 |
-| Micro-connection | ███████░░░ 70% | 7 | 0 | 0 |
+| Micro-connection | ████████░░ 80% | 8 | 0 | 0 |
 | Watch Together | █████░░░░░ 50% | 2 | 0 | 0 |
 | Games | ██████████ 100% | 5 | 0 | 0 |
 | Planning | ███████░░░ 75% | 6 | 0 | 0 |
@@ -44,8 +44,8 @@ Progress: ███████████████████░░░░�
 | Differentiator | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | IoT | █████░░░░░ 50% | 1 | 0 | 0 |
 | Activities | ████████░░ 80% | 4 | 0 | 0 |
-| Wellbeing | ███░░░░░░░ 33% | 2 | 0 | 0 |
-| Habits | ██████░░░░ 67% | 2 | 0 | 0 |
+| Wellbeing | ████████░░ 83% | 5 | 0 | 0 |
+| Habits | ██████████ 100% | 3 | 0 | 0 |
 | Finances | ██████████ 100% | 2 | 0 | 0 |
 | Gestures | ██████████ 100% | 3 | 0 | 0 |
 | Localization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -54,6 +54,11 @@ Progress: ███████████████████░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #21 | passed | 0s | 50 | 87 | -37 | 2 | 0 | yes |
+| #91 | passed | 0s | 50 | 87 | -37 | 2 | 0 | yes |
+| #80 | passed | 0s | 50 | 87 | -37 | 2 | 0 | yes |
+| #79 | passed | 0s | 50 | 87 | -37 | 2 | 0 | yes |
+| #84 | passed | 1h 42m 8s | 50 | 87 | -37 | 2 | 0 | yes |
 | #47 | passed | 0s | 145 | 101 | 44 | 6 | 0 | yes |
 | #23 | passed | 0s | 145 | 101 | 44 | 6 | 0 | yes |
 | #67 | passed | 0s | 145 | 101 | 44 | 6 | 0 | yes |
@@ -123,17 +128,17 @@ Progress: ███████████████████░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-03T12:03 | #21 Love-note / mood widget on home screen | P | 3716e1e |
+| 2026-06-03T12:03 | #91 Shared menstrual-cycle awareness (opt-in) | P | 3716e1e |
+| 2026-06-03T12:03 | #80 Active-listening exercises | P | 3716e1e |
+| 2026-06-03T12:03 | #79 Conflict-resolution / repair flow (structured) | P | 3716e1e |
+| 2026-06-03T12:03 | #84 Couple fitness challenge / pact | P | 3716e1e |
 | 2026-06-03T09:55 | #47 Love-language quiz and care nudges | P | 855e981 |
 | 2026-06-03T09:55 | #23 Battery-level sharing | P | 855e981 |
 | 2026-06-03T09:55 | #67 Heartbeat send / heartbeat-pillow integration | P | 855e981 |
 | 2026-06-03T09:55 | #68 Virtual kiss with animation | P | 855e981 |
 | 2026-06-03T09:55 | #65 In-app friendship lamp: tap to glow partner's scre | P | 855e981 |
-| 2026-06-03T08:50 | #55 Spicy questions & dares, PIN-gated | P | 112a7fa |
-| 2026-06-03T08:50 | #75 Ambient virtual-location scenes shared on call | P | 112a7fa |
-| 2026-06-03T08:50 | #8 Auto timezone conversion when scheduling a call or | P | 112a7fa |
-| 2026-06-03T08:50 | #85 Co-op goals with shared streaks & nudges | P | 112a7fa |
-| 2026-06-03T08:49 | #83 Shared habit tracker with partner visibility | P | 112a7fa |
 
 ---
-*Last updated: 2026-06-03T10:21:05.167726Z*
-*Session 64*
+*Last updated: 2026-06-03T12:09:15.444106Z*
+*Session 69*

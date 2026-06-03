@@ -67,6 +67,9 @@ export type CoupleDoc = {
   loveLang: Record<string, string>
   pinnedNote: { from: string; text: string; at: Date | null } | null
   cycle: Record<string, { start: string; length: number }>
+  geo: Record<string, { lat: number; lng: number; at: Date | null }>
+  avatars: Record<string, { face: string; color: string }>
+  courses: Record<string, number>
 }
 
 export type WatchState = {
@@ -111,6 +114,9 @@ type CoupleContextValue = {
   setLoveLang: (lang: string) => Promise<void>
   setPinnedNote: (text: string | null) => Promise<void>
   setCycle: (info: { start: string; length: number } | null) => Promise<void>
+  setGeo: (lat: number, lng: number) => Promise<void>
+  setAvatar: (face: string, color: string) => Promise<void>
+  setCourseProgress: (courseId: string, lesson: number) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -318,6 +324,22 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
             return [uid, { start: v.start ?? '', length: Number(v.length) || 28 }]
           }),
         ),
+        geo: Object.fromEntries(
+          Object.entries(d.geo ?? {}).map(([uid, g]) => {
+            const v = g as { lat?: number; lng?: number; at?: { toDate?: () => Date } }
+            return [
+              uid,
+              { lat: Number(v.lat) || 0, lng: Number(v.lng) || 0, at: v.at?.toDate?.() ?? null },
+            ]
+          }),
+        ),
+        avatars: Object.fromEntries(
+          Object.entries(d.avatars ?? {}).map(([uid, a]) => {
+            const v = a as { face?: string; color?: string }
+            return [uid, { face: v.face ?? '🙂', color: v.color ?? '#ff5d8f' }]
+          }),
+        ),
+        courses: d.courses ?? {},
       })
     })
   }, [profile?.coupleId])
@@ -460,6 +482,25 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  async function setGeo(lat: number, lng: number) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      [`geo.${user.uid}`]: { lat, lng, at: serverTimestamp() },
+    })
+  }
+
+  async function setAvatar(face: string, color: string) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      [`avatars.${user.uid}`]: { face, color },
+    })
+  }
+
+  async function setCourseProgress(courseId: string, lesson: number) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { [`courses.${courseId}`]: lesson })
+  }
+
   async function setSavingsGoal(target: number, label: string) {
     if (!db || !couple) return
     const saved = couple.savings?.saved ?? 0
@@ -594,6 +635,9 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     setLoveLang,
     setPinnedNote,
     setCycle,
+    setGeo,
+    setAvatar,
+    setCourseProgress,
     setMood,
     updateWatch,
     bumpStreak,

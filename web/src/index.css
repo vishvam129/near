@@ -1988,6 +1988,291 @@ select.input {
   margin-bottom: 8px;
 }
 
+/* ---- distance map ---- */
+.map-miles {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--pink);
+  margin-bottom: 10px;
+}
+.map-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background: radial-gradient(circle at 50% 40%, #1d2b4a, #0d1424);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.map-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.map-pin-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #3db6ff;
+  box-shadow: 0 0 0 4px rgba(61, 182, 255, 0.25);
+}
+.map-pin.me .map-pin-dot {
+  background: var(--pink);
+  box-shadow: 0 0 0 4px rgba(255, 93, 143, 0.25);
+}
+.map-pin-label {
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+/* ---- couple avatars ---- */
+.avatar-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.avatar-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.avatar-face {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+.avatar-empty {
+  background: var(--panel) !important;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+}
+.avatar-name {
+  font-size: 12px;
+  color: var(--muted);
+}
+.avatar-heart {
+  font-size: 22px;
+}
+.avatar-faces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.avatar-pick {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  font-size: 20px;
+  cursor: pointer;
+}
+.avatar-pick.sel {
+  border-color: var(--pink);
+  background: var(--panel);
+}
+.avatar-colors {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* ---- guided courses ---- */
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.course-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  color: var(--txt);
+}
+.course-emoji {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.course-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.course-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+.course-blurb {
+  font-size: 12px;
+  color: var(--muted);
+}
+.course-bar {
+  margin-top: 4px;
+}
+.course-count {
+  font-size: 12px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.course-step {
+  font-size: 12px;
+  color: var(--muted);
+}
+.course-lesson-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 4px 0 8px;
+}
+.course-body {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.course-prompt {
+  font-size: 13px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.course-done {
+  font-size: 15px;
+  text-align: center;
+  padding: 14px 0;
+}
+
+/* ---- conversation decks ---- */
+.deck-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.deck-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--txt);
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.deck-emoji {
+  font-size: 22px;
+}
+.deck-card-face {
+  min-height: 90px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 16px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+/* ---- date-night planner ---- */
+.vibe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.vibe-pick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--txt);
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.vibe-pick.sel {
+  border-color: var(--pink);
+}
+.vibe-emoji {
+  font-size: 20px;
+}
+.plan-out {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.plan-line {
+  font-size: 15px;
+  padding: 4px 0;
+}
+.plan-saved-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.plan-saved-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.plan-saved-vibe {
+  font-size: 13px;
+  font-weight: 600;
+}
+.plan-saved-detail {
+  font-size: 12px;
+  color: var(--muted);
+}
+
 /* ---- dual clocks ---- */
 .clocks {
   display: grid;

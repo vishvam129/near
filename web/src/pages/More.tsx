@@ -18,6 +18,10 @@ import { FitnessPact } from '../components/FitnessPact'
 import { RepairFlow } from '../components/RepairFlow'
 import { ActiveListening } from '../components/ActiveListening'
 import { CycleAwareness } from '../components/CycleAwareness'
+import { CoupleAvatars } from '../components/CoupleAvatars'
+import { GuidedCourses } from '../components/GuidedCourses'
+import { ConversationDecks } from '../components/ConversationDecks'
+import { DateNightPlanner } from '../components/DateNightPlanner'
 
 export default function More() {
   return (
@@ -36,6 +40,10 @@ export default function More() {
         <RepairFlow />
         <ActiveListening />
         <CycleAwareness />
+        <CoupleAvatars />
+        <GuidedCourses />
+        <ConversationDecks />
+        <DateNightPlanner />
         <CookTogether />
         <SavingsGoal />
         <Expenses />

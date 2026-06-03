@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 84,
+  "current_feature_id": 10,
   "session": {
-    "count": 64,
-    "last_started_at": "2026-06-03T10:21:05.126772Z",
+    "count": 69,
+    "last_started_at": "2026-06-03T12:09:15.406676Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 62,
+    "passed": 67,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 33,
-    "completion_percentage": 64.6
+    "pending": 28,
+    "completion_percentage": 69.8
   },
   "categories": [
     {
@@ -60,7 +60,7 @@
     {
       "name": "Micro-connection",
       "total": 10,
-      "passed": 7,
+      "passed": 8,
       "failed": 0,
       "skipped": 0
     },
@@ -151,14 +151,14 @@
     {
       "name": "Wellbeing",
       "total": 6,
-      "passed": 2,
+      "passed": 5,
       "failed": 0,
       "skipped": 0
     },
     {
       "name": "Habits",
       "total": 3,
-      "passed": 2,
+      "passed": 3,
       "failed": 0,
       "skipped": 0
     },
@@ -547,9 +547,9 @@
         "lastingthedistance"
       ],
       "rationale": "Visualizes the distance being bridged",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-03T12:09:15.406595Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -940,20 +940,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Note/mood update reflects on partner widget",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "3716e1e5",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T12:03:14.839251Z"
       },
       "research_refs": [
         "widgetable",
         "noteit"
       ],
       "rationale": "Widgetable/NoteIt glanceable affection",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T12:03:14.644325Z",
+      "completed_at": "2026-06-03T12:03:14.839269Z",
+      "commit_hash": "3716e1e5",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -963,7 +964,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 50,
+        "removed": 87,
+        "net": -37,
+        "files_changed": 2
+      }
     },
     {
       "id": 22,
@@ -3066,19 +3073,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Guided repair steps complete for both",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "3716e1e5",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T12:03:13.671306Z"
       },
       "research_refs": [
         "lasting"
       ],
       "rationale": "Helps couples fight better at a distance",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T12:03:13.453691Z",
+      "completed_at": "2026-06-03T12:03:13.671325Z",
+      "commit_hash": "3716e1e5",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3088,7 +3096,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 50,
+        "removed": 87,
+        "net": -37,
+        "files_changed": 2
+      }
     },
     {
       "id": 80,
@@ -3098,19 +3112,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Exercise prompts both partners in turn",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "3716e1e5",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T12:03:14.070072Z"
       },
       "research_refs": [
         "lasting"
       ],
       "rationale": "Gottman active-listening practice",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T12:03:13.858702Z",
+      "completed_at": "2026-06-03T12:03:14.070090Z",
+      "commit_hash": "3716e1e5",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3120,7 +3135,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 50,
+        "removed": 87,
+        "net": -37,
+        "files_changed": 2
+      }
     },
     {
       "id": 81,
@@ -3248,19 +3269,20 @@
       "verification": {
         "type": "manual",
         "criteria": "A shared fitness goal tracks both",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "3716e1e5",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T12:03:13.239974Z"
       },
       "research_refs": [
         "fitnesspact"
       ],
       "rationale": "Fitness Pact-style healthy competition",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-03T10:21:05.126751Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-03T12:03:13.239998Z",
+      "commit_hash": "3716e1e5",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3270,7 +3292,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 50,
+        "removed": 87,
+        "net": -37,
+        "files_changed": 2
+      }
     },
     {
       "id": 85,
@@ -3514,19 +3542,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Partner sees opt-in cycle info",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "3716e1e5",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T12:03:14.455113Z"
       },
       "research_refs": [
         "cnbc"
       ],
       "rationale": "Partner-aware care; sensitive, opt-in",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T12:03:14.261535Z",
+      "completed_at": "2026-06-03T12:03:14.455130Z",
+      "commit_hash": "3716e1e5",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3536,7 +3565,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 50,
+        "removed": 87,
+        "net": -37,
+        "files_changed": 2
+      }
     },
     {
       "id": 92,
@@ -3714,116 +3749,6 @@
     }
   ],
   "audit_trail": [
-    {
-      "timestamp": "2026-06-02T07:11:15.650320Z",
-      "operation": "feature_passed",
-      "feature_id": 45,
-      "details": {
-        "commit_hash": "0a804ac72bc540c3ddc3dccc88f017f5782ac116",
-        "loc_stats": {
-          "added": 30,
-          "removed": 30,
-          "net": 0,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T07:12:03.420663Z",
-      "operation": "feature_started",
-      "feature_id": 49,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T09:59:34.120162Z",
-      "operation": "feature_passed",
-      "feature_id": 49,
-      "details": {
-        "commit_hash": "3221e44",
-        "loc_stats": {
-          "added": 301,
-          "removed": 39,
-          "net": 262,
-          "files_changed": 8
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T09:59:34.399043Z",
-      "operation": "feature_started",
-      "feature_id": 22,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T09:59:34.600630Z",
-      "operation": "feature_passed",
-      "feature_id": 22,
-      "details": {
-        "commit_hash": "3221e44",
-        "loc_stats": {
-          "added": 301,
-          "removed": 39,
-          "net": 262,
-          "files_changed": 8
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:00:14.535735Z",
-      "operation": "feature_started",
-      "feature_id": 36,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:55.617188Z",
-      "operation": "feature_passed",
-      "feature_id": 36,
-      "details": {
-        "commit_hash": "017da55491d0d28072b8098e237ed6d34994a00e",
-        "loc_stats": {
-          "added": 37,
-          "removed": 19,
-          "net": 18,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:55.810348Z",
-      "operation": "feature_started",
-      "feature_id": 25,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:56.005771Z",
-      "operation": "feature_passed",
-      "feature_id": 25,
-      "details": {
-        "commit_hash": "017da55491d0d28072b8098e237ed6d34994a00e",
-        "loc_stats": {
-          "added": 37,
-          "removed": 19,
-          "net": 18,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:56.204074Z",
-      "operation": "feature_started",
-      "feature_id": 37,
-      "details": {
-        "from_status": "pending"
-      }
-    },
     {
       "timestamp": "2026-06-02T10:24:56.404109Z",
       "operation": "feature_passed",
@@ -4810,6 +4735,116 @@
       "timestamp": "2026-06-03T10:21:05.126790Z",
       "operation": "feature_started",
       "feature_id": 84,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:13.240024Z",
+      "operation": "feature_passed",
+      "feature_id": 84,
+      "details": {
+        "commit_hash": "3716e1e5",
+        "loc_stats": {
+          "added": 50,
+          "removed": 87,
+          "net": -37,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:13.453736Z",
+      "operation": "feature_started",
+      "feature_id": 79,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:13.671348Z",
+      "operation": "feature_passed",
+      "feature_id": 79,
+      "details": {
+        "commit_hash": "3716e1e5",
+        "loc_stats": {
+          "added": 50,
+          "removed": 87,
+          "net": -37,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:13.858740Z",
+      "operation": "feature_started",
+      "feature_id": 80,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:14.070114Z",
+      "operation": "feature_passed",
+      "feature_id": 80,
+      "details": {
+        "commit_hash": "3716e1e5",
+        "loc_stats": {
+          "added": 50,
+          "removed": 87,
+          "net": -37,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:14.261572Z",
+      "operation": "feature_started",
+      "feature_id": 91,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:14.455151Z",
+      "operation": "feature_passed",
+      "feature_id": 91,
+      "details": {
+        "commit_hash": "3716e1e5",
+        "loc_stats": {
+          "added": 50,
+          "removed": 87,
+          "net": -37,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:14.644362Z",
+      "operation": "feature_started",
+      "feature_id": 21,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:03:14.839290Z",
+      "operation": "feature_passed",
+      "feature_id": 21,
+      "details": {
+        "commit_hash": "3716e1e5",
+        "loc_stats": {
+          "added": 50,
+          "removed": 87,
+          "net": -37,
+          "files_changed": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T12:09:15.406777Z",
+      "operation": "feature_started",
+      "feature_id": 10,
       "details": {
         "from_status": "pending"
       }
