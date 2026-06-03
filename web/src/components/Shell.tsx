@@ -6,6 +6,7 @@ import Games from '../pages/Games'
 import More from '../pages/More'
 import { BottomNav, type Tab } from './BottomNav'
 import { LoveBurst } from './LoveBurst'
+import { SignalOverlay } from './SignalOverlay'
 import { ScheduledDelivery } from './ScheduledDelivery'
 import { AlarmWatcher } from './AlarmWatcher'
 
@@ -22,6 +23,7 @@ export default function Shell() {
       </div>
       <BottomNav tab={tab} onTab={setTab} />
       <LoveBurst />
+      <SignalOverlay />
       <ScheduledDelivery />
       <AlarmWatcher />
     </div>

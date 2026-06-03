@@ -12,6 +12,8 @@ import { Bedtime } from '../components/Bedtime'
 import { OnThisDay } from '../components/OnThisDay'
 import { HealthScore } from '../components/HealthScore'
 import { WeeklyCheckin } from '../components/WeeklyCheckin'
+import { ConnectionDeck } from '../components/ConnectionDeck'
+import { BatteryShare } from '../components/BatteryShare'
 import EditProfile from './EditProfile'
 
 export default function Home() {
@@ -68,6 +70,10 @@ export default function Home() {
         <button className="btn love-send" type="button" onClick={thinkingOfYou} disabled={poked}>
           {poked ? 'Sent 💗' : '💗 Thinking of you'}
         </button>
+
+        <ConnectionDeck />
+
+        <BatteryShare />
 
         <button className="btn btn-ghost" type="button" onClick={() => setEditing(true)}>
           Edit your profile

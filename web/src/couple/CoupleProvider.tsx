@@ -61,6 +61,9 @@ export type CoupleDoc = {
   sleeping: Record<string, boolean>
   alarm: { at: number; label: string; setBy: string } | null
   scene: string | null
+  signal: { type: string; from: string; color: string | null; at: Date | null } | null
+  battery: Record<string, { level: number; charging: boolean; at: Date | null }>
+  loveLang: Record<string, string>
 }
 
 export type WatchState = {
@@ -100,6 +103,9 @@ type CoupleContextValue = {
   setSleeping: (asleep: boolean) => Promise<void>
   setAlarm: (alarm: { at: number; label: string } | null) => Promise<void>
   setScene: (scene: string | null) => Promise<void>
+  sendSignal: (type: 'lamp' | 'kiss' | 'heartbeat', color?: string) => Promise<void>
+  updateBattery: (level: number, charging: boolean) => Promise<void>
+  setLoveLang: (lang: string) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -272,6 +278,28 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
         sleeping: d.sleeping ?? {},
         alarm: d.alarm ?? null,
         scene: d.scene ?? null,
+        signal: d.signal
+          ? {
+              type: d.signal.type,
+              from: d.signal.from,
+              color: d.signal.color ?? null,
+              at: d.signal.at?.toDate?.() ?? null,
+            }
+          : null,
+        battery: Object.fromEntries(
+          Object.entries(d.battery ?? {}).map(([uid, b]) => {
+            const v = b as { level?: number; charging?: boolean; at?: { toDate?: () => Date } }
+            return [
+              uid,
+              {
+                level: Number(v.level) || 0,
+                charging: Boolean(v.charging),
+                at: v.at?.toDate?.() ?? null,
+              },
+            ]
+          }),
+        ),
+        loveLang: d.loveLang ?? {},
       })
     })
   }, [profile?.coupleId])
@@ -379,6 +407,25 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
   async function setMood(emoji: string) {
     if (!db || !user || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), { [`moods.${user.uid}`]: emoji })
+  }
+
+  async function sendSignal(type: 'lamp' | 'kiss' | 'heartbeat', color?: string) {
+    if (!db || !user || !couple) throw new Error('Not connected yet.')
+    await updateDoc(doc(db, 'couples', couple.id), {
+      signal: { type, from: user.uid, color: color ?? null, at: serverTimestamp() },
+    })
+  }
+
+  async function updateBattery(level: number, charging: boolean) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      [`battery.${user.uid}`]: { level, charging, at: serverTimestamp() },
+    })
+  }
+
+  async function setLoveLang(lang: string) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { [`loveLang.${user.uid}`]: lang })
   }
 
   async function setSavingsGoal(target: number, label: string) {
@@ -510,6 +557,9 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     setTyping,
     markRead,
     sendPoke,
+    sendSignal,
+    updateBattery,
+    setLoveLang,
     setMood,
     updateWatch,
     bumpStreak,

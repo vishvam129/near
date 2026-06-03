@@ -13,6 +13,7 @@ import { Calendar } from '../components/Calendar'
 import { HabitTracker } from '../components/HabitTracker'
 import { CoopGoals } from '../components/CoopGoals'
 import { AmbientScenes } from '../components/AmbientScenes'
+import { LoveLanguageQuiz } from '../components/LoveLanguageQuiz'
 
 export default function More() {
   return (
@@ -26,6 +27,7 @@ export default function More() {
         <HabitTracker />
         <CoopGoals />
         <AmbientScenes />
+        <LoveLanguageQuiz />
         <CookTogether />
         <SavingsGoal />
         <Expenses />

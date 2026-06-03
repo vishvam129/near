@@ -2,26 +2,25 @@
 
 ## Current Status
 
-**In Progress:** #83 [Habits] Shared habit tracker with partner visibility
-   Started: 2026-06-03T06:23:57.133934Z
+**No feature in progress** - Ready for next
 
 ## Summary
 
-Progress: ████████████████░░░░░░░░░░░░░░ 54.2%
+Progress: █████████████████░░░░░░░░░░░░░ 59.4%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 52 | 54.2% |
+| Passed | 57 | 59.4% |
 | Failed | 0 | 0.0% |
 | Skipped | 0 | 0.0% |
-| In Progress | 1 | - |
-| Pending | 43 | 44.8% |
+| In Progress | 0 | - |
+| Pending | 39 | 40.6% |
 
 ## Session Statistics
 
-- **Sessions:** 54
-- **Last Started:** 2026-06-03T06:23:57.133956Z
+- **Sessions:** 58
+- **Last Started:** 2026-06-03T08:50:22.326450Z
 
 ## Categories
 
@@ -29,7 +28,7 @@ Progress: ████████████████░░░░░░░�
 |----------|----------|--------|--------|---------|
 | Accounts | ██████████ 100% | 3 | 0 | 0 |
 | Security | █████░░░░░ 50% | 2 | 0 | 0 |
-| Time & Distance | █████░░░░░ 50% | 3 | 0 | 0 |
+| Time & Distance | ██████░░░░ 67% | 4 | 0 | 0 |
 | Messaging | ██████████ 100% | 7 | 0 | 0 |
 | Micro-connection | ████░░░░░░ 40% | 4 | 0 | 0 |
 | Watch Together | █████░░░░░ 50% | 2 | 0 | 0 |
@@ -38,14 +37,14 @@ Progress: ████████████████░░░░░░░�
 | Memories | ████████░░ 80% | 4 | 0 | 0 |
 | Daily Rituals | ████████░░ 86% | 6 | 0 | 0 |
 | Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Intimacy | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
+| Intimacy | █████░░░░░ 50% | 1 | 0 | 0 |
 | Platform | ███░░░░░░░ 33% | 1 | 0 | 0 |
 | Monetization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Differentiator | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | IoT | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Activities | ██████░░░░ 60% | 3 | 0 | 0 |
+| Activities | ████████░░ 80% | 4 | 0 | 0 |
 | Wellbeing | ███░░░░░░░ 33% | 2 | 0 | 0 |
-| Habits | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
+| Habits | ██████░░░░ 67% | 2 | 0 | 0 |
 | Finances | ██████████ 100% | 2 | 0 | 0 |
 | Gestures | ██████████ 100% | 3 | 0 | 0 |
 | Localization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
@@ -54,6 +53,11 @@ Progress: ████████████████░░░░░░░�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #55 | passed | 0s | 104 | 40 | 64 | 4 | 0 | yes |
+| #75 | passed | 0s | 104 | 40 | 64 | 4 | 0 | yes |
+| #8 | passed | 0s | 104 | 40 | 64 | 4 | 0 | yes |
+| #85 | passed | 0s | 104 | 40 | 64 | 4 | 0 | yes |
+| #83 | passed | 2h 25m 36s | 104 | 40 | 64 | 4 | 0 | yes |
 | #59 | passed | 10m 34s | 18 | 16 | 2 | 2 | 0 | yes |
 | #93 | passed | 0s | 829 | 68 | 761 | 16 | 0 | yes |
 | #92 | passed | 0s | 829 | 68 | 761 | 16 | 0 | yes |
@@ -113,17 +117,17 @@ Progress: ████████████████░░░░░░░�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-03T08:50 | #55 Spicy questions & dares, PIN-gated | P | 112a7fa |
+| 2026-06-03T08:50 | #75 Ambient virtual-location scenes shared on call | P | 112a7fa |
+| 2026-06-03T08:50 | #8 Auto timezone conversion when scheduling a call or | P | 112a7fa |
+| 2026-06-03T08:50 | #85 Co-op goals with shared streaks & nudges | P | 112a7fa |
+| 2026-06-03T08:49 | #83 Shared habit tracker with partner visibility | P | 112a7fa |
 | 2026-06-03T06:22 | #59 PWA installable from the browser | P | 37ed9e6 |
 | 2026-06-03T06:09 | #93 Shared sleep status / good-night presence | P | a67b08f |
 | 2026-06-03T06:09 | #92 Synced alarm / wake-up together across timezones | P | a67b08f |
 | 2026-06-03T06:09 | #61 PIN / biometric app lock | P | a67b08f |
 | 2026-06-03T06:09 | #33 Event threads (chat inside a calendar event) | P | a67b08f |
-| 2026-06-03T06:09 | #32 Shared calendar synced with Google/Apple | P | a67b08f |
-| 2026-06-03T05:46 | #69 Cook-together mode: shared recipe, shopping list,  | P | 9326d77 |
-| 2026-06-03T05:46 | #70 Live shared whiteboard / draw together in real tim | P | 9326d77 |
-| 2026-06-03T05:46 | #71 Simultaneous-reveal drawing game | P | 9326d77 |
-| 2026-06-03T05:46 | #74 Board-game hub (chess, checkers, Yahtzee) | P | 9326d77 |
 
 ---
-*Last updated: 2026-06-03T06:23:57.172527Z*
-*Session 54*
+*Last updated: 2026-06-03T08:50:22.596267Z*
+*Session 58*
