@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { useCouple } from '../couple/CoupleProvider'
-import { toDateInput, prettyDate } from '../lib/format'
+import { toDateInput, prettyDate, utcDayKey } from '../lib/format'
 
 // Gentle, non-clinical phase labels derived only from cycle day.
 function phaseFor(day: number, length: number): { emoji: string; label: string } {
@@ -13,14 +13,17 @@ function phaseFor(day: number, length: number): { emoji: string; label: string }
   return { emoji: '🌤️', label: 'Winding down' }
 }
 
-function dayOfCycle(start: string, length: number): { day: number; nextStart: Date } {
+// Everything stays on a UTC day grid so the day-count and the predicted next
+// date agree regardless of the viewer's timezone.
+function dayOfCycle(start: string, length: number): { day: number; next: string } {
   const startMs = new Date(start + 'T00:00:00Z').getTime()
-  const today = new Date(toDateInput(new Date()) + 'T00:00:00Z').getTime()
+  const today = new Date(utcDayKey(0) + 'T00:00:00Z').getTime()
   const elapsed = Math.floor((today - startMs) / 86400000)
   const inCycle = ((elapsed % length) + length) % length
   const day = inCycle + 1
-  const nextStart = new Date(today + (length - inCycle) * 86400000)
-  return { day, nextStart }
+  // Format the next predicted start with UTC getters (not local toDateInput).
+  const next = new Date(today + (length - inCycle) * 86400000).toISOString().slice(0, 10)
+  return { day, next }
 }
 
 export function CycleAwareness() {
@@ -45,13 +48,15 @@ export function CycleAwareness() {
   return (
     <div className="card cycle-card">
       <h3 className="card-h muted-h">Cycle awareness</h3>
-      <p className="entry-empty">Private &amp; opt-in. Only a gentle phase is shared — no details.</p>
+      <p className="entry-empty">
+        Private &amp; opt-in. Your partner only ever sees a gentle phase — never the raw dates.
+      </p>
 
       {/* Partner's shared phase (if they opted in) */}
       {theirs && (
         <div className="cycle-partner">
           {(() => {
-            const { day, nextStart } = dayOfCycle(theirs.start, theirs.length)
+            const { day, next } = dayOfCycle(theirs.start, theirs.length)
             const ph = phaseFor(day, theirs.length)
             return (
               <>
@@ -59,7 +64,7 @@ export function CycleAwareness() {
                   {ph.emoji} {partner?.name || 'Partner'}: {ph.label}
                 </div>
                 <div className="cycle-sub">
-                  Day {day} · next around {prettyDate(toDateInput(nextStart))}
+                  Day {day} · next around {prettyDate(next)}
                 </div>
               </>
             )
