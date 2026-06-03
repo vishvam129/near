@@ -1,17 +1,18 @@
-# Code Review — batch: #39 savings, #86 expenses, #87 split, #81 check-in, #82 score
+# Code Review — batch: #14 voice, #15 doodle, #44 capsule, #43 on-this-day, #46 compat
 
-Reviewed CoupleProvider (savings + setSavingsGoal/addToSavings), SavingsGoal, Expenses,
-WeeklyCheckin, HealthScore. Build passes; all verified in browser.
+Reviewed Chat (recording + doodle), useMessages (audio), MessageRow, DoodleCanvas,
+TimeCapsule, OnThisDay, CompatQuiz. Build passes; all verified in browser.
 
 ## Verified correct
-- addToSavings: read-then-write inside runTransaction (race-safe, preserves label,
-  coerces numbers, guards amount<=0). setSavingsGoal preserves existing saved.
-- Expenses split: theirSum=total-mySum, balance=mySum-total/2, correct signs/who-owes;
-  all-square tolerance.
-- WeeklyCheckin: UTC-Monday key; setDoc(merge) deep-merges nested ratings/notes; reveal
-  gated (ratings always 1-5, no falsy-0). HealthScore null-safe + clamped.
+- MediaRecorder lifecycle: auto-stop reads elapsed time in interval (not in a setState
+  updater); onstop cleans stream + sends; cancelRec nulls onstop so cancelled audio isn't
+  sent; unmount stops tracks + clears timers; <900KB size guard.
+- DoodleCanvas sizes to rect, white bg, pointer capture; PNG sent as image.
+- CompatQuiz: setDoc(merge) per-question; match% over both-answered; null until shared.
+- TimeCapsule: 30s tick flips sealed->open at unlock (≤30s late, acceptable).
+- OnThisDay month/day match with years>=0 guard.
 
-## Polish applied
-- SavingsGoal "Edit goal" now pre-fills target/label from the saved goal.
+## Hardening applied (LOW)
+- startRec double-start guard; recRef nulled in onstop + cancelRec.
 
 VERDICT: APPROVE

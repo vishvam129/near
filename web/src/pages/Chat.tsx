@@ -188,6 +188,7 @@ export default function Chat() {
   }
 
   async function startRec() {
+    if (recording || recRef.current) return // guard against double-start
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       streamRef.current = stream
@@ -198,6 +199,7 @@ export default function Chat() {
       }
       rec.onstop = async () => {
         cleanupStream()
+        recRef.current = null
         const blob = new Blob(chunksRef.current, { type: rec.mimeType || 'audio/webm' })
         const url = await blobToDataURL(blob)
         if (url.length > 900_000) {
@@ -215,13 +217,12 @@ export default function Chat() {
       setRecording(true)
       setRecSec(0)
       setErr(null)
+      const startedAt = Date.now()
       recTimer.current = window.setInterval(() => {
-        setRecSec((s) => {
-          const n = s + 1
-          if (n >= 60) stopRec()
-          return n
-        })
-      }, 1000)
+        const sec = Math.floor((Date.now() - startedAt) / 1000)
+        setRecSec(sec)
+        if (sec >= 60) stopRec()
+      }, 500)
     } catch {
       setErr('Microphone access was blocked.')
     }
@@ -246,6 +247,7 @@ export default function Chat() {
     } catch {
       /* ignore */
     }
+    recRef.current = null
     cleanupStream()
     chunksRef.current = []
   }

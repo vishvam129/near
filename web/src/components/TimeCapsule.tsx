@@ -31,7 +31,15 @@ export function TimeCapsule() {
   const [writing, setWriting] = useState(false)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
+  const [, tick] = useState(0)
   const coupleId = couple?.id
+
+  // Re-render periodically so a capsule flips from sealed -> open at its unlock
+  // time without needing a manual refresh.
+  useEffect(() => {
+    const id = window.setInterval(() => tick((n) => n + 1), 30_000)
+    return () => window.clearInterval(id)
+  }, [])
 
   useEffect(() => {
     if (!db || !coupleId) return
