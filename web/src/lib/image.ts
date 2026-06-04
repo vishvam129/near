@@ -88,6 +88,35 @@ export async function fileToAlbumImage(file: File, maxDim = 1000): Promise<strin
   throw new Error('That image is too large — please try a smaller one.')
 }
 
+// Resize a photo destined for a FIELD on the couples doc (the Home photo
+// widget), not its own document. That doc already holds lots of state, so we
+// target a much smaller payload (<300KB) to stay clear of the 1MB doc limit.
+export async function fileToWidgetImage(file: File, maxDim = 720): Promise<string> {
+  if (!file.type.startsWith('image/')) {
+    throw new Error('Please choose an image file.')
+  }
+  const img = await loadImage(file)
+  const w = (img as { width: number }).width
+  const h = (img as { height: number }).height
+  const scale = Math.min(1, maxDim / Math.max(w, h))
+  const cw = Math.max(1, Math.round(w * scale))
+  const ch = Math.max(1, Math.round(h * scale))
+
+  const canvas = document.createElement('canvas')
+  canvas.width = cw
+  canvas.height = ch
+  const ctx = canvas.getContext('2d')
+  if (!ctx) throw new Error('Could not process the image on this device.')
+  ctx.drawImage(img, 0, 0, cw, ch)
+  if (img instanceof ImageBitmap) img.close()
+
+  for (const q of [0.65, 0.5, 0.38, 0.28]) {
+    const url = canvas.toDataURL('image/jpeg', q)
+    if (url.length < 300_000) return url
+  }
+  throw new Error('That image is too large — please try a smaller one.')
+}
+
 async function loadImage(file: File): Promise<ImageBitmap | HTMLImageElement> {
   if ('createImageBitmap' in window) {
     try {

@@ -1,7 +1,7 @@
 import { useRef, useState, type ChangeEvent } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { useCouple } from '../couple/CoupleProvider'
-import { fileToAlbumImage } from '../lib/image'
+import { fileToWidgetImage } from '../lib/image'
 
 // Push a single photo to the partner's Home (#20). They see it big until they
 // tap "Got it"; the sender sees a "pushed — waiting" state with a take-down.
@@ -25,7 +25,7 @@ export function PhotoWidget() {
     setBusy(true)
     setErr(null)
     try {
-      const url = await fileToAlbumImage(file)
+      const url = await fileToWidgetImage(file)
       await setPhotoWidget({ url, caption: caption.trim().slice(0, 120) })
       setCaption('')
     } catch (e) {
