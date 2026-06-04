@@ -1,8 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import { useCouple } from '../couple/CoupleProvider'
+import { useI18n } from '../lib/i18n'
 
 export function SavingsGoal() {
   const { couple, setSavingsGoal, addToSavings } = useCouple()
+  const { money } = useI18n()
   const s = couple?.savings
   const [editing, setEditing] = useState(false)
   const [target, setTarget] = useState(String(s?.target ?? ''))
@@ -87,7 +89,7 @@ export function SavingsGoal() {
       <h3 className="card-h muted-h">Savings goal</h3>
       <div className="savings-label">✈️ {s.label}</div>
       <div className="savings-amounts">
-        <strong>{s.saved.toLocaleString()}</strong> of {s.target.toLocaleString()} ({pct}%)
+        <strong>{money(s.saved)}</strong> of {money(s.target)} ({pct}%)
       </div>
       <div className="savings-bar">
         <i style={{ width: `${pct}%` }} />

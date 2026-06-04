@@ -25,6 +25,8 @@ import { DateNightPlanner } from '../components/DateNightPlanner'
 import { PhotoAlbum } from '../components/PhotoAlbum'
 import { SecretVault } from '../components/SecretVault'
 import { IdeaSuggestions } from '../components/IdeaSuggestions'
+import { SecretChat } from '../components/SecretChat'
+import { LanguageSettings } from '../components/LanguageSettings'
 
 export default function More() {
   return (
@@ -36,6 +38,7 @@ export default function More() {
 
         <PhotoAlbum />
         <SecretVault />
+        <SecretChat />
         <Calendar />
         <HabitTracker />
         <CoopGoals />
@@ -50,6 +53,7 @@ export default function More() {
         <ConversationDecks />
         <DateNightPlanner />
         <IdeaSuggestions />
+        <LanguageSettings />
         <CookTogether />
         <SavingsGoal />
         <Expenses />

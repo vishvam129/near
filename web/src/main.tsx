@@ -4,14 +4,17 @@ import './index.css'
 import App from './App.tsx'
 import { AuthProvider } from './auth/AuthProvider'
 import { CoupleProvider } from './couple/CoupleProvider'
+import { I18nProvider } from './lib/i18n'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthProvider>
-      <CoupleProvider>
-        <App />
-      </CoupleProvider>
-    </AuthProvider>
+    <I18nProvider>
+      <AuthProvider>
+        <CoupleProvider>
+          <App />
+        </CoupleProvider>
+      </AuthProvider>
+    </I18nProvider>
   </StrictMode>,
 )
 

@@ -10,12 +10,14 @@ import {
 import { db } from '../lib/firebase'
 import { useCouple } from '../couple/CoupleProvider'
 import { useAuth } from '../auth/AuthProvider'
+import { useI18n } from '../lib/i18n'
 
 type Expense = { id: string; label: string; amount: number; paidBy: string }
 
 export function Expenses() {
   const { couple, partner } = useCouple()
   const { user } = useAuth()
+  const { money } = useI18n()
   const [items, setItems] = useState<Expense[]>([])
   const [label, setLabel] = useState('')
   const [amount, setAmount] = useState('')
@@ -98,17 +100,17 @@ export function Expenses() {
         <>
           <div className="split-summary">
             <div>
-              Total spent: <strong>{total.toLocaleString()}</strong>
+              Total spent: <strong>{money(total)}</strong>
             </div>
             <div className="split-detail">
-              You paid {mySum.toLocaleString()} · {partnerName} paid {theirSum.toLocaleString()}
+              You paid {money(mySum)} · {partnerName} paid {money(theirSum)}
             </div>
             <div className="split-balance">
               {Math.abs(balance) < 0.01
                 ? 'All square 🤝'
                 : balance > 0
-                  ? `${partnerName} owes you ${balance.toLocaleString()}`
-                  : `You owe ${partnerName} ${Math.abs(balance).toLocaleString()}`}
+                  ? `${partnerName} owes you ${money(balance)}`
+                  : `You owe ${partnerName} ${money(Math.abs(balance))}`}
             </div>
           </div>
 
@@ -117,7 +119,7 @@ export function Expenses() {
               <div key={e.id} className="entry">
                 <div className="entry-body">
                   <span className="entry-who">
-                    {who(e.paidBy)} · {e.amount.toLocaleString()}
+                    {who(e.paidBy)} · {money(e.amount)}
                   </span>
                   <span className="entry-text">{e.label}</span>
                 </div>
