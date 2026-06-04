@@ -2273,6 +2273,144 @@ select.input {
   color: var(--muted);
 }
 
+/* ---- photo album / vault ---- */
+.album-add {
+  margin-bottom: 10px;
+}
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.album-thumb {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  padding: 0;
+}
+.album-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+}
+.album-lightbox img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 12px;
+  object-fit: contain;
+}
+.album-del {
+  width: auto;
+  padding: 8px 18px;
+}
+
+/* ---- photo widget ---- */
+.photo-widget-img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  display: block;
+}
+.photo-widget-cap {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.photo-widget-got {
+  background: linear-gradient(135deg, #ff6f9c22, #ffb87722);
+  border-color: var(--pink);
+}
+
+/* ---- immersive countdown ---- */
+.immersive-open {
+  width: 100%;
+}
+.immersive {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: radial-gradient(circle at 50% 35%, #2a1a4a, #0a0a1a);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 24px;
+  text-align: center;
+}
+.immersive-label {
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.immersive-clock {
+  display: flex;
+  gap: 14px;
+}
+.immersive-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 58px;
+}
+.immersive-unit b {
+  font-size: 40px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.immersive-unit span {
+  font-size: 12px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.immersive-meta {
+  font-size: 15px;
+  opacity: 0.9;
+}
+.immersive-hint {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* ---- idea suggestions ---- */
+.idea-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.idea-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.idea-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.idea-item {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 /* ---- dual clocks ---- */
 .clocks {
   display: grid;

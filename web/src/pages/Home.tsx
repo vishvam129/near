@@ -16,6 +16,8 @@ import { ConnectionDeck } from '../components/ConnectionDeck'
 import { BatteryShare } from '../components/BatteryShare'
 import { LoveNotePin } from '../components/LoveNotePin'
 import { DistanceMap } from '../components/DistanceMap'
+import { PhotoWidget } from '../components/PhotoWidget'
+import { ImmersiveCountdown } from '../components/ImmersiveCountdown'
 import EditProfile from './EditProfile'
 
 export default function Home() {
@@ -55,6 +57,8 @@ export default function Home() {
 
         <LoveNotePin />
 
+        <PhotoWidget />
+
         <OnThisDay />
 
         <HealthScore />
@@ -66,6 +70,8 @@ export default function Home() {
         <Mood />
 
         <Countdown />
+
+        <ImmersiveCountdown />
 
         <DailyQuestion />
 

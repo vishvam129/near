@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 10,
+  "current_feature_id": 40,
   "session": {
-    "count": 69,
-    "last_started_at": "2026-06-03T12:09:15.406676Z",
+    "count": 74,
+    "last_started_at": "2026-06-03T13:26:41.235814Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 67,
+    "passed": 72,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 28,
-    "completion_percentage": 69.8
+    "pending": 23,
+    "completion_percentage": 75.0
   },
   "categories": [
     {
@@ -46,7 +46,7 @@
     {
       "name": "Time & Distance",
       "total": 6,
-      "passed": 4,
+      "passed": 5,
       "failed": 0,
       "skipped": 0
     },
@@ -81,7 +81,7 @@
     {
       "name": "Planning",
       "total": 8,
-      "passed": 6,
+      "passed": 7,
       "failed": 0,
       "skipped": 0
     },
@@ -130,7 +130,7 @@
     {
       "name": "Differentiator",
       "total": 5,
-      "passed": 0,
+      "passed": 2,
       "failed": 0,
       "skipped": 0
     },
@@ -151,7 +151,7 @@
     {
       "name": "Wellbeing",
       "total": 6,
-      "passed": 5,
+      "passed": 6,
       "failed": 0,
       "skipped": 0
     },
@@ -539,19 +539,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Map renders both pins and computed distance",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "732017a3",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T13:24:26.944010Z"
       },
       "research_refs": [
         "lastingthedistance"
       ],
       "rationale": "Visualizes the distance being bridged",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-03T12:09:15.406595Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-03T13:24:26.944028Z",
+      "commit_hash": "732017a3",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -561,7 +562,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 73,
+        "removed": 55,
+        "net": 18,
+        "files_changed": 3
+      }
     },
     {
       "id": 11,
@@ -1471,20 +1478,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Planner suggests ideas and tracks last date",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "732017a3",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T13:24:28.546626Z"
       },
       "research_refs": [
         "cupla",
         "lovewick"
       ],
       "rationale": "Cupla/Lovewick date-idea engine",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T13:24:28.338977Z",
+      "completed_at": "2026-06-03T13:24:28.546647Z",
+      "commit_hash": "732017a3",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -1494,7 +1502,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 73,
+        "removed": 55,
+        "net": 18,
+        "files_changed": 3
+      }
     },
     {
       "id": 36,
@@ -1662,9 +1676,9 @@
         "twig"
       ],
       "rationale": "Twig virtual scrapbook",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-03T13:26:41.235793Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -2493,19 +2507,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Coach returns contextual suggestions",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "732017a3",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T13:24:28.147699Z"
       },
       "research_refs": [
         "flamme"
       ],
       "rationale": "Flamme's AI coach",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T13:24:27.943848Z",
+      "completed_at": "2026-06-03T13:24:28.147718Z",
+      "commit_hash": "732017a3",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2515,7 +2530,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 73,
+        "removed": 55,
+        "net": 18,
+        "files_changed": 3
+      }
     },
     {
       "id": 64,
@@ -3041,19 +3062,20 @@
       "verification": {
         "type": "manual",
         "criteria": "A course module can be started and completed",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "732017a3",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T13:24:27.733676Z"
       },
       "research_refs": [
         "lasting"
       ],
       "rationale": "Lasting/Gottman structured growth",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T13:24:27.525589Z",
+      "completed_at": "2026-06-03T13:24:27.733700Z",
+      "commit_hash": "732017a3",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3063,7 +3085,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 73,
+        "removed": 55,
+        "net": 18,
+        "files_changed": 3
+      }
     },
     {
       "id": 79,
@@ -3723,19 +3751,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Both customize avatars in a shared room",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "732017a3",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-03T13:24:27.330763Z"
       },
       "research_refs": [
         "nevermet"
       ],
       "rationale": "Identity & co-presence layer",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-03T13:24:27.135458Z",
+      "completed_at": "2026-06-03T13:24:27.330780Z",
+      "commit_hash": "732017a3",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3745,120 +3774,16 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 73,
+        "removed": 55,
+        "net": 18,
+        "files_changed": 3
+      }
     }
   ],
   "audit_trail": [
-    {
-      "timestamp": "2026-06-02T10:24:56.404109Z",
-      "operation": "feature_passed",
-      "feature_id": 37,
-      "details": {
-        "commit_hash": "017da55491d0d28072b8098e237ed6d34994a00e",
-        "loc_stats": {
-          "added": 37,
-          "removed": 19,
-          "net": 18,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:56.603136Z",
-      "operation": "feature_started",
-      "feature_id": 42,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:56.790931Z",
-      "operation": "feature_passed",
-      "feature_id": 42,
-      "details": {
-        "commit_hash": "017da55491d0d28072b8098e237ed6d34994a00e",
-        "loc_stats": {
-          "added": 37,
-          "removed": 19,
-          "net": 18,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:56.974049Z",
-      "operation": "feature_started",
-      "feature_id": 50,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:57.154804Z",
-      "operation": "feature_passed",
-      "feature_id": 50,
-      "details": {
-        "commit_hash": "017da55491d0d28072b8098e237ed6d34994a00e",
-        "loc_stats": {
-          "added": 37,
-          "removed": 19,
-          "net": 18,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:57.354658Z",
-      "operation": "feature_started",
-      "feature_id": 51,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:24:57.547762Z",
-      "operation": "feature_passed",
-      "feature_id": 51,
-      "details": {
-        "commit_hash": "017da55491d0d28072b8098e237ed6d34994a00e",
-        "loc_stats": {
-          "added": 37,
-          "removed": 19,
-          "net": 18,
-          "files_changed": 3
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:27:58.850355Z",
-      "operation": "feature_started",
-      "feature_id": 34,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:43:10.621442Z",
-      "operation": "feature_passed",
-      "feature_id": 34,
-      "details": {
-        "commit_hash": "a681b47",
-        "loc_stats": {
-          "added": 1023,
-          "removed": 191,
-          "net": 832,
-          "files_changed": 12
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T10:43:10.809232Z",
-      "operation": "feature_started",
-      "feature_id": 73,
-      "details": {
-        "from_status": "pending"
-      }
-    },
     {
       "timestamp": "2026-06-02T10:43:11.010083Z",
       "operation": "feature_passed",
@@ -4845,6 +4770,116 @@
       "timestamp": "2026-06-03T12:09:15.406777Z",
       "operation": "feature_started",
       "feature_id": 10,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:26.944049Z",
+      "operation": "feature_passed",
+      "feature_id": 10,
+      "details": {
+        "commit_hash": "732017a3",
+        "loc_stats": {
+          "added": 73,
+          "removed": 55,
+          "net": 18,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:27.135503Z",
+      "operation": "feature_started",
+      "feature_id": 96,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:27.330802Z",
+      "operation": "feature_passed",
+      "feature_id": 96,
+      "details": {
+        "commit_hash": "732017a3",
+        "loc_stats": {
+          "added": 73,
+          "removed": 55,
+          "net": 18,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:27.525640Z",
+      "operation": "feature_started",
+      "feature_id": 78,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:27.733726Z",
+      "operation": "feature_passed",
+      "feature_id": 78,
+      "details": {
+        "commit_hash": "732017a3",
+        "loc_stats": {
+          "added": 73,
+          "removed": 55,
+          "net": 18,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:27.943886Z",
+      "operation": "feature_started",
+      "feature_id": 63,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:28.147742Z",
+      "operation": "feature_passed",
+      "feature_id": 63,
+      "details": {
+        "commit_hash": "732017a3",
+        "loc_stats": {
+          "added": 73,
+          "removed": 55,
+          "net": 18,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:28.339014Z",
+      "operation": "feature_started",
+      "feature_id": 35,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:24:28.546674Z",
+      "operation": "feature_passed",
+      "feature_id": 35,
+      "details": {
+        "commit_hash": "732017a3",
+        "loc_stats": {
+          "added": 73,
+          "removed": 55,
+          "net": 18,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-03T13:26:41.235832Z",
+      "operation": "feature_started",
+      "feature_id": 40,
       "details": {
         "from_status": "pending"
       }

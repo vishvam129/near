@@ -59,6 +59,35 @@ export async function fileToMessageImage(file: File, maxDim = 1280): Promise<str
   throw new Error('That image is too large — please try a smaller one.')
 }
 
+// Resize a photo for an album/scrapbook entry. Albums hold many photos, so we
+// aim a bit smaller than chat (max ~1000px, target well under Firestore's 1MB
+// per-doc limit) — each photo is one document, no storage service required.
+export async function fileToAlbumImage(file: File, maxDim = 1000): Promise<string> {
+  if (!file.type.startsWith('image/')) {
+    throw new Error('Please choose an image file.')
+  }
+  const img = await loadImage(file)
+  const w = (img as { width: number }).width
+  const h = (img as { height: number }).height
+  const scale = Math.min(1, maxDim / Math.max(w, h))
+  const cw = Math.max(1, Math.round(w * scale))
+  const ch = Math.max(1, Math.round(h * scale))
+
+  const canvas = document.createElement('canvas')
+  canvas.width = cw
+  canvas.height = ch
+  const ctx = canvas.getContext('2d')
+  if (!ctx) throw new Error('Could not process the image on this device.')
+  ctx.drawImage(img, 0, 0, cw, ch)
+  if (img instanceof ImageBitmap) img.close()
+
+  for (const q of [0.7, 0.55, 0.4, 0.3]) {
+    const url = canvas.toDataURL('image/jpeg', q)
+    if (url.length < 700_000) return url
+  }
+  throw new Error('That image is too large — please try a smaller one.')
+}
+
 async function loadImage(file: File): Promise<ImageBitmap | HTMLImageElement> {
   if ('createImageBitmap' in window) {
     try {

@@ -22,6 +22,9 @@ import { CoupleAvatars } from '../components/CoupleAvatars'
 import { GuidedCourses } from '../components/GuidedCourses'
 import { ConversationDecks } from '../components/ConversationDecks'
 import { DateNightPlanner } from '../components/DateNightPlanner'
+import { PhotoAlbum } from '../components/PhotoAlbum'
+import { SecretVault } from '../components/SecretVault'
+import { IdeaSuggestions } from '../components/IdeaSuggestions'
 
 export default function More() {
   return (
@@ -31,6 +34,8 @@ export default function More() {
           <span className="dot" /> More
         </div>
 
+        <PhotoAlbum />
+        <SecretVault />
         <Calendar />
         <HabitTracker />
         <CoopGoals />
@@ -44,6 +49,7 @@ export default function More() {
         <GuidedCourses />
         <ConversationDecks />
         <DateNightPlanner />
+        <IdeaSuggestions />
         <CookTogether />
         <SavingsGoal />
         <Expenses />

@@ -70,6 +70,7 @@ export type CoupleDoc = {
   geo: Record<string, { lat: number; lng: number; at: Date | null }>
   avatars: Record<string, { face: string; color: string }>
   courses: Record<string, number>
+  photoWidget: { url: string; from: string; caption: string; at: Date | null } | null
 }
 
 export type WatchState = {
@@ -117,6 +118,7 @@ type CoupleContextValue = {
   setGeo: (lat: number, lng: number) => Promise<void>
   setAvatar: (face: string, color: string) => Promise<void>
   setCourseProgress: (courseId: string, lesson: number) => Promise<void>
+  setPhotoWidget: (photo: { url: string; caption: string } | null) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -340,6 +342,14 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
           }),
         ),
         courses: d.courses ?? {},
+        photoWidget: d.photoWidget
+          ? {
+              url: d.photoWidget.url ?? '',
+              from: d.photoWidget.from ?? '',
+              caption: d.photoWidget.caption ?? '',
+              at: d.photoWidget.at?.toDate?.() ?? null,
+            }
+          : null,
       })
     })
   }, [profile?.coupleId])
@@ -501,6 +511,15 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { [`courses.${courseId}`]: lesson })
   }
 
+  async function setPhotoWidget(photo: { url: string; caption: string } | null) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      photoWidget: photo
+        ? { url: photo.url, caption: photo.caption, from: user.uid, at: serverTimestamp() }
+        : deleteField(),
+    })
+  }
+
   async function setSavingsGoal(target: number, label: string) {
     if (!db || !couple) return
     const saved = couple.savings?.saved ?? 0
@@ -638,6 +657,7 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     setGeo,
     setAvatar,
     setCourseProgress,
+    setPhotoWidget,
     setMood,
     updateWatch,
     bumpStreak,
