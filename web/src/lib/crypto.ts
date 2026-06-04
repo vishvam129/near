@@ -35,7 +35,7 @@ export async function deriveKey(passphrase: string, salt: string): Promise<Crypt
     {
       name: 'PBKDF2',
       salt: new Uint8Array(enc.encode('near-secret:' + salt)),
-      iterations: 150_000,
+      iterations: 310_000,
       hash: 'SHA-256',
     },
     baseKey,

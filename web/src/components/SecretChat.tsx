@@ -20,7 +20,9 @@ export function SecretChat() {
   const { user } = useAuth()
   const { couple, paired } = useCouple()
   const coupleId = couple?.id
-  const keyRef = useRef<CryptoKey | null>(null)
+  // The key lives in state (not a ref) so the decrypt effect re-runs the moment
+  // it arrives — a ref mutation wouldn't re-trigger the effect.
+  const [cryptoKey, setCryptoKey] = useState<CryptoKey | null>(null)
   const [unlocked, setUnlocked] = useState(false)
   const [pass, setPass] = useState('')
   const [busy, setBusy] = useState(false)
@@ -37,7 +39,7 @@ export function SecretChat() {
     const saved = localStorage.getItem(storeKey)
     if (!saved) return
     deriveKey(saved, coupleId).then((k) => {
-      keyRef.current = k
+      setCryptoKey(k)
       setUnlocked(true)
     })
   }, [coupleId, unlocked, storeKey])
@@ -62,15 +64,14 @@ export function SecretChat() {
     )
   }, [coupleId, unlocked])
 
-  // Decrypt whenever the ciphertext list changes.
+  // Decrypt whenever the ciphertext list OR the key changes.
   useEffect(() => {
     let cancelled = false
-    const key = keyRef.current
-    if (!key) return
+    if (!cryptoKey) return
     Promise.all(
       raw.map(async (m) => ({
         id: m.id,
-        text: await decryptText(m.ct, m.iv, key),
+        text: await decryptText(m.ct, m.iv, cryptoKey),
         mine: m.by === user?.uid,
       })),
     ).then((out) => {
@@ -79,7 +80,7 @@ export function SecretChat() {
     return () => {
       cancelled = true
     }
-  }, [raw, user?.uid])
+  }, [raw, user?.uid, cryptoKey])
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -88,10 +89,10 @@ export function SecretChat() {
   if (!paired) return null
 
   async function unlock(remember: boolean) {
-    if (!coupleId || pass.length < 4) return
+    if (!coupleId || pass.length < 6) return
     setBusy(true)
     try {
-      keyRef.current = await deriveKey(pass, coupleId)
+      setCryptoKey(await deriveKey(pass, coupleId))
       if (remember) localStorage.setItem(storeKey, pass)
       setUnlocked(true)
       setPass('')
@@ -102,7 +103,7 @@ export function SecretChat() {
 
   function forget() {
     localStorage.removeItem(storeKey)
-    keyRef.current = null
+    setCryptoKey(null)
     setUnlocked(false)
     setRaw([])
     setShown([])
@@ -110,7 +111,7 @@ export function SecretChat() {
 
   async function send(e: FormEvent) {
     e.preventDefault()
-    const key = keyRef.current
+    const key = cryptoKey
     if (!key || !db || !coupleId || !user || !text.trim()) return
     const { ct, iv } = await encryptText(text.trim(), key)
     setText('')
@@ -133,15 +134,15 @@ export function SecretChat() {
         <input
           className="input"
           type="password"
-          placeholder="Shared passphrase (4+ chars)"
+          placeholder="Shared passphrase (6+ chars)"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
         />
         <div className="row-actions">
-          <button type="button" className="btn" onClick={() => void unlock(true)} disabled={busy || pass.length < 4}>
+          <button type="button" className="btn" onClick={() => void unlock(true)} disabled={busy || pass.length < 6}>
             Unlock &amp; remember
           </button>
-          <button type="button" className="link" onClick={() => void unlock(false)} disabled={busy || pass.length < 4}>
+          <button type="button" className="link" onClick={() => void unlock(false)} disabled={busy || pass.length < 6}>
             Just this time
           </button>
         </div>

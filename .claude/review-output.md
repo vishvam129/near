@@ -1,71 +1,98 @@
-# Code Review — HEAD 2a2c4c81
+# Code Review — HEAD 776952e4
 
-Scope: the 5 features added in commit 2a2c4c81 under `web/src` — AlbumGrid, PhotoAlbum,
-SecretVault, PhotoWidget, ImmersiveCountdown, IdeaSuggestions, `lib/image.ts:fileToAlbumImage`,
-and CoupleProvider `photoWidget`/`setPhotoWidget`.
+Scope: E2E secret chat (lib/crypto.ts, components/SecretChat.tsx, #62) and
+multi-language/multi-currency UI (lib/i18n.tsx, LanguageSettings, BottomNav,
+Expenses, SavingsGoal, main.tsx, More.tsx, #95).
 
-Verdict: No HIGH-severity correctness bugs found. The implementation is sound and consistent
-with established codebase patterns. One MEDIUM and two LOW observations below.
+## Summary
+
+The crypto is fundamentally sound for the stated threat model, and the Firestore
+rules correctly couple-scope the `secret` subcollection (only the two members can
+read/write), so neither keys nor plaintext leak server-side. No HIGH-severity
+correctness or security bug was found. There is one genuine MEDIUM correctness bug
+in SecretChat (decrypt effect cannot re-run when the key arrives via a ref), plus
+several LOW notes.
+
+---
+
+## HIGH
+
+None.
 
 ---
 
 ## MEDIUM
 
-### M1 — PhotoWidget photo shares the heavily-populated couples doc; risk of hitting the 1MB limit
-`web/src/components/PhotoWidget.tsx:28-29`, `web/src/couple/CoupleProvider.tsx:514-521`
+### M1 — Decrypt effect can leave messages blank (keyRef mutation never re-triggers the effect)
+File: web/src/components/SecretChat.tsx:66-82
 
-`fileToAlbumImage` caps the data URL at <700KB and that value is written into
-`couple.photoWidget.url` — a field on the **couples doc itself**, not its own document. Unlike the
-album (where each photo is a separate doc, safe), the couples doc already carries many large fields
-(watch, ttt, geo, avatars, pinnedNote, savings, battery, cycle, ...). A 700KB base64 string plus
-the existing couple state can approach Firestore's 1,048,576-byte per-document hard limit.
-- Impact: a large widget photo on an already-large couples doc can make `updateDoc` fail
-  (document too large); the user only sees the generic "Could not send that photo."
-- Suggestion: use a tighter cap for the widget specifically (smaller `maxDim`, e.g.
-  `fileToAlbumImage(file, 700)`, or a dedicated target well under ~300KB), since it is a transient
-  single photo sharing the doc.
+The decrypt effect depends on `[raw, user?.uid]` but reads `keyRef.current`. A ref
+write does NOT trigger a re-render or re-run an effect. If the effect ever runs
+while `keyRef.current` is null (line 69 `if (!key) return`), it early-returns and
+schedules no retry; because mutating the ref does not re-run the effect, those
+messages stay un-decrypted until the next `raw` change arrives.
 
-## LOW
+In the common auto-unlock path (lines 35-43) `keyRef.current = k` is set just
+before `setUnlocked(true)`, so it usually works — but it relies on effect ordering
+rather than any React guarantee, and is fragile to future reordering.
 
-### L1 — Newly-added album photo ordering flicker with pending serverTimestamp
-`web/src/components/AlbumGrid.tsx:33,54-59`
+Fix: drive the key through state so the effect re-runs when it arrives. Mirror the
+ref into state and add it to the deps:
 
-`orderBy('createdAt','desc')` with `createdAt: serverTimestamp()` means the just-added doc has a
-null/estimated timestamp in the immediate local snapshot, so its position can shift once the
-server resolves it. Minor visual reflow, not a correctness bug, and matches the established pattern
-across the app (EntryList, EventThread, Whiteboard, etc.). No change required.
+```ts
+const [key, setKey] = useState<CryptoKey | null>(null)
+// on unlock / auto-unlock: keyRef.current = k; setKey(k)
+// on forget: keyRef.current = null; setKey(null)
+// decrypt effect: read `key`, deps [raw, user?.uid, key]
+```
 
-### L2 — AlbumGrid `name`-change unsubscribe is correct but never exercised in practice
-`web/src/components/AlbumGrid.tsx:31-44`
-
-The effect returns the `onSnapshot` unsubscribe and lists `name` in its deps, so a `name` change
-would tear down and re-subscribe cleanly. The two consumers (PhotoAlbum name="album", SecretVault
-name="vault") are separate component instances, so `name` never actually mutates within an
-instance — the reuse is safe either way. No change required.
+Confidence: 82.
 
 ---
 
-## Items explicitly checked and cleared
+## LOW
 
-- **AlbumGrid subcollection switching / snapshot cleanup** — effect cleanup correct; deps
-  `[coupleId, name]` complete. CLEAN.
-- **Firestore rules for `album`/`vault` subcollections** — `couples/{coupleId}/{document=**}`
-  recursive match covers both, members-only. CLEAN (`web/firestore.rules:73-77`).
-- **Album doc-size for base64** — each album photo is its own document; `<700_000` JS chars ≈
-  700KB UTF-8 for ASCII base64, comfortably under the 1MB doc limit. CLEAN.
-- **SecretVault PIN gate** — soft device-local lock; mirrors SpicyZone exactly (same hash,
-  localStorage key pattern, setup/unlock flow). Understood/intended, not encryption. CLEAN.
-- **ImmersiveCountdown setInterval cleanup** — interval created only when `open`, cleared in
-  cleanup, deps `[open]`. No leak; `setTick` drives re-render. CLEAN.
-- **ImmersiveCountdown timezone parsing** — `new Date(meetup.date + 'T00:00:00')` parses the
-  `yyyy-mm-dd` value (set via `updateMeetup` from a `type="date"` input) in local time, matching
-  `prettyDate` and the other `format.ts` helpers (all use `+ 'T00:00:00'`). Consistent. CLEAN.
-- **IdeaSuggestions Fisher-Yates** — standard unbiased shuffle (i from len-1 down to 1, j in
-  [0,i] inclusive). CLEAN.
-- **IdeaSuggestions useMemo deps** — `[type, budget, energy, roll]` complete; `void roll`
-  intentionally forces a re-sample on "More ideas". CLEAN.
-- **PhotoWidget state model** — `fromMe` derivation, dismiss/take-down via `setPhotoWidget(null)`
-  -> `deleteField()`, and the CoupleProvider doc-mapping are all consistent and null-safe (aside
-  from the M1 size note).
-- **CoupleProvider `setPhotoWidget` / doc-mapping** — guards on db+user+couple; dotted write of a
-  whole object is fine here (single shared field, not per-user); `at?.toDate?.()` null-safe. CLEAN.
+### L1 — localStorage stores the raw passphrase, weakening the E2E claim under local/XSS attackers
+File: web/src/components/SecretChat.tsx:95, 37-39
+
+"Unlock & remember" writes the plaintext passphrase to
+`localStorage["near_secret_pass_<coupleId>"]`. For the stated threat model
+(server / DB-access adversary) this is fine — the passphrase never reaches
+Firestore. But any XSS, shared device, or local-disk access recovers it and thus
+all messages. Prefer storing a non-extractable derived `CryptoKey` in IndexedDB
+over the plaintext passphrase. Acceptable as a documented tradeoff.
+Confidence: 80 (tradeoff, not a bug).
+
+### L2 — Weak passphrase floor (4 chars) + modest KDF makes offline brute force cheap
+File: web/src/lib/crypto.ts:38; SecretChat.tsx:91,136
+
+Minimum passphrase is 4 chars and KDF is PBKDF2-SHA256 @ 150k. Anyone holding one
+ciphertext+IV (the partner, or a DB-access adversary) can brute-force a 4-char
+passphrase offline. Salt (`'near-secret:'+coupleId`) is correct — PBKDF2 salt need
+not be secret; it prevents cross-couple/rainbow reuse, which it does. AES-GCM IV is
+fresh random 12 bytes per message (line 49) — correct, no reuse concern at this
+volume. Fail-closed decrypt is correct. Consider a longer minimum passphrase and/or
+higher iteration count.
+Confidence: 80 (hardening).
+
+### L3 — money() loses the currency symbol on Intl failure (informational)
+File: web/src/lib/i18n.tsx:94-100
+
+`Intl.NumberFormat` is correctly wrapped in try/catch (an invalid currency would
+otherwise throw). The fallback returns `${amount}` with no symbol — reasonable.
+Note JPY has 0 decimals so `money(1234.5)` → "¥1,235" (rounded) — expected Intl
+behavior. No action required.
+
+---
+
+## Verified OK
+- Firestore rules (web/firestore.rules:73-77) restrict `couples/{id}/secret` to the
+  two members — ciphertext/keys do not leak; key is never written to Firestore.
+- base64 helpers (crypto.ts:8-20) correct (btoa/atob over a latin1 byte string).
+- AES-GCM random 12-byte IV per message — no reuse concern.
+- Fail-closed decrypt returns null; UI renders "locked" and a banner — correct.
+- `cancelled` flag in decrypt effect correctly prevents stale `setShown`.
+- I18nProvider is outermost in main.tsx; SPA, so no SSR/hydration concern.
+- Expenses sign handling: balance>0 uses `money(balance)`, <0 uses
+  `money(Math.abs(balance))` — correct.
+</content>
