@@ -70,6 +70,8 @@ export type CoupleDoc = {
   geo: Record<string, { lat: number; lng: number; at: Date | null }>
   avatars: Record<string, { face: string; color: string }>
   courses: Record<string, number>
+  karaoke: { title: string; artist: string; lrc: string } | null
+  arSurprise: { emoji: string; note: string; from: string } | null
   photoWidget: { url: string; from: string; caption: string; at: Date | null } | null
 }
 
@@ -119,6 +121,8 @@ type CoupleContextValue = {
   setAvatar: (face: string, color: string) => Promise<void>
   setCourseProgress: (courseId: string, lesson: number) => Promise<void>
   setPhotoWidget: (photo: { url: string; caption: string } | null) => Promise<void>
+  setKaraoke: (song: { title: string; artist: string; lrc: string } | null) => Promise<void>
+  setArSurprise: (surprise: { emoji: string; note: string } | null) => Promise<void>
 }
 
 const CoupleContext = createContext<CoupleContextValue | undefined>(undefined)
@@ -342,6 +346,20 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
           }),
         ),
         courses: d.courses ?? {},
+        karaoke: d.karaoke
+          ? {
+              title: d.karaoke.title ?? '',
+              artist: d.karaoke.artist ?? '',
+              lrc: d.karaoke.lrc ?? '',
+            }
+          : null,
+        arSurprise: d.arSurprise
+          ? {
+              emoji: d.arSurprise.emoji ?? '🎁',
+              note: d.arSurprise.note ?? '',
+              from: d.arSurprise.from ?? '',
+            }
+          : null,
         photoWidget: d.photoWidget
           ? {
               url: d.photoWidget.url ?? '',
@@ -511,6 +529,18 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     await updateDoc(doc(db, 'couples', couple.id), { [`courses.${courseId}`]: lesson })
   }
 
+  async function setKaraoke(song: { title: string; artist: string; lrc: string } | null) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), { karaoke: song ?? deleteField() })
+  }
+
+  async function setArSurprise(surprise: { emoji: string; note: string } | null) {
+    if (!db || !user || !couple) return
+    await updateDoc(doc(db, 'couples', couple.id), {
+      arSurprise: surprise ? { ...surprise, from: user.uid } : deleteField(),
+    })
+  }
+
   async function setPhotoWidget(photo: { url: string; caption: string } | null) {
     if (!db || !user || !couple) return
     await updateDoc(doc(db, 'couples', couple.id), {
@@ -658,6 +688,8 @@ export function CoupleProvider({ children }: { children: ReactNode }) {
     setAvatar,
     setCourseProgress,
     setPhotoWidget,
+    setKaraoke,
+    setArSurprise,
     setMood,
     updateWatch,
     bumpStreak,

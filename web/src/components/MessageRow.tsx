@@ -1,5 +1,7 @@
 import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import type { Message } from '../messages/useMessages'
+import { useI18n } from '../lib/i18n'
+import { translateText } from '../lib/translate'
 
 const REACTIONS = ['❤️', '😂', '😍', '👍', '😮', '😢']
 
@@ -44,6 +46,17 @@ export function MessageRow({
 }: Props) {
   const reacts = Object.values(m.reactions)
   const myReaction = myUid ? m.reactions[myUid] : undefined
+
+  const { lang } = useI18n()
+  const [translation, setTranslation] = useState<string | null>(null)
+  const [translating, setTranslating] = useState(false)
+  async function doTranslate() {
+    if (!m.text || translating) return
+    setTranslating(true)
+    const out = await translateText(m.text, lang)
+    setTranslation(out || 'Couldn’t translate right now.')
+    setTranslating(false)
+  }
 
   const [dx, setDx] = useState(0)
   const [dragActive, setDragActive] = useState(false)
@@ -159,6 +172,25 @@ export function MessageRow({
               <audio className="bubble-audio" controls preload="metadata" src={m.audioUrl} />
             )}
             {m.text && <span className="bubble-text">{m.text}</span>}
+            {!mine && m.text && (
+              <>
+                {translation ? (
+                  <span className="bubble-translation">🌐 {translation}</span>
+                ) : (
+                  <button
+                    type="button"
+                    className="bubble-translate"
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      void doTranslate()
+                    }}
+                  >
+                    {translating ? 'Translating…' : '🌐 Translate'}
+                  </button>
+                )}
+              </>
+            )}
             <span className="bubble-time">{m.pending ? '…' : timeLabel(m.sentAt)}</span>
             {reacts.length > 0 && <div className="reaction-chip">{reacts.join('')}</div>}
           </div>

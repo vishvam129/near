@@ -6,6 +6,7 @@ import { Whiteboard } from '../components/games/Whiteboard'
 import { KnowMeQuiz } from '../components/games/KnowMeQuiz'
 import { TruthOrDare } from '../components/games/TruthOrDare'
 import { SpicyZone } from '../components/games/SpicyZone'
+import { Karaoke } from '../components/games/Karaoke'
 
 export default function Games() {
   return (
@@ -21,6 +22,7 @@ export default function Games() {
         <CompatQuiz />
         <KnowMeQuiz />
         <TruthOrDare />
+        <Karaoke />
         <SpicyZone />
       </div>
     </div>

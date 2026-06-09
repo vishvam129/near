@@ -26,6 +26,7 @@ import { PhotoAlbum } from '../components/PhotoAlbum'
 import { SecretVault } from '../components/SecretVault'
 import { IdeaSuggestions } from '../components/IdeaSuggestions'
 import { SecretChat } from '../components/SecretChat'
+import { ARSurprise } from '../components/ARSurprise'
 import { LanguageSettings } from '../components/LanguageSettings'
 
 export default function More() {
@@ -39,6 +40,7 @@ export default function More() {
         <PhotoAlbum />
         <SecretVault />
         <SecretChat />
+        <ARSurprise />
         <Calendar />
         <HabitTracker />
         <CoopGoals />
