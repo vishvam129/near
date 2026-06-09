@@ -2411,6 +2411,13 @@ select.input {
   line-height: 1.4;
 }
 
+/* ---- notifications ---- */
+.push-msg {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 /* ---- language & currency ---- */
 .lang-grid {
   display: flex;

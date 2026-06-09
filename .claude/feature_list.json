@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 62,
+  "current_feature_id": 57,
   "session": {
-    "count": 79,
-    "last_started_at": "2026-06-04T05:24:49.318312Z",
+    "count": 81,
+    "last_started_at": "2026-06-09T07:19:22.912671Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
-    "passed": 77,
+    "passed": 79,
     "failed": 0,
     "skipped": 0,
     "in_progress": 1,
-    "pending": 18,
-    "completion_percentage": 80.2
+    "pending": 16,
+    "completion_percentage": 82.3
   },
   "categories": [
     {
@@ -39,7 +39,7 @@
     {
       "name": "Security",
       "total": 4,
-      "passed": 3,
+      "passed": 4,
       "failed": 0,
       "skipped": 0
     },
@@ -179,7 +179,7 @@
     {
       "name": "Localization",
       "total": 2,
-      "passed": 0,
+      "passed": 1,
       "failed": 0,
       "skipped": 0
     }
@@ -2336,9 +2336,9 @@
         "between"
       ],
       "rationale": "Notifications drive real-time connection",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-09T07:19:22.912654Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -2502,20 +2502,21 @@
       "verification": {
         "type": "manual",
         "criteria": "Server stores only ciphertext",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "be9e6a50",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-04T10:52:18.519609Z"
       },
       "research_refs": [
         "ourcal",
         "signal"
       ],
       "rationale": "OurCal/Signal-grade privacy",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-04T05:24:49.318284Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-04T10:52:18.519627Z",
+      "commit_hash": "be9e6a50",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -2525,7 +2526,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 97,
+        "removed": 69,
+        "net": 28,
+        "files_changed": 3
+      }
     },
     {
       "id": 63,
@@ -3754,19 +3761,20 @@
       "verification": {
         "type": "manual",
         "criteria": "UI switches language and currency",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "be9e6a50",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-04T10:52:18.909824Z"
       },
       "research_refs": [
         "cnbc"
       ],
       "rationale": "Global couples need localization",
-      "status": "pending",
+      "status": "passed",
       "status_reason": null,
-      "started_at": null,
-      "completed_at": null,
-      "commit_hash": null,
+      "started_at": "2026-06-04T10:52:18.714062Z",
+      "completed_at": "2026-06-04T10:52:18.909844Z",
+      "commit_hash": "be9e6a50",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -3776,7 +3784,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 97,
+        "removed": 69,
+        "net": 28,
+        "files_changed": 3
+      }
     },
     {
       "id": 96,
@@ -3819,50 +3833,6 @@
     }
   ],
   "audit_trail": [
-    {
-      "timestamp": "2026-06-02T11:29:06.341505Z",
-      "operation": "feature_passed",
-      "feature_id": 41,
-      "details": {
-        "commit_hash": "a3c42a6aa2e28187d78852333b20f563867880a7",
-        "loc_stats": {
-          "added": 26,
-          "removed": 18,
-          "net": 8,
-          "files_changed": 2
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T11:29:06.527806Z",
-      "operation": "feature_started",
-      "feature_id": 30,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
-      "timestamp": "2026-06-02T11:29:06.729490Z",
-      "operation": "feature_passed",
-      "feature_id": 30,
-      "details": {
-        "commit_hash": "a3c42a6aa2e28187d78852333b20f563867880a7",
-        "loc_stats": {
-          "added": 26,
-          "removed": 18,
-          "net": 8,
-          "files_changed": 2
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T11:29:06.918636Z",
-      "operation": "feature_started",
-      "feature_id": 29,
-      "details": {
-        "from_status": "pending"
-      }
-    },
     {
       "timestamp": "2026-06-02T11:29:07.116801Z",
       "operation": "feature_passed",
@@ -4915,6 +4885,50 @@
       "timestamp": "2026-06-04T05:24:49.318334Z",
       "operation": "feature_started",
       "feature_id": 62,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-04T10:52:18.519648Z",
+      "operation": "feature_passed",
+      "feature_id": 62,
+      "details": {
+        "commit_hash": "be9e6a50",
+        "loc_stats": {
+          "added": 97,
+          "removed": 69,
+          "net": 28,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-04T10:52:18.714104Z",
+      "operation": "feature_started",
+      "feature_id": 95,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-04T10:52:18.909871Z",
+      "operation": "feature_passed",
+      "feature_id": 95,
+      "details": {
+        "commit_hash": "be9e6a50",
+        "loc_stats": {
+          "added": 97,
+          "removed": 69,
+          "net": 28,
+          "files_changed": 3
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-09T07:19:22.912685Z",
+      "operation": "feature_started",
+      "feature_id": 57,
       "details": {
         "from_status": "pending"
       }

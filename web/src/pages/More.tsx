@@ -27,6 +27,7 @@ import { SecretVault } from '../components/SecretVault'
 import { IdeaSuggestions } from '../components/IdeaSuggestions'
 import { SecretChat } from '../components/SecretChat'
 import { LanguageSettings } from '../components/LanguageSettings'
+import { NotificationsToggle } from '../components/NotificationsToggle'
 
 export default function More() {
   return (
@@ -53,6 +54,7 @@ export default function More() {
         <ConversationDecks />
         <DateNightPlanner />
         <IdeaSuggestions />
+        <NotificationsToggle />
         <LanguageSettings />
         <CookTogether />
         <SavingsGoal />

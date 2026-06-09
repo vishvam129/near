@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Home from '../pages/Home'
 import Chat from '../pages/Chat'
 import Watch from '../pages/Watch'
@@ -9,9 +9,12 @@ import { LoveBurst } from './LoveBurst'
 import { SignalOverlay } from './SignalOverlay'
 import { ScheduledDelivery } from './ScheduledDelivery'
 import { AlarmWatcher } from './AlarmWatcher'
+import { listenForegroundPush } from '../lib/push'
 
 export default function Shell() {
   const [tab, setTab] = useState<Tab>('home')
+  // Show a notification for messages that arrive while the app is open.
+  useEffect(() => listenForegroundPush(), [])
   return (
     <div className="app">
       <div className="app-body">
