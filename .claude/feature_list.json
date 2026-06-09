@@ -13,20 +13,20 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 57,
+  "current_feature_id": 52,
   "session": {
-    "count": 81,
-    "last_started_at": "2026-06-09T07:19:22.912671Z",
+    "count": 82,
+    "last_started_at": "2026-06-09T09:17:23.043105Z",
     "total_duration_minutes": 0
   },
   "stats": {
     "total": 96,
     "passed": 79,
     "failed": 0,
-    "skipped": 0,
+    "skipped": 1,
     "in_progress": 1,
-    "pending": 16,
-    "completion_percentage": 82.3
+    "pending": 15,
+    "completion_percentage": 83.3
   },
   "categories": [
     {
@@ -118,7 +118,7 @@
       "total": 3,
       "passed": 1,
       "failed": 0,
-      "skipped": 0
+      "skipped": 1
     },
     {
       "name": "Monetization",
@@ -2168,9 +2168,9 @@
         "ourcal"
       ],
       "rationale": "Core real-time presence",
-      "status": "pending",
+      "status": "in_progress",
       "status_reason": null,
-      "started_at": null,
+      "started_at": "2026-06-09T09:17:23.043085Z",
       "completed_at": null,
       "commit_hash": null,
       "parallelizable": false,
@@ -2336,10 +2336,10 @@
         "between"
       ],
       "rationale": "Notifications drive real-time connection",
-      "status": "in_progress",
-      "status_reason": null,
+      "status": "skipped",
+      "status_reason": "Client side built+live (token reg, messaging SW, foreground handler); push SENDER (Cloud Function) requires Blaze billing which the user declined. Code kept in functions/ + NotificationsToggle for one-step re-enable later.",
       "started_at": "2026-06-09T07:19:22.912654Z",
-      "completed_at": null,
+      "completed_at": "2026-06-09T08:48:46.780059Z",
       "commit_hash": null,
       "parallelizable": false,
       "depends_on": [],
@@ -3834,28 +3834,6 @@
   ],
   "audit_trail": [
     {
-      "timestamp": "2026-06-02T11:29:07.116801Z",
-      "operation": "feature_passed",
-      "feature_id": 29,
-      "details": {
-        "commit_hash": "a3c42a6aa2e28187d78852333b20f563867880a7",
-        "loc_stats": {
-          "added": 26,
-          "removed": 18,
-          "net": 8,
-          "files_changed": 2
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-02T11:29:07.319888Z",
-      "operation": "feature_started",
-      "feature_id": 31,
-      "details": {
-        "from_status": "pending"
-      }
-    },
-    {
       "timestamp": "2026-06-02T11:29:07.517650Z",
       "operation": "feature_passed",
       "feature_id": 31,
@@ -4929,6 +4907,22 @@
       "timestamp": "2026-06-09T07:19:22.912685Z",
       "operation": "feature_started",
       "feature_id": 57,
+      "details": {
+        "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-09T08:48:46.780097Z",
+      "operation": "feature_skipped",
+      "feature_id": 57,
+      "details": {
+        "reason": "Client side built+live (token reg, messaging SW, foreground handler); push SENDER (Cloud Function) requires Blaze billing which the user declined. Code kept in functions/ + NotificationsToggle for one-step re-enable later."
+      }
+    },
+    {
+      "timestamp": "2026-06-09T09:17:23.043121Z",
+      "operation": "feature_started",
+      "feature_id": 52,
       "details": {
         "from_status": "pending"
       }

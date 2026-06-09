@@ -10,6 +10,7 @@ import { SignalOverlay } from './SignalOverlay'
 import { ScheduledDelivery } from './ScheduledDelivery'
 import { AlarmWatcher } from './AlarmWatcher'
 import { listenForegroundPush } from '../lib/push'
+import { CallUI } from './CallUI'
 
 export default function Shell() {
   const [tab, setTab] = useState<Tab>('home')
@@ -27,6 +28,7 @@ export default function Shell() {
       <BottomNav tab={tab} onTab={setTab} />
       <LoveBurst />
       <SignalOverlay />
+      <CallUI />
       <ScheduledDelivery />
       <AlarmWatcher />
     </div>

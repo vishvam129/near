@@ -8,6 +8,7 @@ import {
 } from 'react'
 import { useMessages, type Message, type ReplyRef } from '../messages/useMessages'
 import { useCouple } from '../couple/CoupleProvider'
+import { useCall } from '../calls/CallProvider'
 import { fileToMessageImage } from '../lib/image'
 import { dayLabel, sameDay, timeAgo } from '../lib/format'
 import { EmojiPicker } from '../components/EmojiPicker'
@@ -33,6 +34,7 @@ export default function Chat() {
   const { messages, loading, send, sendImage, sendAudio, setReaction, deleteMessage, myUid } =
     useMessages()
   const { partner, couple, setTyping, markRead } = useCouple()
+  const { startCall, status: callStatus } = useCall()
   const [text, setText] = useState('')
   const [err, setErr] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
@@ -288,13 +290,35 @@ export default function Chat() {
   return (
     <div className="chat-screen">
       <header className="chat-header">
-        <span className="chat-title">{partner?.name || partner?.email || 'Chat'}</span>
-        {presence && (
-          <span className={`chat-presence ${online ? 'is-online' : ''}`}>
-            {online && <span className="online-dot" />}
-            {presence}
-          </span>
-        )}
+        <div className="chat-header-info">
+          <span className="chat-title">{partner?.name || partner?.email || 'Chat'}</span>
+          {presence && (
+            <span className={`chat-presence ${online ? 'is-online' : ''}`}>
+              {online && <span className="online-dot" />}
+              {presence}
+            </span>
+          )}
+        </div>
+        <div className="chat-call-btns">
+          <button
+            type="button"
+            className="chat-call-btn"
+            aria-label="Voice call"
+            disabled={!partner || callStatus !== 'idle'}
+            onClick={() => void startCall('voice')}
+          >
+            📞
+          </button>
+          <button
+            type="button"
+            className="chat-call-btn"
+            aria-label="Video call"
+            disabled={!partner || callStatus !== 'idle'}
+            onClick={() => void startCall('video')}
+          >
+            📹
+          </button>
+        </div>
       </header>
 
       <div className="chat-list">

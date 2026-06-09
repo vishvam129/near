@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { useCouple } from '../couple/CoupleProvider'
+import { useCall } from '../calls/CallProvider'
 
 function fmtTime(at: number): string {
   return new Intl.DateTimeFormat([], { dateStyle: 'medium', timeStyle: 'short' }).format(
@@ -11,6 +12,7 @@ function fmtTime(at: number): string {
 export function Bedtime() {
   const { user } = useAuth()
   const { couple, partner, setSleeping, setAlarm } = useCouple()
+  const { startCall, status: callStatus } = useCall()
   const mySleep = user ? Boolean(couple?.sleeping?.[user.uid]) : false
   const theirSleep = partner ? Boolean(couple?.sleeping?.[partner.uid]) : false
   const alarm = couple?.alarm ?? null
@@ -43,6 +45,17 @@ export function Bedtime() {
       {theirSleep && (
         <div className="bedtime-partner">{partnerName} is asleep 😴 — sweet dreams</div>
       )}
+
+      <button
+        type="button"
+        className="btn btn-ghost bedtime-sleepcall"
+        disabled={!partner || callStatus !== 'idle'}
+        onClick={() => void startCall('sleep')}
+      >
+        🌙 Sleep call — fall asleep together
+      </button>
+      <p className="bedtime-hint">A low-light audio call you can leave on overnight.</p>
+
 
       <div className="bedtime-alarm">
         {alarm ? (

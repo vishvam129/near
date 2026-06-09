@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { AuthProvider } from './auth/AuthProvider'
 import { CoupleProvider } from './couple/CoupleProvider'
+import { CallProvider } from './calls/CallProvider'
 import { I18nProvider } from './lib/i18n'
 
 createRoot(document.getElementById('root')!).render(
@@ -11,7 +12,9 @@ createRoot(document.getElementById('root')!).render(
     <I18nProvider>
       <AuthProvider>
         <CoupleProvider>
-          <App />
+          <CallProvider>
+            <App />
+          </CallProvider>
         </CoupleProvider>
       </AuthProvider>
     </I18nProvider>

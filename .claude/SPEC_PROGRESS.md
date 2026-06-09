@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #57 [Platform] Push notifications via Firebase Cloud Messaging
-   Started: 2026-06-09T07:19:22.912654Z
+**In Progress:** #52 [Calls] Voice calls (WebRTC)
+   Started: 2026-06-09T09:17:23.043085Z
 
 ## Summary
 
-Progress: ████████████████████████░░░░░░ 82.3%
+Progress: ████████████████████████░░░░░░ 83.3%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 79 | 82.3% |
+| Passed | 79 | 83.3% |
 | Failed | 0 | 0.0% |
-| Skipped | 0 | 0.0% |
+| Skipped | 1 | 1.0% |
 | In Progress | 1 | - |
-| Pending | 16 | 16.7% |
+| Pending | 15 | 15.6% |
 
 ## Session Statistics
 
-- **Sessions:** 81
-- **Last Started:** 2026-06-09T07:19:22.912671Z
+- **Sessions:** 82
+- **Last Started:** 2026-06-09T09:17:23.043105Z
 
 ## Categories
 
@@ -39,7 +39,7 @@ Progress: ███████████████████████�
 | Daily Rituals | ██████████ 100% | 7 | 0 | 0 |
 | Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Intimacy | █████░░░░░ 50% | 1 | 0 | 0 |
-| Platform | ███░░░░░░░ 33% | 1 | 0 | 0 |
+| Platform | ███░░░░░░░ 33% | 1 | 0 | 1 |
 | Monetization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
 | Differentiator | ██████░░░░ 60% | 3 | 0 | 0 |
 | IoT | █████░░░░░ 50% | 1 | 0 | 0 |
@@ -54,6 +54,7 @@ Progress: ███████████████████████�
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #57 | skipped | 1h 29m 23s | – | – | – | – | 0 | – |
 | #95 | passed | 0s | 97 | 69 | 28 | 3 | 0 | yes |
 | #62 | passed | 5h 27m 29s | 97 | 69 | 28 | 3 | 0 | yes |
 | #64 | passed | 0s | 90 | 58 | 32 | 3 | 0 | yes |
@@ -135,11 +136,17 @@ Progress: ███████████████████████�
 | #1 | passed | 28m 21s | 7873 | 2 | 7871 | 29 | 0 | yes |
 
 
+## Skipped Features
+
+| ID | Category | Description | Reason |
+|----|----------|-------------|--------|
+| #57 | Platform | Push notifications via Firebase Cloud Me | Client side built+live (token reg, messaging SW, foreground handler); push SENDER (Cloud Function) requires Blaze billing which the user declined. Code kept in functions/ + NotificationsToggle for one-step re-enable later. |
 
 ## Recent Activity
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-09T08:48 | #57 Push notifications via Firebase Cloud Messaging | S |  |
 | 2026-06-04T10:52 | #95 Multi-currency & multi-language UI | P | be9e6a5 |
 | 2026-06-04T10:52 | #62 End-to-end encryption for messages | P | be9e6a5 |
 | 2026-06-04T05:21 | #64 AI date-idea / gift suggestions personalized to th | P | 657a5ab |
@@ -149,8 +156,7 @@ Progress: ███████████████████████�
 | 2026-06-04T05:21 | #40 Shared photo album / scrapbook | P | 657a5ab |
 | 2026-06-03T13:24 | #35 Date-night planner with idea suggestions | P | 732017a |
 | 2026-06-03T13:24 | #63 AI relationship coach & conversation prompts | P | 732017a |
-| 2026-06-03T13:24 | #78 Guided relationship courses (communication, intima | P | 732017a |
 
 ---
-*Last updated: 2026-06-09T07:19:22.937115Z*
-*Session 81*
+*Last updated: 2026-06-09T09:17:23.084861Z*
+*Session 82*
