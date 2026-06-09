@@ -27,7 +27,6 @@ import { SecretVault } from '../components/SecretVault'
 import { IdeaSuggestions } from '../components/IdeaSuggestions'
 import { SecretChat } from '../components/SecretChat'
 import { LanguageSettings } from '../components/LanguageSettings'
-import { NotificationsToggle } from '../components/NotificationsToggle'
 
 export default function More() {
   return (
@@ -54,7 +53,8 @@ export default function More() {
         <ConversationDecks />
         <DateNightPlanner />
         <IdeaSuggestions />
-        <NotificationsToggle />
+        {/* NotificationsToggle is built but hidden until a push *sender* exists
+            (Cloud Function needs the Blaze plan). Re-add this line to enable. */}
         <LanguageSettings />
         <CookTogether />
         <SavingsGoal />
