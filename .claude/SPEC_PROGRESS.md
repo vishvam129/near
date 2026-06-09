@@ -2,26 +2,26 @@
 
 ## Current Status
 
-**In Progress:** #52 [Calls] Voice calls (WebRTC)
-   Started: 2026-06-09T09:17:23.043085Z
+**In Progress:** #17 [Messaging] Async heartfelt video messages (Marco-Polo style)
+   Started: 2026-06-09T10:49:56.997929Z
 
 ## Summary
 
-Progress: ████████████████████████░░░░░░ 83.3%
+Progress: ██████████████████████████░░░░ 89.6%
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | **Total Features** | 96 | - |
-| Passed | 79 | 83.3% |
+| Passed | 85 | 89.6% |
 | Failed | 0 | 0.0% |
 | Skipped | 1 | 1.0% |
 | In Progress | 1 | - |
-| Pending | 15 | 15.6% |
+| Pending | 9 | 9.4% |
 
 ## Session Statistics
 
-- **Sessions:** 82
-- **Last Started:** 2026-06-09T09:17:23.043105Z
+- **Sessions:** 88
+- **Last Started:** 2026-06-09T10:49:56.997946Z
 
 ## Categories
 
@@ -37,23 +37,29 @@ Progress: ███████████████████████�
 | Planning | ████████░░ 88% | 7 | 0 | 0 |
 | Memories | ██████████ 100% | 5 | 0 | 0 |
 | Daily Rituals | ██████████ 100% | 7 | 0 | 0 |
-| Calls | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
+| Calls | ██████████ 100% | 3 | 0 | 0 |
 | Intimacy | █████░░░░░ 50% | 1 | 0 | 0 |
 | Platform | ███░░░░░░░ 33% | 1 | 0 | 1 |
 | Monetization | ░░░░░░░░░░ 0% | 0 | 0 | 0 |
-| Differentiator | ██████░░░░ 60% | 3 | 0 | 0 |
+| Differentiator | ████████░░ 80% | 4 | 0 | 0 |
 | IoT | █████░░░░░ 50% | 1 | 0 | 0 |
-| Activities | ████████░░ 80% | 4 | 0 | 0 |
+| Activities | ██████████ 100% | 5 | 0 | 0 |
 | Wellbeing | ██████████ 100% | 6 | 0 | 0 |
 | Habits | ██████████ 100% | 3 | 0 | 0 |
 | Finances | ██████████ 100% | 2 | 0 | 0 |
 | Gestures | ██████████ 100% | 3 | 0 | 0 |
-| Localization | █████░░░░░ 50% | 1 | 0 | 0 |
+| Localization | ██████████ 100% | 2 | 0 | 0 |
 
 ## Feature Metrics
 
 | ID | Status | Duration | +Lines | -Lines | Net | Files | Clarifications | Verified |
 |----|--------|----------|--------|--------|-----|-------|----------------|----------|
+| #77 | passed | 0s | 183 | 126 | 57 | 7 | 0 | yes |
+| #72 | passed | 0s | 183 | 126 | 57 | 7 | 0 | yes |
+| #94 | passed | 0s | 183 | 126 | 57 | 7 | 0 | yes |
+| #54 | passed | 0s | 183 | 126 | 57 | 7 | 0 | yes |
+| #53 | passed | 0s | 183 | 126 | 57 | 7 | 0 | yes |
+| #52 | passed | 1h 13m 10s | 183 | 126 | 57 | 7 | 0 | yes |
 | #57 | skipped | 1h 29m 23s | – | – | – | – | 0 | – |
 | #95 | passed | 0s | 97 | 69 | 28 | 3 | 0 | yes |
 | #62 | passed | 5h 27m 29s | 97 | 69 | 28 | 3 | 0 | yes |
@@ -146,17 +152,17 @@ Progress: ███████████████████████�
 
 | Time | Feature | Status | Commit |
 |------|---------|--------|--------|
+| 2026-06-09T10:30 | #77 AR surprise: send a virtual object/note into partn | P | a6ccbc7 |
+| 2026-06-09T10:30 | #72 Karaoke / sing together with synced lyrics | P | a6ccbc7 |
+| 2026-06-09T10:30 | #94 In-chat auto-translate | P | a6ccbc7 |
+| 2026-06-09T10:30 | #54 Sleep call: low-light audio-only ambient mode | P | a6ccbc7 |
+| 2026-06-09T10:30 | #53 Video calls | P | a6ccbc7 |
+| 2026-06-09T10:30 | #52 Voice calls (WebRTC) | P | a6ccbc7 |
 | 2026-06-09T08:48 | #57 Push notifications via Firebase Cloud Messaging | S |  |
 | 2026-06-04T10:52 | #95 Multi-currency & multi-language UI | P | be9e6a5 |
 | 2026-06-04T10:52 | #62 End-to-end encryption for messages | P | be9e6a5 |
 | 2026-06-04T05:21 | #64 AI date-idea / gift suggestions personalized to th | P | 657a5ab |
-| 2026-06-04T05:21 | #9 Lock-screen / home-screen countdown widget | P | 657a5ab |
-| 2026-06-04T05:21 | #20 Photo widget pushing an image to partner's home sc | P | 657a5ab |
-| 2026-06-04T05:21 | #18 Secret password-protected photo album | P | 657a5ab |
-| 2026-06-04T05:21 | #40 Shared photo album / scrapbook | P | 657a5ab |
-| 2026-06-03T13:24 | #35 Date-night planner with idea suggestions | P | 732017a |
-| 2026-06-03T13:24 | #63 AI relationship coach & conversation prompts | P | 732017a |
 
 ---
-*Last updated: 2026-06-09T09:17:23.084861Z*
-*Session 82*
+*Last updated: 2026-06-09T10:49:57.022983Z*
+*Session 88*

@@ -10,6 +10,8 @@ import { useMessages, type Message, type ReplyRef } from '../messages/useMessage
 import { useCouple } from '../couple/CoupleProvider'
 import { useCall } from '../calls/CallProvider'
 import { fileToMessageImage } from '../lib/image'
+import { cloudinaryEnabled, uploadVideo } from '../lib/cloudinary'
+import { VideoRecorder } from '../components/VideoRecorder'
 import { dayLabel, sameDay, timeAgo } from '../lib/format'
 import { EmojiPicker } from '../components/EmojiPicker'
 import { MessageRow } from '../components/MessageRow'
@@ -27,11 +29,13 @@ function blobToDataURL(blob: Blob): Promise<string> {
 function previewText(m: Message): string {
   if (m.imageUrl && !m.text) return '📷 Photo'
   if (m.imageUrl) return `📷 ${m.text}`
+  if (m.videoUrl) return '🎥 Video'
+  if (m.audioUrl) return '🎤 Voice message'
   return m.text
 }
 
 export default function Chat() {
-  const { messages, loading, send, sendImage, sendAudio, setReaction, deleteMessage, myUid } =
+  const { messages, loading, send, sendImage, sendAudio, sendVideo, setReaction, deleteMessage, myUid } =
     useMessages()
   const { partner, couple, setTyping, markRead } = useCouple()
   const { startCall, status: callStatus } = useCall()
@@ -43,6 +47,13 @@ export default function Chat() {
   const [lightbox, setLightbox] = useState<string | null>(null)
   const [replyTo, setReplyTo] = useState<ReplyRef | null>(null)
   const [doodle, setDoodle] = useState(false)
+  const [videoOpen, setVideoOpen] = useState(false)
+
+  async function onSendVideo(blob: Blob) {
+    const url = await uploadVideo(blob)
+    await sendVideo(url, replyTo)
+    setReplyTo(null)
+  }
   const [recording, setRecording] = useState(false)
   const [recSec, setRecSec] = useState(0)
   const fileRef = useRef<HTMLInputElement>(null)
@@ -434,6 +445,16 @@ export default function Chat() {
           >
             ✏️
           </button>
+          {cloudinaryEnabled && (
+            <button
+              type="button"
+              className="composer-photo"
+              onClick={() => setVideoOpen(true)}
+              aria-label="Record a video message"
+            >
+              🎥
+            </button>
+          )}
           <input
             ref={inputRef}
             className="composer-input"
@@ -480,6 +501,12 @@ export default function Chat() {
       )}
 
       {doodle && <DoodleCanvas onSend={sendDoodle} onClose={() => setDoodle(false)} />}
+
+      {videoOpen && (
+        <div className="vid-rec-overlay">
+          <VideoRecorder onSend={onSendVideo} onClose={() => setVideoOpen(false)} />
+        </div>
+      )}
     </div>
   )
 }

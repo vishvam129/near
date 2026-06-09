@@ -2689,6 +2689,81 @@ select.input {
   cursor: default;
 }
 
+/* ---- video messages ---- */
+.bubble-video {
+  display: block;
+  max-width: 240px;
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  background: #000;
+}
+.vid-rec-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.vid-rec {
+  width: min(440px, 96vw);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.vid-rec-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.vid-rec-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.vid-rec-dot {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 59, 59, 0.9);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.vid-rec-err {
+  text-align: center;
+}
+.vid-rec-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.vid-rec-controls .link,
+.vid-rec-controls .btn {
+  color: #fff;
+}
+.vid-rec-controls .link {
+  flex: 0 0 auto;
+}
+.vid-rec-go,
+.vid-rec-stop {
+  width: auto;
+  padding: 12px 28px;
+}
+.vid-rec-spacer {
+  width: 48px;
+}
+
 /* ---- in-chat translate ---- */
 .bubble-translate {
   display: inline-block;

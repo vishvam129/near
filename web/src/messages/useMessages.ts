@@ -24,6 +24,7 @@ export type Message = {
   text: string
   imageUrl: string | null
   audioUrl: string | null
+  videoUrl: string | null
   reactions: Record<string, string>
   replyTo: ReplyRef | null
   sentAt: Date | null
@@ -63,6 +64,7 @@ export function useMessages() {
               text: d.text ?? '',
               imageUrl: d.imageUrl ?? null,
               audioUrl: d.audioUrl ?? null,
+              videoUrl: d.videoUrl ?? null,
               reactions: d.reactions ?? {},
               replyTo: d.replyTo ?? null,
               // serverTimestamp is null locally until the server resolves it
@@ -116,6 +118,18 @@ export function useMessages() {
     })
   }
 
+  async function sendVideo(videoUrl: string, replyTo: ReplyRef | null = null) {
+    if (!videoUrl || !db || !coupleId || !user) return
+    await addDoc(collection(db, 'couples', coupleId, 'messages'), {
+      from: user.uid,
+      text: '',
+      videoUrl,
+      type: 'video',
+      replyTo: replyTo ?? null,
+      sentAt: serverTimestamp(),
+    })
+  }
+
   async function setReaction(messageId: string, emoji: string | null) {
     if (!db || !coupleId || !user) return
     const ref = doc(db, 'couples', coupleId, 'messages', messageId)
@@ -133,6 +147,7 @@ export function useMessages() {
     send,
     sendImage,
     sendAudio,
+    sendVideo,
     setReaction,
     deleteMessage,
     myUid: user?.uid ?? null,

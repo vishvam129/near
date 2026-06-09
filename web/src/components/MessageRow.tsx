@@ -171,6 +171,16 @@ export function MessageRow({
             {m.audioUrl && (
               <audio className="bubble-audio" controls preload="metadata" src={m.audioUrl} />
             )}
+            {m.videoUrl && (
+              <video
+                className="bubble-video"
+                controls
+                playsInline
+                preload="metadata"
+                src={m.videoUrl}
+                onPointerDown={(e) => e.stopPropagation()}
+              />
+            )}
             {m.text && <span className="bubble-text">{m.text}</span>}
             {!mine && m.text && (
               <>
