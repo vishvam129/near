@@ -35,12 +35,19 @@ export function Karaoke() {
   const activeRef = useRef<HTMLDivElement>(null)
 
   const lines = song ? parseLrc(song.lrc) : []
+  const activeIdx = lines.reduce((acc, l, i) => (l.t <= elapsed ? i : acc), -1)
 
   useEffect(() => {
     if (!playing) return
     startedAt.current = performance.now() - elapsed * 1000
+    const endAt = lines.length ? lines[lines.length - 1].t + 4 : 0
     const tick = () => {
-      setElapsed((performance.now() - startedAt.current) / 1000)
+      const e = (performance.now() - startedAt.current) / 1000
+      setElapsed(e)
+      if (endAt && e > endAt) {
+        setPlaying(false) // stop the loop once the song's lyrics are done
+        return
+      }
       raf.current = requestAnimationFrame(tick)
     }
     raf.current = requestAnimationFrame(tick)
@@ -50,9 +57,10 @@ export function Karaoke() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playing])
 
+  // Scroll only when the highlighted line actually changes.
   useEffect(() => {
     activeRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-  }, [Math.floor(elapsed)])
+  }, [activeIdx])
 
   if (!paired) return null
 
@@ -63,6 +71,7 @@ export function Karaoke() {
     setErr(null)
     try {
       const r = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(q.trim())}`)
+      if (!r.ok) throw new Error('search failed')
       const data: Hit[] = await r.json()
       setHits(data.filter((h) => h.syncedLyrics))
     } catch {
@@ -81,7 +90,6 @@ export function Karaoke() {
   }
 
   if (song) {
-    const activeIdx = lines.reduce((acc, l, i) => (l.t <= elapsed ? i : acc), -1)
     const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(
       `${song.artist} ${song.title}`,
     )}`

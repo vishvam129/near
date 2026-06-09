@@ -24,11 +24,11 @@ export function CallUI() {
   const remoteAudio = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
-    if (localVideo.current && localStream) localVideo.current.srcObject = localStream
+    if (localVideo.current) localVideo.current.srcObject = localStream
   }, [localStream])
   useEffect(() => {
-    if (remoteVideo.current && remoteStream) remoteVideo.current.srcObject = remoteStream
-    if (remoteAudio.current && remoteStream) remoteAudio.current.srcObject = remoteStream
+    if (remoteVideo.current) remoteVideo.current.srcObject = remoteStream
+    if (remoteAudio.current) remoteAudio.current.srcObject = remoteStream
   }, [remoteStream])
 
   const who = partner?.name || 'Partner'

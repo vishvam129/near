@@ -69,9 +69,21 @@ export function CallProvider({ children }: { children: ReactNode }) {
   const localRef = useRef<MediaStream | null>(null)
   const callDocId = useRef<string | null>(null)
   const incomingId = useRef<string | null>(null)
+  const offerRef = useRef<{ type: RTCSdpType; sdp: string } | null>(null)
   const subs = useRef<Array<() => void>>([])
+  // Generation token: bumped on every teardown so an in-flight start/accept
+  // that resolves *after* teardown can detect it's stale and stop its tracks
+  // instead of re-assigning live media (prevents a camera/mic leak).
+  const gen = useRef(0)
+  const ringTimer = useRef<number | undefined>(undefined)
+  // Mirror of `status` for the once-subscribed incoming watcher.
+  const statusRef = useRef<CallStatus>('idle')
+  statusRef.current = status
 
   function cleanup() {
+    gen.current++
+    if (ringTimer.current) window.clearTimeout(ringTimer.current)
+    ringTimer.current = undefined
     subs.current.forEach((u) => u())
     subs.current = []
     pcRef.current?.close()
@@ -83,6 +95,8 @@ export function CallProvider({ children }: { children: ReactNode }) {
     setMuted(false)
     setCameraOff(false)
     callDocId.current = null
+    incomingId.current = null
+    offerRef.current = null
   }
 
   function teardown(next: CallStatus = 'idle') {
@@ -121,12 +135,22 @@ export function CallProvider({ children }: { children: ReactNode }) {
     if (!db || !coupleId || !user || !partner) return
     if (status !== 'idle') return
     setError(null)
+    const myGen = gen.current
     try {
       const stream = await getMedia(t)
+      // If a teardown happened while we were awaiting permission, abort.
+      if (myGen !== gen.current) {
+        stream.getTracks().forEach((tk) => tk.stop())
+        return
+      }
       localRef.current = stream
       setLocalStream(stream)
       setType(t)
       setStatus('outgoing')
+      // Give up ringing if unanswered after 40s.
+      ringTimer.current = window.setTimeout(() => {
+        if (statusRef.current === 'outgoing') void hangUp()
+      }, 40000)
 
       const callRef = await addDoc(collection(db, 'couples', coupleId, 'calls'), {
         type: t,
@@ -145,6 +169,12 @@ export function CallProvider({ children }: { children: ReactNode }) {
       const offer = await pc.createOffer()
       await pc.setLocalDescription(offer)
       await updateDoc(callRef, { offer: { type: offer.type, sdp: offer.sdp } })
+      // Aborted mid-setup → close the peer and end the call doc.
+      if (myGen !== gen.current) {
+        pc.close()
+        await updateDoc(callRef, { status: 'ended' }).catch(() => {})
+        return
+      }
 
       // Watch for the answer + status changes.
       subs.current.push(
@@ -179,9 +209,13 @@ export function CallProvider({ children }: { children: ReactNode }) {
     if (!db || !coupleId || !user || !incomingId.current) return
     const callId = incomingId.current
     const callRef = doc(db, 'couples', coupleId, 'calls', callId)
+    const myGen = gen.current
     try {
-      // Read current call data via a one-shot listener already running? Re-fetch.
       const stream = await getMedia(type ?? 'voice')
+      if (myGen !== gen.current) {
+        stream.getTracks().forEach((tk) => tk.stop())
+        return
+      }
       localRef.current = stream
       setLocalStream(stream)
 
@@ -196,6 +230,10 @@ export function CallProvider({ children }: { children: ReactNode }) {
       await pc.setRemoteDescription(new RTCSessionDescription(offer))
       const answer = await pc.createAnswer()
       await pc.setLocalDescription(answer)
+      if (myGen !== gen.current) {
+        pc.close()
+        return
+      }
       await updateDoc(callRef, { answer: { type: answer.type, sdp: answer.sdp }, status: 'active' })
 
       setStatus('active')
@@ -252,30 +290,58 @@ export function CallProvider({ children }: { children: ReactNode }) {
   }
 
   // ---- incoming-call watcher ----
-  const offerRef = useRef<{ type: RTCSdpType; sdp: string } | null>(null)
+  // Subscribed once (reads live status via statusRef) so it never tears down
+  // and replays stale results on a status change.
   useEffect(() => {
     if (!db || !coupleId || !user) return
-    const q = query(
-      collection(db, 'couples', coupleId, 'calls'),
-      where('status', '==', 'ringing'),
-    )
+    const database = db
+    const cid = coupleId
+    const uid = user.uid
+    const q = query(collection(database, 'couples', cid, 'calls'), where('status', '==', 'ringing'))
     return onSnapshot(q, (snap) => {
-      // Ignore while already in a call.
-      if (status !== 'idle') return
-      // Only ring once the offer has actually been written to the doc.
+      if (statusRef.current !== 'idle' && statusRef.current !== 'outgoing') return
+      const now = Date.now()
       const ring = snap.docs.find((d) => {
         const x = d.data()
-        return x.callee === user.uid && x.caller !== user.uid && x.offer
+        if (x.callee !== uid || x.caller === uid || !x.offer) return false
+        // Ignore stale ringing docs (caller vanished without hanging up).
+        const created = x.createdAt?.toMillis?.() ?? 0
+        return created === 0 || now - created < 60000
       })
-      if (ring) {
-        const d = ring.data()
-        incomingId.current = ring.id
-        offerRef.current = d.offer ?? null
-        setType((d.type as CallType) ?? 'voice')
-        setStatus('incoming')
+      if (!ring) return
+      // Glare: if I'm already calling out and they call me too, the lower uid
+      // wins (keeps their outgoing call); the higher uid yields and answers.
+      if (statusRef.current === 'outgoing') {
+        if (uid < ring.data().caller) return
+        // Yield: synchronously cancel my own outgoing call (end its doc + stop
+        // my media) BEFORE switching to their incoming call, so cleanup can't
+        // clobber the 'incoming' state we set below.
+        if (callDocId.current) {
+          void updateDoc(doc(database, 'couples', cid, 'calls', callDocId.current), {
+            status: 'ended',
+          }).catch(() => {})
+        }
+        cleanup()
       }
+      const d = ring.data()
+      incomingId.current = ring.id
+      offerRef.current = d.offer ?? null
+      setType((d.type as CallType) ?? 'voice')
+      setStatus('incoming')
     })
-  }, [coupleId, user, status])
+  }, [coupleId, user])
+
+  // Best-effort: mark an in-flight call ended if the tab closes mid-call.
+  useEffect(() => {
+    const onLeave = () => {
+      const id = callDocId.current || incomingId.current
+      if (db && coupleId && id) {
+        void updateDoc(doc(db, 'couples', coupleId, 'calls', id), { status: 'ended' }).catch(() => {})
+      }
+    }
+    window.addEventListener('pagehide', onLeave)
+    return () => window.removeEventListener('pagehide', onLeave)
+  }, [coupleId])
 
   useEffect(() => () => cleanup(), [])
 

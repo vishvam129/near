@@ -67,6 +67,8 @@ export function ARSurprise() {
         className="ar-view"
         onPointerMove={onDrag}
         onPointerUp={() => (dragging.current = false)}
+        onPointerCancel={() => (dragging.current = false)}
+        onPointerLeave={() => (dragging.current = false)}
       >
         <video ref={videoRef} className="ar-camera" autoPlay playsInline muted />
         {camErr ? (
@@ -84,7 +86,7 @@ export function ARSurprise() {
         <div className="ar-hint">Drag the surprise around your space ✨</div>
         <div className="ar-actions">
           <button type="button" className="btn" onClick={closeAr}>
-            Close
+            Close (keep it)
           </button>
           <button
             type="button"
@@ -94,7 +96,7 @@ export function ARSurprise() {
               closeAr()
             }}
           >
-            Keep it (clear)
+            Dismiss surprise
           </button>
         </div>
       </div>
