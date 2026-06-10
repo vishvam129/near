@@ -1326,15 +1326,33 @@ select.input {
 /* ---- streak badge ---- */
 .streak-badge {
   align-self: center;
-  display: inline-block;
-  margin: 2px auto 0;
-  padding: 5px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 10px auto 2px;
+  padding: 9px 18px;
   border-radius: 999px;
-  background: rgba(255, 159, 67, 0.16);
-  color: #ffb877;
-  border: 1px solid rgba(255, 159, 67, 0.3);
-  font-size: 13px;
-  font-weight: 600;
+  background: linear-gradient(120deg, color-mix(in oklab, var(--amber) 22%, transparent), color-mix(in oklab, var(--rose) 18%, transparent));
+  color: var(--amber);
+  border: 1px solid color-mix(in oklab, var(--amber) 38%, transparent);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: 0 6px 20px -10px var(--glow);
+}
+.streak-badge::before {
+  content: '🔥';
+  font-size: 17px;
+  animation: flame 1.8s ease-in-out infinite;
+}
+@keyframes flame {
+  0%,
+  100% {
+    transform: scale(1) rotate(-3deg);
+  }
+  50% {
+    transform: scale(1.18) rotate(3deg);
+  }
 }
 
 /* ---- watch together ---- */
@@ -4259,5 +4277,169 @@ select.input {
   .home-grid > .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 26px 50px -18px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY + lazy-tab loading
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+.tab-loading {
+  align-items: center;
+  padding-top: 80px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   ONBOARDING + DAILY-RITUAL NUDGE
+   ============================================================ */
+.onb {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(700px 500px at 85% -5%, color-mix(in oklab, var(--amber) 30%, transparent), transparent 60%),
+    radial-gradient(700px 520px at 5% 5%, color-mix(in oklab, var(--rose) 26%, transparent), transparent 58%),
+    var(--bg);
+}
+.onb-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 30px 26px 22px;
+  text-align: center;
+}
+.onb-step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: card-rise 0.4s var(--ease-spring) both;
+}
+.onb-emoji {
+  font-size: 52px;
+  line-height: 1;
+}
+.onb-step .welcome {
+  margin: 0;
+}
+.onb-step .tagline {
+  margin: 0 0 4px;
+}
+.onb-actions {
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.onb-tour {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  margin: 4px 0 6px;
+}
+.onb-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 11px 13px;
+}
+.onb-tab-ico {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.onb-tab-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.onb-tab-text b {
+  display: block;
+  color: var(--txt);
+  font-size: 14px;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.onb-dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 18px;
+}
+.onb-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: all 0.3s var(--ease-spring);
+}
+.onb-dot.on {
+  width: 20px;
+  background: var(--grad);
+}
+
+/* daily-ritual nudge banner */
+.ritual-nudge {
+  position: fixed;
+  left: 50%;
+  bottom: calc(78px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 60;
+  width: min(420px, calc(100vw - 28px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: color-mix(in oklab, var(--panel) 86%, var(--rose));
+  border: 1px solid color-mix(in oklab, var(--rose) 40%, var(--line));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  animation: card-rise 0.4s var(--ease-spring) both;
+}
+.ritual-nudge-text {
+  flex: 1;
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+.ritual-nudge-btn {
+  flex-shrink: 0;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--grad);
+  cursor: pointer;
+}
+@media (min-width: 880px) {
+  .ritual-nudge {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    transform: none;
   }
 }

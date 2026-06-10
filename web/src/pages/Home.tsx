@@ -48,7 +48,9 @@ export default function Home() {
         </div>
         <TogetherCounter />
         {couple?.streak?.count ? (
-          <div className="streak-badge">🔥 {couple.streak.count}-day streak</div>
+          <div className="streak-badge">
+            {couple.streak.count}-day streak — keep it alive tonight
+          </div>
         ) : null}
         {profile && <Clocks you={profile} partner={partner} />}
         <button className="btn love-send" type="button" onClick={thinkingOfYou} disabled={poked}>
