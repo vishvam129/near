@@ -3875,3 +3875,141 @@ select.input {
   opacity: 0.5;
   cursor: default;
 }
+
+/* ============================================================
+   RESPONSIVE — desktop / laptop layout
+   Mobile stays as-is. On wide screens the bottom nav becomes a
+   left sidebar and content widens + tiles into columns, keeping
+   the same dusk colours, fonts and components.
+   ============================================================ */
+
+/* sidebar brand — only visible on desktop */
+.nav-brand {
+  display: none;
+}
+
+@media (min-width: 880px) {
+  /* shell becomes a row: [sidebar] [content] */
+  .app {
+    flex-direction: row;
+  }
+
+  /* bottom nav -> left sidebar */
+  .bottom-nav {
+    order: -1;
+    flex-direction: column;
+    align-items: stretch;
+    width: 244px;
+    flex-shrink: 0;
+    height: 100dvh;
+    border-top: none;
+    border-right: 1px solid var(--line);
+    background: color-mix(in oklab, var(--bg) 70%, transparent);
+    padding: 22px 14px calc(22px + env(safe-area-inset-bottom));
+    gap: 4px;
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -0.4px;
+    padding: 6px 14px 22px;
+  }
+  .nav-brand .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--grad);
+    box-shadow: 0 0 16px var(--glow);
+  }
+  .nav-btn {
+    flex: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 13px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .nav-btn:hover {
+    background: color-mix(in oklab, var(--panel-2) 60%, transparent);
+    color: var(--txt);
+  }
+  .nav-btn .nav-ico {
+    font-size: 22px;
+  }
+  .nav-btn.active {
+    color: var(--rose);
+    background: color-mix(in oklab, var(--rose) 14%, transparent);
+  }
+  /* drop the mobile top-pill indicator in the sidebar */
+  .nav-btn.active::before {
+    display: none;
+  }
+  .nav-btn.active .nav-ico {
+    transform: none;
+  }
+
+  /* content area scrolls independently of the sidebar */
+  .app-body {
+    height: 100dvh;
+  }
+
+  /* widen the standard screens */
+  .screen {
+    padding: 34px 40px 56px;
+  }
+  /* Home: a comfortable wide card */
+  .screen > .card {
+    max-width: 680px;
+  }
+
+  /* More / Games: tile the cards into columns (masonry-style) */
+  .more-screen {
+    align-items: flex-start;
+  }
+  .more-screen .more-stack {
+    display: block;
+    max-width: 960px;
+    columns: 2;
+    column-gap: 18px;
+  }
+  .more-screen .more-stack > * {
+    break-inside: avoid;
+    margin-bottom: 18px;
+    width: 100%;
+  }
+  .more-screen .more-brand {
+    column-span: all;
+    margin-bottom: 4px;
+  }
+
+  /* Chat: a centered conversation column, framed */
+  .chat-screen {
+    max-width: 820px;
+    margin: 0 auto;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+
+  /* Watch: roomy player */
+  .watch-screen {
+    max-width: 900px;
+  }
+}
+
+/* three columns of cards on very wide screens */
+@media (min-width: 1320px) {
+  .more-screen .more-stack {
+    max-width: 1320px;
+    columns: 3;
+  }
+  .screen > .card {
+    max-width: 720px;
+  }
+}

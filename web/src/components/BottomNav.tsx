@@ -14,6 +14,9 @@ export function BottomNav({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => void })
   const { t } = useI18n()
   return (
     <nav className="bottom-nav">
+      <div className="nav-brand">
+        <span className="dot" /> Near
+      </div>
       {TABS.map((tb) => (
         <button
           key={tb.id}
