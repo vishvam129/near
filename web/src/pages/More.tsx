@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react'
 import { CheckList } from '../components/CheckList'
 import { EntryList } from '../components/EntryList'
 import { DateIdeas } from '../components/DateIdeas'
@@ -29,6 +30,15 @@ import { SecretChat } from '../components/SecretChat'
 import { ARSurprise } from '../components/ARSurprise'
 import { LanguageSettings } from '../components/LanguageSettings'
 
+function Section({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="more-section">
+      <h2 className="section-title">{title}</h2>
+      <div className="section-grid">{children}</div>
+    </section>
+  )
+}
+
 export default function More() {
   return (
     <div className="screen more-screen">
@@ -37,63 +47,78 @@ export default function More() {
           <span className="dot" /> More
         </div>
 
-        <PhotoAlbum />
-        <SecretVault />
-        <SecretChat />
-        <ARSurprise />
-        <Calendar />
-        <HabitTracker />
-        <CoopGoals />
-        <AmbientScenes />
-        <LoveLanguageQuiz />
-        <FitnessPact />
-        <RepairFlow />
-        <ActiveListening />
-        <CycleAwareness />
-        <CoupleAvatars />
-        <GuidedCourses />
-        <ConversationDecks />
-        <DateNightPlanner />
-        <IdeaSuggestions />
-        {/* NotificationsToggle is built but hidden until a push *sender* exists
-            (Cloud Function needs the Blaze plan). Re-add this line to enable. */}
-        <LanguageSettings />
-        <CookTogether />
-        <SavingsGoal />
-        <Expenses />
-        <MemoryTimeline />
-        <TimeCapsule />
-        <DateIdeas />
-        <ReasonsJar />
-        <OpenWhen />
-        <ScheduleMessage />
+        <Section title="For us">
+          <PhotoAlbum />
+          <CoupleAvatars />
+          <MemoryTimeline />
+          <TimeCapsule />
+          <ReasonsJar />
+          <OpenWhen />
+          <SecretChat />
+          <SecretVault />
+          <ARSurprise />
+        </Section>
 
-        <CheckList
-          name="bucket"
-          title="Bucket list"
-          placeholder="Something to do together…"
-          emptyText="No dreams yet — add something you want to do together."
-        />
-        <CheckList
-          name="todos"
-          title="Shared to-do"
-          placeholder="A task for the two of you…"
-          emptyText="Nothing on the list yet."
-        />
+        <Section title="Plan together">
+          <Calendar />
+          <DateNightPlanner />
+          <DateIdeas />
+          <IdeaSuggestions />
+          <ScheduleMessage />
+          <SavingsGoal />
+          <Expenses />
+        </Section>
 
-        <EntryList
-          name="journal"
-          title="Journal & love letters"
-          placeholder="Write something for us…"
-          emptyText="No entries yet — write your first."
-          multiline
-        />
-        <EntryList
-          name="gratitude"
-          title="Gratitude notes"
-          placeholder="I’m grateful for…"
-          emptyText="No notes yet — share what you’re grateful for."
-        />
+        <Section title="Grow together">
+          <HabitTracker />
+          <CoopGoals />
+          <FitnessPact />
+          <GuidedCourses />
+          <RepairFlow />
+          <ActiveListening />
+          <ConversationDecks />
+          <LoveLanguageQuiz />
+          <CycleAwareness />
+        </Section>
+
+        <Section title="Unwind">
+          <AmbientScenes />
+          <CookTogether />
+        </Section>
+
+        <Section title="Lists & notes">
+          <CheckList
+            name="bucket"
+            title="Bucket list"
+            placeholder="Something to do together…"
+            emptyText="No dreams yet — add something you want to do together."
+          />
+          <CheckList
+            name="todos"
+            title="Shared to-do"
+            placeholder="A task for the two of you…"
+            emptyText="Nothing on the list yet."
+          />
+          <EntryList
+            name="journal"
+            title="Journal & love letters"
+            placeholder="Write something for us…"
+            emptyText="No entries yet — write your first."
+            multiline
+          />
+          <EntryList
+            name="gratitude"
+            title="Gratitude notes"
+            placeholder="I’m grateful for…"
+            emptyText="No notes yet — share what you’re grateful for."
+          />
+        </Section>
+
+        <Section title="Settings">
+          {/* NotificationsToggle is built but hidden until a push sender exists
+              (Cloud Function needs the Blaze plan). Re-add to enable. */}
+          <LanguageSettings />
+        </Section>
       </div>
     </div>
   )

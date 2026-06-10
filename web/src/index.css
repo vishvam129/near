@@ -2601,14 +2601,28 @@ select.input {
 }
 .together {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: 4px;
+  font-size: 13px;
   color: var(--muted);
 }
+.together > span {
+  letter-spacing: 0.2px;
+}
 .together strong {
-  color: var(--txt);
+  display: block;
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 1.12;
+  letter-spacing: -0.5px;
+  margin-top: 3px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .together .link {
   font-size: 12px;
@@ -4075,6 +4089,74 @@ select.input {
   }
   .home-grid {
     max-width: 1180px;
+    columns: 3;
+  }
+}
+
+/* ============================================================
+   MORE — labelled sections, each tiling its own cards
+   ============================================================ */
+.more-section {
+  width: 100%;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 4px 2px 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.section-title::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad);
+}
+.section-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (min-width: 880px) {
+  /* sections stack; each section's grid tiles into columns */
+  .more-screen .more-stack {
+    display: flex;
+    flex-direction: column;
+    columns: auto;
+    max-width: 1000px;
+    gap: 28px;
+  }
+  .more-screen .more-stack > * {
+    margin-bottom: 0;
+  }
+  .section-grid {
+    display: block;
+    columns: 2;
+    column-gap: 18px;
+  }
+  .section-grid > * {
+    break-inside: avoid;
+    margin-bottom: 18px;
+    width: 100%;
+  }
+  .section-title {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 1320px) {
+  .more-screen .more-stack {
+    max-width: 1300px;
+  }
+  .section-grid {
     columns: 3;
   }
 }

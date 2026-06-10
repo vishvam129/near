@@ -15,15 +15,17 @@ export default function Games() {
         <div className="brand more-brand">
           <span className="dot" /> Games
         </div>
-        <TicTacToe />
-        <WouldYouRather />
-        <DrawReveal />
-        <Whiteboard />
-        <CompatQuiz />
-        <KnowMeQuiz />
-        <TruthOrDare />
-        <Karaoke />
-        <SpicyZone />
+        <div className="section-grid">
+          <TicTacToe />
+          <WouldYouRather />
+          <DrawReveal />
+          <Whiteboard />
+          <CompatQuiz />
+          <KnowMeQuiz />
+          <TruthOrDare />
+          <Karaoke />
+          <SpicyZone />
+        </div>
       </div>
     </div>
   )
