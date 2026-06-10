@@ -6,18 +6,21 @@ import { AuthProvider } from './auth/AuthProvider'
 import { CoupleProvider } from './couple/CoupleProvider'
 import { CallProvider } from './calls/CallProvider'
 import { I18nProvider } from './lib/i18n'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <I18nProvider>
-      <AuthProvider>
-        <CoupleProvider>
-          <CallProvider>
-            <App />
-          </CallProvider>
-        </CoupleProvider>
-      </AuthProvider>
-    </I18nProvider>
+    <ErrorBoundary>
+      <I18nProvider>
+        <AuthProvider>
+          <CoupleProvider>
+            <CallProvider>
+              <App />
+            </CallProvider>
+          </CoupleProvider>
+        </AuthProvider>
+      </I18nProvider>
+    </ErrorBoundary>
   </StrictMode>,
 )
 

@@ -13,7 +13,7 @@
     "format": "auto",
     "verification_level": "manual"
   },
-  "current_feature_id": 17,
+  "current_feature_id": null,
   "session": {
     "count": 88,
     "last_started_at": "2026-06-09T10:49:56.997946Z",
@@ -21,12 +21,12 @@
   },
   "stats": {
     "total": 96,
-    "passed": 85,
+    "passed": 86,
     "failed": 0,
     "skipped": 1,
-    "in_progress": 1,
+    "in_progress": 0,
     "pending": 9,
-    "completion_percentage": 89.6
+    "completion_percentage": 90.6
   },
   "categories": [
     {
@@ -53,7 +53,7 @@
     {
       "name": "Messaging",
       "total": 7,
-      "passed": 7,
+      "passed": 8,
       "failed": 0,
       "skipped": 0
     },
@@ -819,19 +819,20 @@
       "verification": {
         "type": "manual",
         "criteria": "Recorded video message plays for partner",
-        "completed": false,
-        "evidence": null,
-        "requirements_addressed": []
+        "completed": true,
+        "evidence": "68410c4",
+        "requirements_addressed": [],
+        "verified_at": "2026-06-10T04:44:08.688876Z"
       },
       "research_refs": [
         "ourcal"
       ],
       "rationale": "Bridges timezone gaps without live calls",
-      "status": "in_progress",
+      "status": "passed",
       "status_reason": null,
       "started_at": "2026-06-09T10:49:56.997929Z",
-      "completed_at": null,
-      "commit_hash": null,
+      "completed_at": "2026-06-10T04:44:08.688892Z",
+      "commit_hash": "68410c4",
       "parallelizable": false,
       "depends_on": [],
       "parallel_group": null,
@@ -841,7 +842,13 @@
       "addressed_requirements": [],
       "parent_id": null,
       "depth": 1,
-      "verification_level": "beta"
+      "verification_level": "beta",
+      "loc_stats": {
+        "added": 577,
+        "removed": 223,
+        "net": 354,
+        "files_changed": 9
+      }
     },
     {
       "id": 18,
@@ -3876,20 +3883,6 @@
   ],
   "audit_trail": [
     {
-      "timestamp": "2026-06-03T05:16:20.065539Z",
-      "operation": "feature_passed",
-      "feature_id": 14,
-      "details": {
-        "commit_hash": "71f6841f01a991659ca77c10c46dc7541a3cc7bc",
-        "loc_stats": {
-          "added": 28,
-          "removed": 17,
-          "net": 11,
-          "files_changed": 3
-        }
-      }
-    },
-    {
       "timestamp": "2026-06-03T05:16:20.291271Z",
       "operation": "feature_started",
       "feature_id": 15,
@@ -4967,6 +4960,20 @@
       "feature_id": 17,
       "details": {
         "from_status": "pending"
+      }
+    },
+    {
+      "timestamp": "2026-06-10T04:44:08.688911Z",
+      "operation": "feature_passed",
+      "feature_id": 17,
+      "details": {
+        "commit_hash": "68410c4",
+        "loc_stats": {
+          "added": 577,
+          "removed": 223,
+          "net": 354,
+          "files_changed": 9
+        }
       }
     }
   ]
