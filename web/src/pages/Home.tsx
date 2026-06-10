@@ -40,53 +40,42 @@ export default function Home() {
   if (editing) return <EditProfile key={profile?.uid} onDone={() => setEditing(false)} />
 
   return (
-    <div className="screen">
-      <div className="card">
+    <div className="screen home-screen">
+      {/* Hero — the couple's identity & at-a-glance status */}
+      <header className="card home-hero">
         <div className="brand">
           <span className="dot" /> Near
         </div>
         <TogetherCounter />
-
         {couple?.streak?.count ? (
           <div className="streak-badge">🔥 {couple.streak.count}-day streak</div>
         ) : null}
-
         {profile && <Clocks you={profile} partner={partner} />}
-
-        <DistanceMap />
-
-        <LoveNotePin />
-
-        <PhotoWidget />
-
-        <OnThisDay />
-
-        <HealthScore />
-
-        <Greeting />
-
-        <Bedtime />
-
-        <Mood />
-
-        <Countdown />
-
-        <ImmersiveCountdown />
-
-        <DailyQuestion />
-
-        <WeeklyCheckin />
-
-        <ImportantDates />
-
         <button className="btn love-send" type="button" onClick={thinkingOfYou} disabled={poked}>
           {poked ? 'Sent 💗' : '💗 Thinking of you'}
         </button>
+      </header>
 
+      {/* Dashboard — feature cards tile into columns on wider screens */}
+      <div className="home-grid">
+        <LoveNotePin />
+        <PhotoWidget />
+        <DistanceMap />
+        <OnThisDay />
+        <HealthScore />
+        <Greeting />
+        <Bedtime />
+        <Mood />
+        <Countdown />
+        <DailyQuestion />
+        <WeeklyCheckin />
+        <ImportantDates />
         <ConnectionDeck />
-
         <BatteryShare />
+      </div>
 
+      <div className="card home-actions">
+        <ImmersiveCountdown />
         <button className="btn btn-ghost" type="button" onClick={() => setEditing(true)}>
           Edit your profile
         </button>
