@@ -4160,3 +4160,104 @@ select.input {
     columns: 3;
   }
 }
+
+/* ============================================================
+   FINAL POLISH — chat, overlays (glass), and motion
+   ============================================================ */
+
+/* ---- chat ---- */
+.chat-title {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.2px;
+}
+.chat-header {
+  background: color-mix(in oklab, var(--bg) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+.chat-call-btn {
+  transition: transform 0.16s var(--ease-spring), background 0.2s ease;
+}
+.chat-call-btn:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--rose) 16%, var(--panel-2));
+  transform: translateY(-1px);
+}
+.composer-input:focus {
+  box-shadow: 0 0 0 3px var(--glow);
+}
+.composer-send {
+  box-shadow: 0 6px 18px -7px var(--glow);
+  transition: transform 0.18s var(--ease-spring);
+}
+.composer-send:active {
+  transform: scale(0.9);
+}
+
+/* ---- overlays: frosted glass ---- */
+.call-incoming,
+.album-lightbox,
+.lightbox {
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+
+/* ---- motion: staggered reveal on screen entry + tactile cards ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .home-grid > *,
+  .section-grid > *,
+  .home-hero,
+  .home-actions,
+  .screen > .card {
+    animation: card-rise 0.5s var(--ease-spring) both;
+  }
+  .home-grid > *:nth-child(1),
+  .section-grid > *:nth-child(1) {
+    animation-delay: 0.03s;
+  }
+  .home-grid > *:nth-child(2),
+  .section-grid > *:nth-child(2) {
+    animation-delay: 0.07s;
+  }
+  .home-grid > *:nth-child(3),
+  .section-grid > *:nth-child(3) {
+    animation-delay: 0.11s;
+  }
+  .home-grid > *:nth-child(4),
+  .section-grid > *:nth-child(4) {
+    animation-delay: 0.15s;
+  }
+  .home-grid > *:nth-child(5),
+  .section-grid > *:nth-child(5) {
+    animation-delay: 0.19s;
+  }
+  .home-grid > *:nth-child(n + 6),
+  .section-grid > *:nth-child(n + 6) {
+    animation-delay: 0.23s;
+  }
+}
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* gentle hover lift on desktop */
+@media (min-width: 880px) and (prefers-reduced-motion: no-preference) {
+  .section-grid > .card,
+  .home-grid > .card {
+    transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+  }
+  .section-grid > .card:hover,
+  .home-grid > .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 26px 50px -18px rgba(0, 0, 0, 0.5);
+  }
+}
