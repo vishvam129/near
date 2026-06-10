@@ -1,11 +1,30 @@
 import { useI18n, LANGS, CURRENCIES, type Lang } from '../lib/i18n'
 
+const THEMES = [
+  { id: 'dark' as const, label: '🌙 Dusk' },
+  { id: 'light' as const, label: '☀️ Daylight' },
+]
+
 export function LanguageSettings() {
-  const { lang, currency, setLang, setCurrency, t, money } = useI18n()
+  const { lang, currency, theme, setLang, setCurrency, setTheme, t, money } = useI18n()
 
   return (
     <div className="card">
       <h3 className="card-h muted-h">{t('settings.title')}</h3>
+
+      <label className="repair-label">Appearance</label>
+      <div className="lang-grid">
+        {THEMES.map((th) => (
+          <button
+            key={th.id}
+            type="button"
+            className={`chip ${theme === th.id ? 'chip-on' : ''}`}
+            onClick={() => setTheme(th.id)}
+          >
+            {th.label}
+          </button>
+        ))}
+      </div>
 
       <label className="repair-label">{t('settings.language')}</label>
       <div className="lang-grid">

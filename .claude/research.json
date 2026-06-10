@@ -4,16 +4,71 @@
   "project_path": "/home/vpa-rdflex/Desktop/near",
   "initialized_at": "2026-05-29T17:23:27.130559",
   "active": {
-    "id": "research_20260529_172327_696a",
-    "query": "Free-tier services for every part of the Near LDR app stack",
+    "id": "research_20260610_104949_9b82",
+    "query": "Best-in-class UI/UX visual design for a long-distance couples mobile app redesign",
     "status": "synthesizing",
     "plan": {
-      "subtopics": [],
+      "subtopics": [
+        "Visual design of leading couples/relationship apps (Paired, Cupla, Between, Lovewick, Flamme)",
+        "2025 mobile UI trends: color, gradients, depth, glassmorphism, geometry",
+        "Mobile IA: bottom-tab navigation with many features, home dashboards, grouping",
+        "Typography & color systems for warm-premium feel",
+        "Dark mode, accessibility & motion/micro-interactions"
+      ],
       "search_queries": [
         {
-          "id": "query_20260529_172327_054b",
-          "query": "Free-tier services for every part of the Near LDR app stack",
-          "purpose": "Main research query",
+          "id": "query_20260610_105006_f81e",
+          "query": "best couples relationship app UI design 2025 Paired Cupla Between aesthetic",
+          "purpose": "Reference look & feel of top apps",
+          "completed": false,
+          "results_count": 0
+        },
+        {
+          "id": "query_20260610_105006_d35e",
+          "query": "long distance relationship app design inspiration dribbble behance",
+          "purpose": "Visual references and patterns",
+          "completed": false,
+          "results_count": 0
+        },
+        {
+          "id": "query_20260610_105006_3d60",
+          "query": "mobile app design trends 2025 color palette gradient glassmorphism depth",
+          "purpose": "Current visual trends",
+          "completed": false,
+          "results_count": 0
+        },
+        {
+          "id": "query_20260610_105006_1346",
+          "query": "mobile bottom navigation information architecture best practices many features more tab",
+          "purpose": "IA for feature-rich app",
+          "completed": false,
+          "results_count": 0
+        },
+        {
+          "id": "query_20260610_105006_8db7",
+          "query": "warm premium app color palette typography pairing friendly cozy",
+          "purpose": "Color and type direction",
+          "completed": false,
+          "results_count": 0
+        },
+        {
+          "id": "query_20260610_105006_ba98",
+          "query": "mobile app dark mode design best practices accessibility contrast WCAG",
+          "purpose": "Dark mode and a11y",
+          "completed": false,
+          "results_count": 0
+        },
+        {
+          "id": "query_20260610_105006_0a6d",
+          "query": "mobile micro-interactions animation best practices 2025 delight",
+          "purpose": "Motion and micro-interactions",
+          "completed": false,
+          "results_count": 0
+        },
+        {
+          "id": "query_20260610_105006_517d",
+          "query": "home dashboard design relationship app cards widgets layout",
+          "purpose": "Home/dashboard layout patterns",
           "completed": false,
           "results_count": 0
         }
@@ -22,20 +77,116 @@
       "depth": 2
     },
     "progress": {
-      "sources_planned": 12,
-      "sources_completed": 0,
+      "sources_planned": 8,
+      "sources_completed": 5,
       "current_query_index": 0,
-      "quality_score": 0.0
+      "quality_score": 8.0
     },
-    "findings": [],
-    "synthesis": "Free-tier stack research complete: Firebase (auth/Firestore/FCM) + Cloudinary + Cloudflare Pages/Workers + LiveKit covers the whole app at $0. See FREE_SERVICES.md.",
+    "findings": [
+      {
+        "source_url": "https://ourcouple.app/blog/best-couples-apps-2026",
+        "title": "Couples apps lean cozy/pastel & emotionally warm",
+        "key_points": [
+          "OurCouple: pastel palette, paper-textured cards, calm pace",
+          "Pookie: kawaii pastels, playful (skews young)",
+          "Cupla: cute, functional shared-calendar UI",
+          "Best apps split emotional-warmth vs practical-coordination"
+        ],
+        "relevance_score": 8.0,
+        "fetched_at": "2026-06-10T10:51:31.733129",
+        "raw_content": ""
+      },
+      {
+        "source_url": "https://muz.li/blog/whats-changing-in-mobile-app-design-ui-patterns-that-matter-in-2026/",
+        "title": "2026 patterns: dark-first, tonal elevation, restrained glass",
+        "key_points": [
+          "Dark mode is default; 4+ tonal surface levels not pure black",
+          "Depth via lighter surfaces/borders/luminance, not just shadows",
+          "Glassmorphism only for overlays/sheets/call controls",
+          "Bottom-third primary actions; bottom sheets for secondary; haptics"
+        ],
+        "relevance_score": 9.0,
+        "fetched_at": "2026-06-10T10:51:31.963011",
+        "raw_content": ""
+      },
+      {
+        "source_url": "https://www.uxpin.com/studio/blog/mobile-navigation-examples/",
+        "title": "Bottom-tab IA: 3-5 tabs, priority+ with More",
+        "key_points": [
+          "3-5 tabs is the sweet spot; overflow into a More tab",
+          "Place most-used by intent; 44-48px touch targets",
+          "Combine tabs + sheets/sections for feature-rich apps"
+        ],
+        "relevance_score": 8.0,
+        "fetched_at": "2026-06-10T10:51:32.258800",
+        "raw_content": ""
+      },
+      {
+        "source_url": "https://www.media.io/color-palette/cozy-color-palette.html",
+        "title": "Cozy-premium color & type system",
+        "key_points": [
+          "5-color system: 1-2 light neutrals, 1 mid, 1 warm accent, 1 dark anchor",
+          "Low saturation + one confident accent (amber/terracotta)",
+          "Serif display for premium warmth + clean sans for UI"
+        ],
+        "relevance_score": 7.0,
+        "fetched_at": "2026-06-10T10:51:32.620774",
+        "raw_content": ""
+      },
+      {
+        "source_url": "https://www.accessibilitychecker.org/blog/dark-mode-accessibility/",
+        "title": "Dark-mode a11y rules",
+        "key_points": [
+          "#121212 soft black not pure black; avoid vibrating saturated colors",
+          "WCAG AA 4.5:1 text / 3:1 large; visible focus rings",
+          "Elevation via lighter layers; watch halation on thin text"
+        ],
+        "relevance_score": 8.0,
+        "fetched_at": "2026-06-10T10:51:33.218756",
+        "raw_content": ""
+      }
+    ],
+    "synthesis": "# Research Report: Redesigning Near (LDR couples app)\n\n## Executive Summary\nThe best couples apps (OurCouple, Pookie, Cupla, Paired) win on EMOTIONAL WARMTH expressed through cozy, soft, pastel-leaning visuals \u2014 paper-textured cards, calm pacing, one confident warm accent. Meanwhile 2026 mobile design has converged on a DARK-FIRST, depth-through-tonal-elevation system with restrained glassmorphism (overlays only), sophisticated gradients, generous rounded geometry, and physics-based micro-interactions + haptics. Near should fuse these: a warm, intimate, \"dusk\" aesthetic that feels premium and emotional rather than childish \u2014 since it's a feature-rich app for adult couples across distance and timezones.\n\n## Key Findings\n### Couples-app aesthetic\n- Cozy/pastel, emotionally warm; paper/soft cards; calm. One warm accent dominates.\n- Two value poles: emotional connection vs practical coordination \u2014 Near does both, so design must feel warm yet organized.\n\n### 2026 visual system\n- Dark-first default, OLED-friendly; 4+ tonal surface levels; depth via lighter surfaces/borders/luminance, NOT heavy shadows on dark.\n- Glassmorphism only for overlays: call UI, incoming banners, bottom sheets.\n- Sophisticated multi-color/mesh/aurora gradients for hero/ambient; rounded geometry; bold display type + clean body.\n- Motion: spring physics, 0.1\u20130.3s feedback, haptic-synced; parallax; never blocking content >0.5s.\n\n### Information architecture\n- 3\u20135 bottom tabs is the sweet spot; overflow \u2192 a \"More\" tab/sections. Near's 5 tabs (Home/Chat/Watch/Games/More) already fit. The fix is the cluttered \"More\" wall-of-cards \u2014 group into labelled sections with a dashboard feel.\n- Thumb-zone: primary actions bottom-third; 44\u201348px targets; bottom sheets for secondary.\n\n### Color & type\n- Cozy 5-color system: 1\u20132 light neutrals + 1 mid + 1 warm accent + 1 dark anchor; low saturation + one confident accent (rose/amber/terracotta).\n- Premium serif display for emotional headers + clean sans for UI.\n\n### Dark mode & accessibility\n- #121212-class soft black, never pure black; avoid fully saturated colors (they vibrate on dark).\n- WCAG AA 4.5:1 text / 3:1 large; visible focus rings; watch halation on thin light text.\n\n## Recommendations (design direction for Near)\n1. Concept: \"Two hearts, one sky at dusk.\" Warm, intimate, premium \u2014 not kawaii.\n2. Dual theme: \"Dusk\" (deep warm plum/navy dark, default, OLED-friendly) + \"Daylight\" (warm cream light). Shared accents.\n3. Color: warm rose primary + amber/peach secondary accent; tonal warm-neutral surfaces; one signature rose\u2192amber gradient for hero moments.\n4. Type: a warm serif display (emotional headers/counters) + a clean geometric sans (UI/body) with a clear modular scale.\n5. Surfaces: soft 16\u201324px radii, tonal elevation (no harsh shadows on dark), hairline borders, generous spacing tokens.\n6. Glass only for overlays: call screen, incoming-call banner, lightboxes, the new bottom sheets.\n7. Restructure \"More\" into a sectioned dashboard (\"For us\", \"Plan\", \"Play\", \"Wellness\", \"Settings\").\n8. Motion: spring transitions, tactile button press, the affection features (kiss/heartbeat/lamp) become signature physics animations.\n9. Rebuild as design TOKENS (CSS custom properties) so the whole app re-skins from one file.\n\n## Sources\n1. https://ourcouple.app/blog/best-couples-apps-2026\n2. https://muz.li/blog/whats-changing-in-mobile-app-design-ui-patterns-that-matter-in-2026/\n3. https://www.uxpin.com/studio/blog/mobile-navigation-examples/\n4. https://www.media.io/color-palette/cozy-color-palette.html\n5. https://www.accessibilitychecker.org/blog/dark-mode-accessibility/\n6. https://www.chopdawg.com/ui-ux-design-trends-in-mobile-apps-for-2025/",
     "features_generated": false,
     "features_count": 0,
-    "created_at": "2026-05-29T17:23:27.134310",
+    "created_at": "2026-06-10T10:49:49.537986",
     "paused_at": null,
     "completed_at": null
   },
-  "paused": [],
+  "paused": [
+    {
+      "id": "research_20260529_172327_696a",
+      "query": "Free-tier services for every part of the Near LDR app stack",
+      "status": "paused",
+      "plan": {
+        "subtopics": [],
+        "search_queries": [
+          {
+            "id": "query_20260529_172327_054b",
+            "query": "Free-tier services for every part of the Near LDR app stack",
+            "purpose": "Main research query",
+            "completed": false,
+            "results_count": 0
+          }
+        ],
+        "max_sources": 12,
+        "depth": 2
+      },
+      "progress": {
+        "sources_planned": 12,
+        "sources_completed": 0,
+        "current_query_index": 0,
+        "quality_score": 0.0
+      },
+      "findings": [],
+      "synthesis": "Free-tier stack research complete: Firebase (auth/Firestore/FCM) + Cloudinary + Cloudflare Pages/Workers + LiveKit covers the whole app at $0. See FREE_SERVICES.md.",
+      "features_generated": false,
+      "features_count": 0,
+      "created_at": "2026-05-29T17:23:27.134310",
+      "paused_at": "2026-06-10T10:49:49.448567",
+      "completed_at": null
+    }
+  ],
   "completed": [],
   "total_completed": 0,
   "total_features_generated": 0

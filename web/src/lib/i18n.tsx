@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 // dictionary below and money is formatted with Intl for the chosen locale.
 
 export type Lang = 'en' | 'es' | 'hi' | 'fr'
+export type Theme = 'dark' | 'light'
 
 export const LANGS: { code: Lang; label: string; locale: string }[] = [
   { code: 'en', label: 'English', locale: 'en-US' },
@@ -45,8 +46,10 @@ const STRINGS: Record<string, Dict> = {
 type I18nValue = {
   lang: Lang
   currency: string
+  theme: Theme
   setLang: (l: Lang) => void
   setCurrency: (c: string) => void
+  setTheme: (t: Theme) => void
   t: (key: string) => string
   money: (amount: number) => string
 }
@@ -64,16 +67,24 @@ function stored(key: string, fallback: string): string {
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => stored('near_lang', 'en') as Lang)
   const [currency, setCurrencyState] = useState<string>(() => stored('near_currency', 'USD'))
+  const [theme, setThemeState] = useState<Theme>(() => stored('near_theme', 'dark') as Theme)
 
   useEffect(() => {
     document.documentElement.lang = lang
   }, [lang])
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    const meta = document.querySelector('meta[name="theme-color"]')
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#fbf3ec' : '#16121d')
+  }, [theme])
 
   const value = useMemo<I18nValue>(() => {
     const locale = LANGS.find((l) => l.code === lang)?.locale ?? 'en-US'
     return {
       lang,
       currency,
+      theme,
       setLang: (l) => {
         setLangState(l)
         try {
@@ -90,6 +101,14 @@ export function I18nProvider({ children }: { children: ReactNode }) {
           /* ignore */
         }
       },
+      setTheme: (t) => {
+        setThemeState(t)
+        try {
+          localStorage.setItem('near_theme', t)
+        } catch {
+          /* ignore */
+        }
+      },
       t: (key) => STRINGS[key]?.[lang] ?? STRINGS[key]?.en ?? key,
       money: (amount) => {
         try {
@@ -99,7 +118,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         }
       },
     }
-  }, [lang, currency])
+  }, [lang, currency, theme])
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
