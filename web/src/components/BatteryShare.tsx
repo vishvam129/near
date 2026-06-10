@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { useCouple } from '../couple/CoupleProvider'
 
@@ -25,10 +25,15 @@ export function BatteryShare() {
   const { couple, partner, paired, updateBattery } = useCouple()
   const [supported, setSupported] = useState(true)
 
+  // Keep the latest writer without making it an effect dependency (avoids
+  // tearing down/recreating the battery listener on every provider re-render).
+  const updateRef = useRef(updateBattery)
+  updateRef.current = updateBattery
+
   useEffect(() => {
     if (!paired) return
     const nav = navigator as Navigator & { getBattery?: () => Promise<BatteryLike> }
-    if (!nav.getBattery) {
+    if (typeof nav.getBattery !== 'function') {
       setSupported(false)
       return
     }
@@ -36,31 +41,39 @@ export function BatteryShare() {
     let cancelled = false
     let lastPct = -1
     const push = () => {
-      if (!bat) return
+      if (!bat || typeof bat.level !== 'number') return
       const pct = Math.round(bat.level * 100)
       // Only write when the rounded percent or charging state actually changes.
       if (pct === lastPct) return
       lastPct = pct
-      void updateBattery(pct, bat.charging)
+      void updateRef.current(pct, Boolean(bat.charging))
     }
     nav
       .getBattery()
       .then((b) => {
-        if (cancelled) return
+        if (cancelled || !b) return
         bat = b
         push()
-        b.addEventListener('levelchange', push)
-        b.addEventListener('chargingchange', push)
+        // Some browsers expose getBattery() but a limited object with no event
+        // methods — guard so we never crash, just skip live updates.
+        if (typeof b.addEventListener === 'function') {
+          b.addEventListener('levelchange', push)
+          b.addEventListener('chargingchange', push)
+        }
       })
       .catch(() => setSupported(false))
     return () => {
       cancelled = true
-      if (bat) {
-        bat.removeEventListener('levelchange', push)
-        bat.removeEventListener('chargingchange', push)
+      if (bat && typeof bat.removeEventListener === 'function') {
+        try {
+          bat.removeEventListener('levelchange', push)
+          bat.removeEventListener('chargingchange', push)
+        } catch {
+          /* ignore */
+        }
       }
     }
-  }, [paired, updateBattery])
+  }, [paired])
 
   if (!paired) return null
 
